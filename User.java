@@ -1,6 +1,6 @@
 // user class
 
-public class User {
+public class User implements UserInterface {
   // attributes
   private String username;         // stores the unique username of this user
   private String password;         // stores the password for this user
