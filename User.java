@@ -52,12 +52,13 @@ public class User implements UserInterface {
         return address;
     }
 
+    
     public void setAddress(String address) {
         this.address = address;
     }
 
     // toString
-    
+    @Override
     public String toString() {
         return username + "," + password + "," + balance + "," + listings + "," + address;
     }
