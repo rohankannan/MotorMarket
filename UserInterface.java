@@ -14,7 +14,17 @@ public Interface UserInterface {
   void setAddress(String address);
   void setBalance(double balance);
 
-  // update array by adding a new listing 
+  // update arraylist by adding a new listing 
+  void addListing(Listing newListing);
 
+  // remove a listing from the arraylist of listings
+  void removeListing(Listing oldListing);
+
+  // updates the balance based on a purchase
+  // paramaters are the price of the listing and if it is buying or selling
+  // true for a buyer, false for a seller
+  void updateBalance(double price, boolean isBuyer);
+
+  
 }
-}
+
