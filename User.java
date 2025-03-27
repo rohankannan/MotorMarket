@@ -18,7 +18,7 @@ public class User implements UserInterface {
     listings = null;
   }
 
-  // getters
+  // getters / setters
 
     public String getUsername() {
         return username;
@@ -48,7 +48,6 @@ public class User implements UserInterface {
         return listings;
     }
 
-
     public String getAddress() {
         return address;
     }
@@ -57,6 +56,10 @@ public class User implements UserInterface {
         this.address = address;
     }
 
-    // setters
+    // toString
+    
+    public String toString() {
+        return username + "," + password + "," + balance + "," + listings + "," + address;
+    }
 
 }
