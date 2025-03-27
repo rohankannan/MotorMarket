@@ -1,6 +1,7 @@
 // listing class
 public class Listing implements ListingInterface {
   // fields
+    private String listingID;
     private String sellerUsername;
     private String photoURL;
     private String carType;
@@ -11,7 +12,7 @@ public class Listing implements ListingInterface {
     private boolean manual;
 
   // constructor
-    public Listing(String sellerUsername, String photoURL, String carType, String color, int mileage, int accidents, double price, boolean manual) {
+    public Listing(String sellerUsername, String photoURL, String carType, String color, int mileage, int accidents, double price, boolean manual, String listingID) {
         this.sellerUsername = sellerUsername;
         this.photoURL = photoURL;
         this.carType = carType;
@@ -20,9 +21,13 @@ public class Listing implements ListingInterface {
         this.accidents = accidents;
         this.price = price;
         this.manual = manual;
+        this.listingID = listingID;
   }
   
   // getters
+    public String getListingID() {
+      return listingID;
+    }
     public String getPhotoURL() {
       return photoURL;
     }
@@ -56,6 +61,9 @@ public class Listing implements ListingInterface {
     }
   
   // setters
+    public void setListingID(String id) {
+      listingID = id;
+    }
     public void setPhotoURL(String url) {
       photoURL = url;
     }
