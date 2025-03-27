@@ -44,13 +44,10 @@ public class User implements UserInterface {
         this.balance = balance;
     }
 
-    public Listing[] getListings() {
+    public ArrayList getListings() {
         return listings;
     }
 
-    public void setListings(Listing[] listings) {
-        this.listings = listings;
-    }
 
     public String getAddress() {
         return address;
