@@ -89,7 +89,7 @@ public class Listing implements ListingInterface {
     }
 
   //other methods
-
+  @Override
     public String toString() {
         return sellerUsername + "," + photoURL + "," + carType + "," + color + ","
             + mileage + "," + accidents + "," + price + "," + manual;
