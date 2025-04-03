@@ -13,7 +13,11 @@ public class User implements UserInterface {
   private ArrayList<Listing> listings;  // stores all the current listings of this user
   private String address;               // stores the user's address for pickup
   
-  // constructor
+  /** constructor for new User objects
+  * 4 parameters for each of the 4 attributes of a User object
+  * in format: String, String, double, String
+  * values: username, password, balance of money, address to meet
+  */
   public User(String username, String password, double balance, String address) {
     this.username = username;
     this.password = password;
