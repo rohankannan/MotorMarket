@@ -1,8 +1,8 @@
 
 import java.io.*;
 import java.net.*;
-public class Client {
-    public static void main(String[] args) throws UnknownHostException, IOException,
+public class Client implements Runnable {
+    public static void main(String[] args) throws IOException,
             ClassNotFoundException {
 // create socket on agreed upon port (and local host for this example)...
         Socket socket = new Socket("data.cs.purdue.edu", 4242);
@@ -26,6 +26,11 @@ public class Client {
 
     public static void sendRequest(Request r)
     {
+
+    }
+
+    @Override
+    public void run() {
 
     }
 }
