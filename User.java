@@ -1,4 +1,8 @@
-// user class
+/** Description of Class 
+ *
+ * @author (team names here)
+ * @version April 3, 2025
+ */
 import java.util.ArrayList;
 
 public class User implements UserInterface {
