@@ -28,6 +28,10 @@ public class User implements UserInterface {
 
   // getters / setters
 
+  // getters
+  /** the getter/accessor methods for User objects
+  * returns the value of each attribute of a User object respectively
+  */
     public String getUsername() {
         return username;
     }
@@ -60,10 +64,12 @@ public class User implements UserInterface {
         return address;
     }
 
-    
+
+  // setters
     public void setAddress(String address) {
         this.address = address;
     }
+  
 
     // toString
     @Override
