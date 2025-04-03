@@ -1,15 +1,19 @@
-// listing class
+/** Description of Class 
+ *
+ * @author (team names here)
+ * @version April 3, 2025
+ */
 public class Listing implements ListingInterface {
   // fields
-    private String listingID;
-    private String sellerUsername;
-    private String photoURL;
-    private String carType;
-    private String color;
-    private int mileage;
-    private int accidents;
-    private double price;
-    private boolean manual;
+    private String listingID;        // the identification number for each listing
+    private String sellerUsername;   // the username of the seller for this listing
+    private String photoURL;         // the URL for a display photo
+    private String carType;          // the type of car in this listing (make/model)
+    private String color;            // the color of the car in this listing
+    private int mileage;             // the current mileage for the car in this listing
+    private int accidents;           // how many accidents this car has been in
+    private double price;            // the current price of this listing
+    private boolean manual;          // whether or not the car being sold is manual
 
   // constructor
     public Listing(String sellerUsername, String photoURL, String carType, String color, int mileage, int accidents, double price, boolean manual, String listingID) {
@@ -25,6 +29,7 @@ public class Listing implements ListingInterface {
   }
   
   // getters
+  
     public String getListingID() {
       return listingID;
     }
