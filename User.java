@@ -102,7 +102,8 @@ public class User implements UserInterface {
     * existing arraylist of Listings
     */ 
     public void addListing(Listing newListing) {
-
+        // add this new Listing to the end of arraylist
+        listings.add(newListing);
     }
     
     /** one parameter
@@ -111,7 +112,8 @@ public class User implements UserInterface {
     * of this User's other Listings
     */ 
     public void removeListing(Listing oldListing) { 
-
+        // look through this User's arraylist
+          // if oldListing is found, remove
     }
   
     
@@ -120,10 +122,19 @@ public class User implements UserInterface {
     * a boolean to represent if this User is buying or selling the Listing (true: buyer, false: seller)
     */ 
     public void updateBalance(double price, boolean isBuyer) {
-
+          // if this User is buying, update balance by removing price from current balance
+          // if this buyer is selling, update balance by adding to current balance
+          if (isBuyer) {
+                balance -= price;
+          } else {
+                balance += price;
+          }
     }
 
-    // toString
+    //other methods
+    /** toString method
+    * returns a string representation of this User object
+    */
     @Override
     public String toString() {
         return username + "," + password + "," + balance + "," + listings + "," + address;
