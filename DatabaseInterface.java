@@ -6,5 +6,4 @@ public interface DatabaseInterface {
     void writeListingData(); // method to write listing data to file
     User[] readUserData(); // method to read user data from file and return array of User objects
     Listing[] readListingData(); // method to read listing data from file and return array of Listing objects
-
 }
