@@ -65,11 +65,39 @@ public class User implements UserInterface {
     }
 
 
-  // setters
+  /** setter methods to update values of respective fields
+  *  one parameter each, of the new value to set each field as
+  */
+  
     public void setAddress(String address) {
         this.address = address;
     }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    // update arraylist by adding a new listing 
+    public void addListing(Listing newListing) {
+
+    }
+    
+    // remove a listing from the arraylist of listings
+    public void removeListing(Listing oldListing) { 
+
+    }
   
+    // updates the balance based on a purchase
+    // paramaters are the price of the listing and if it is buying or selling
+    // true for a buyer, false for a seller
+    public void updateBalance(double price, boolean isBuyer) {
+
+    }
 
     // toString
     @Override
