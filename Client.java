@@ -23,4 +23,9 @@ public class Client {
         oos.close();
         ois.close();
     }
+
+    public static void sendRequest(Request r)
+    {
+
+    }
 }

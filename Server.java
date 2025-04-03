@@ -1,5 +1,9 @@
 import java.io.*;
 import java.net.*;
+
+
+//
+
 public class Server {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 // create socket on agreed-upon port...
@@ -22,5 +26,28 @@ public class Server {
         oos.close();
         ois.close();
     }
+
+    public static void writeUserData()
+    {
+
+    }
+
+    public static void writeListingData()
+    {
+
+    }
+
+    public static User[] readUserData()
+    {
+        // this method will read the user data from a file
+        // and return the user objects
+        return null;
+    }
+
+    public static Listing[] readListingData()
+    {
+        return null;
+    }
+
 }
 
