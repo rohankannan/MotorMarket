@@ -1,5 +1,6 @@
+package com.cs180proj.app;
 
-public Interface ListingInterface {
+public interface ListingInterface {
 
   // getters
   String getPhotoURL();

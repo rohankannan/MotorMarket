@@ -1,5 +1,8 @@
+package com.cs180proj.app;
 
-public Interface UserInterface {
+import java.util.ArrayList;
+
+public interface UserInterface {
   
   // getters
   String getUsername();

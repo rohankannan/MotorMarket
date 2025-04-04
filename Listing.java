@@ -1,10 +1,14 @@
-/** Description of Class 
+package com.cs180proj.app;
+
+/**
+ * Description of Class
  *
  * @author (team names here)
  * @version April 3, 2025
  */
 public class Listing implements ListingInterface {
-  // fields
+    // fields
+
     private String listingID;        // the identification number for each listing
     private String sellerUsername;   // the username of the seller for this listing
     private String photoURL;         // the URL for a display photo
@@ -15,11 +19,13 @@ public class Listing implements ListingInterface {
     private double price;            // the current price of this listing
     private boolean manual;          // whether or not the car being sold is manual
 
-  /** constructor for Listing objects
-  * 9 parameters for each of the 9 attributes of a Listing object
-  * in format: String, String, String, String, int, int, double, boolean, String
-  * values: username, URL for display photo, type of car(make/model), color of car, mileage, how many accidents, current price, if it is manual, and unique ID number for the listing
-  */
+    /**
+     * constructor for Listing objects 9 parameters for each of the 9 attributes
+     * of a Listing object in format: String, String, String, String, int, int,
+     * double, boolean, String values: username, URL for display photo, type of
+     * car(make/model), color of car, mileage, how many accidents, current
+     * price, if it is manual, and unique ID number for the listing
+     */
     public Listing(String sellerUsername, String photoURL, String carType, String color, int mileage, int accidents, double price, boolean manual, String listingID) {
         this.sellerUsername = sellerUsername;
         this.photoURL = photoURL;
@@ -30,123 +36,127 @@ public class Listing implements ListingInterface {
         this.price = price;
         this.manual = manual;
         this.listingID = listingID;
-  }
-  
-  // getters
-  /** the getter/accessor methods for Listing objects
-  * returns the value of each attribute of a Listing object respectively
-  */
-    public String getListingID() {
-      return listingID;
     }
+
+    // getters
+    /**
+     * the getter/accessor methods for Listing objects returns the value of each
+     * attribute of a Listing object respectively
+     */
+    public String getListingID() {
+        return listingID;
+    }
+
     public String getPhotoURL() {
-      return photoURL;
+        return photoURL;
     }
 
     public String getCarType() {
-      return carType;
+        return carType;
     }
 
     public String getColor() {
-      return color;
+        return color;
     }
 
-    public String getSeller() { 
-      return sellerUsername;
+    public String getSeller() {
+        return sellerUsername;
     }
 
     public int getMileage() {
-      return mileage;
+        return mileage;
     }
 
     public int getAccidents() {
-      return accidents;
+        return accidents;
     }
 
     public double getPrice() {
-      return price;
+        return price;
     }
 
     public boolean isManual() {
-      return manual;
+        return manual;
     }
-  
-  // setters
-  /** the setter methods for Listing objects
-  * updates/alters the value of each attribute of a Listing object respectively
-  * one parameter: the new value that the variable is being set to 
-  */
-  
-  /** one parameter
-  * a String that represents the new/updated ID 
-  */
+
+    // setters
+    /**
+     * the setter methods for Listing objects updates/alters the value of each
+     * attribute of a Listing object respectively one parameter: the new value
+     * that the variable is being set to
+     */
+    /**
+     * one parameter a String that represents the new/updated ID
+     */
     public void setListingID(String id) {
-      listingID = id;
+        listingID = id;
     }
-  
-  /** one parameter
-  * a String that represents the new/updated URL 
-  */
+
+    /**
+     * one parameter a String that represents the new/updated URL
+     */
     public void setPhotoURL(String url) {
-      photoURL = url;
+        photoURL = url;
     }
 
-  /** one parameter
-  * a String that represents the new/updated type of car 
-  */
+    /**
+     * one parameter a String that represents the new/updated type of car
+     */
     public void setCarType(String carType) {
-      this.carType = carType;
+        this.carType = carType;
     }
 
-  /** one parameter
-  * a String that represents the new/updated color of the car 
-  */
+    /**
+     * one parameter a String that represents the new/updated color of the car
+     */
     public void setColor(String color) {
-      this.color = color;
+        this.color = color;
     }
 
-  /** one parameter
-  * a String that represents the new/updated username of the seller 
-  */
+    /**
+     * one parameter a String that represents the new/updated username of the
+     * seller
+     */
     public void setSeller(String sellerUsername) {
-      this.sellerUsername = sellerUsername;
+        this.sellerUsername = sellerUsername;
     }
 
-  /** one parameter
-  * an int that represents the new/updated mileage 
-  */
+    /**
+     * one parameter an int that represents the new/updated mileage
+     */
     public void setMileage(int mileage) {
-      this.mileage = mileage;
+        this.mileage = mileage;
     }
 
-  /** one parameter
-  * an int that represents the new/updated amount of accidents 
-  */
+    /**
+     * one parameter an int that represents the new/updated amount of accidents
+     */
     public void setAccidents(int accidents) {
-      this.accidents = accidents;
+        this.accidents = accidents;
     }
 
-  /** one parameter
-  * a double that represents the new/updated price 
-  */
+    /**
+     * one parameter a double that represents the new/updated price
+     */
     public void setPrice(double price) {
-      this.price = price;
+        this.price = price;
     }
 
-  /** one parameter
-  * a boolean that represents the new/updated type of transmission (true: manual, false: automatic) 
-  */
+    /**
+     * one parameter a boolean that represents the new/updated type of
+     * transmission (true: manual, false: automatic)
+     */
     public void setManual(boolean manual) {
-      this.manual = manual;
+        this.manual = manual;
     }
 
-  //other methods
-  /** toString method
-  * returns a string representation of this Listing object
-  */
-  @Override
+    //other methods
+    /**
+     * toString method returns a string representation of this Listing object
+     */
+    @Override
     public String toString() {
         return sellerUsername + "," + photoURL + "," + carType + "," + color + ","
-            + mileage + "," + accidents + "," + price + "," + manual;
+                + mileage + "," + accidents + "," + price + "," + manual;
     }
 }

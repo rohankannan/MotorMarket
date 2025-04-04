@@ -1,3 +1,4 @@
+package com.cs180proj.app;
 public interface DatabaseInterface {
     String userfile = "userdata.txt";
     String listingfile = "listingdata.txt";

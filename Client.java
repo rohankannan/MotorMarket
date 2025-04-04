@@ -1,6 +1,9 @@
+package com.cs180proj.app;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 public class Client implements Runnable {
     public static void main(String[] args) throws IOException,
             ClassNotFoundException {
@@ -24,10 +27,10 @@ public class Client implements Runnable {
         ois.close();
     }
 
-    public static void sendRequest(Request r)
-    {
+    //public static void sendRequest(Request r)
+    //{
 
-    }
+    //}
 
     @Override
     public void run() {
