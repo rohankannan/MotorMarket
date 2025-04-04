@@ -1,9 +1,11 @@
-import org.junit.*;
+package com.cs180proj.app;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class ListingTestCase {
 
-    assertEquals(true, listing.isManual());
-    assertEquals("1234", listing.getListingID());
+    //assertEquals(true, listing.isManual());
+    //assertEquals("1234", listing.getListingID());
 
     @Test
     public void testGetSeller() {
@@ -44,17 +46,7 @@ public class ListingTestCase {
     @Test
     public void testGetPrice() {
         Listing listing = new Listing("john", "link", "toyota", "red", 2500, 2, 360.89, true, "1234");
-        assertEquals(260.89, listing.getPrice());
+        assertEquals(360.89, listing.getPrice());
     }
 
-    
-
-    
-
-
-
-    @Test
-    public void testTwo() {
-        Listing listing = new Listing("johnny", "link2", "nissan", "blue", 12000, 1, 420.99, false, "4321");
-
-    }
+}
