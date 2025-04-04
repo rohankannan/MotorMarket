@@ -68,38 +68,76 @@ public class User implements UserInterface {
   /** setter methods to update values of respective fields
   *  one parameter each, of the new value to set each field as
   */
-  
-    public void setAddress(String address) {
-        this.address = address;
+
+  /** one parameter
+  * a String that represents the new/updated username 
+  */
+    public void setUsername(String username) {
+        this.username = username;
     }
+  
+  /** one parameter
+  * a String that represents the new/updated password 
+  */
     public void setPassword(String password) {
         this.password = password;
     }
+
+  /** one parameter
+  * a String that represents the new/updated address 
+  */
     public void setAddress(String address) {
         this.address = address;
     }
+
+  /** one parameter
+  * a String that represents the new/updated balance 
+  */
     public void setBalance(double balance) {
         this.balance = balance;
     }
 
-    // update arraylist by adding a new listing 
+    /** one parameter
+    * a Listing object that is to be added to the end of this User's current
+    * existing arraylist of Listings
+    */ 
     public void addListing(Listing newListing) {
-
+        // add this new Listing to the end of arraylist
+        listings.add(newListing);
     }
     
-    // remove a listing from the arraylist of listings
+    /** one parameter
+    * a Listing object that is to be removed from anywhere this User's current
+    * existing arraylist of Listings without leaving a blank slot or altering any
+    * of this User's other Listings
+    */ 
     public void removeListing(Listing oldListing) { 
-
+        // look through this User's arraylist
+          // if oldListing is found, remove
+          if (listings.contains(oldListing)) {
+                listings.remove(oldListing);
+          }
     }
   
-    // updates the balance based on a purchase
-    // paramaters are the price of the listing and if it is buying or selling
-    // true for a buyer, false for a seller
+    
+    /** two parameters
+    * a double to represent the price of the listing being bought or sold
+    * a boolean to represent if this User is buying or selling the Listing (true: buyer, false: seller)
+    */ 
     public void updateBalance(double price, boolean isBuyer) {
-
+          // if this User is buying, update balance by removing price from current balance
+          // if this buyer is selling, update balance by adding to current balance
+          if (isBuyer) {
+                balance -= price;
+          } else {
+                balance += price;
+          }
     }
 
-    // toString
+    //other methods
+    /** toString method
+    * returns a string representation of this User object
+    */
     @Override
     public String toString() {
         return username + "," + password + "," + balance + "," + listings + "," + address;
