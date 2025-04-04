@@ -4,7 +4,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+/**
+ * CS 18000 Group Project
+ *
+ * Insert Class Description Here
+ *
+ * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version April 4, 2025
+ *
+ */
 public class Client implements Runnable {
+
     public static void main(String[] args) throws IOException,
             ClassNotFoundException {
 // create socket on agreed upon port (and local host for this example)...
@@ -27,11 +38,10 @@ public class Client implements Runnable {
         ois.close();
     }
 
-    //public static void sendRequest(Request r)
-    //{
-
-    //}
-
+    public static void sendRequest(Request r) {
+    
+    }
+    
     @Override
     public void run() {
 

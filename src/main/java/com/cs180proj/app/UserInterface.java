@@ -1,7 +1,16 @@
 package com.cs180proj.app;
 
 import java.util.ArrayList;
-
+/**
+ * CS 18000 Group Project
+ *
+ * Insert Class Description Here
+ *
+ * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version April 4, 2025
+ *
+ */
 public interface UserInterface {
 
     // getters

@@ -1,10 +1,14 @@
 package com.cs180proj.app;
 
 /**
- * Description of Class
+ * CS 18000 Group Project
  *
- * @author (team names here)
- * @version April 3, 2025
+ * Insert Class Description Here
+ *
+ * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version April 4, 2025
+ *
  */
 public class Listing implements ListingInterface {
     // fields

@@ -2,7 +2,18 @@ package com.cs180proj.app;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-
+/**
+ * CS 18000 Group Project
+ *
+ * This class contains various methods (test cases) which test
+ * the functionality of the constructors, getters, setters, fields,
+ * and additional methods of the Listing class.
+ *
+ * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version April 4, 2025
+ *
+ */
 public class ListingTestCase {
 
     // Test cases for Listing class getters, constructor, and fields

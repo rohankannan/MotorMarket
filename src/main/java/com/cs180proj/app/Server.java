@@ -1,11 +1,22 @@
 package com.cs180proj.app;
-import java.io.*;
-import java.net.*;
 
-
-//
-
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+/**
+ * CS 18000 Group Project
+ *
+ * Insert Class Description Here
+ *
+ * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version April 4, 2025
+ *
+ */
 public class Server {
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 // create socket on agreed-upon port...
         ServerSocket serverSocket = new ServerSocket(4242);
@@ -28,27 +39,22 @@ public class Server {
         ois.close();
     }
 
-    public static void writeUserData()
-    {
+    public static void writeUserData() {
 
     }
 
-    public static void writeListingData()
-    {
+    public static void writeListingData() {
 
     }
 
-    public static User[] readUserData()
-    {
+    public static User[] readUserData() {
         // this method will read the user data from a file
         // and return the user objects
         return null;
     }
 
-    public static Listing[] readListingData()
-    {
+    public static Listing[] readListingData() {
         return null;
     }
 
 }
-
