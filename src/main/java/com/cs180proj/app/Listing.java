@@ -157,6 +157,6 @@ public class Listing implements ListingInterface {
     @Override
     public String toString() {
         return sellerUsername + "," + photoURL + "," + carType + "," + color + ","
-                + mileage + "," + accidents + "," + price + "," + manual;
+                + mileage + "," + accidents + "," + price + "," + manual + "," + listingID;
     }
 }
