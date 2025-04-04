@@ -27,7 +27,7 @@ public class User implements UserInterface {
         this.password = password;
         this.balance = balance;
         this.address = address;
-        listings = null;
+        listings = new ArrayList<>();
     }
 
     // getters / setters
@@ -131,7 +131,12 @@ public class User implements UserInterface {
      */
     @Override
     public String toString() {
-        return username + "," + password + "," + balance + "," + listings + "," + address;
+        String listingsString = "Listings:";
+        // adds all listings to String
+        for (Listing listing : listings) {
+            listingsString += listing.toString() + ";";
+        }
+        return username + "," + password + "," + balance + "," + address + "," + listingsString;
     }
 
 }

@@ -1,4 +1,5 @@
 package com.cs180proj.app;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -6,7 +7,6 @@ public class ListingTestCase {
 
     // Test cases for Listing class getters, constructor, and fields
     // All getter test cases simultanously test the constructor and fields
-
     // getSeller test case
     @Test
     public void testGetSeller() {
@@ -71,7 +71,6 @@ public class ListingTestCase {
     }
 
     // Test cases for Listing class setters
-
     // setSeller test case
     @Test
     public void testSetSeller() {
