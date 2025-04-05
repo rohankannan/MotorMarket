@@ -3,7 +3,9 @@ package com.cs180proj.app;
 /**
  * CS 18000 Group Project
  *
- * Insert Class Description Here
+ * This class contains all methods and 
+ * attributes of a Listing object. Each listing also
+ * has a photoURL in order to display photos.
  *
  * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *

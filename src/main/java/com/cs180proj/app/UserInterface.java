@@ -4,7 +4,8 @@ import java.util.ArrayList;
 /**
  * CS 18000 Group Project
  *
- * Insert Class Description Here
+ * Interface for User object which contains all
+ * methods for each User object.
  *
  * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *

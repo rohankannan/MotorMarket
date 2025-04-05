@@ -1,16 +1,18 @@
 package com.cs180proj.app;
 
+import java.util.ArrayList;
 /**
  * CS 18000 Group Project
  *
- * Insert Class Description Here
+ * This class contains all methods and 
+ * attributes of a User object. Each User
+ * has an individual set of listings.
  *
  * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
  * @version April 4, 2025
  *
  */
-import java.util.ArrayList;
 
 public class User implements UserInterface {
     // attributes

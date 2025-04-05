@@ -3,7 +3,8 @@ package com.cs180proj.app;
 /**
  * CS 18000 Group Project
  *
- * Insert Class Description Here
+ * Interface for Listing object which contains all
+ * methods for each Listing object.
  *
  * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
