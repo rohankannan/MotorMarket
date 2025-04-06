@@ -1,8 +1,11 @@
 package com.cs180proj.app;
 
-import java.io.*;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * CS 18000 Group Project
@@ -16,8 +19,8 @@ import java.util.*;
  */
 public class Database implements DatabaseInterface {
 
-    private static final String USER_FILE = "Users.txt";
-    private static final String LISTING_FILE = "Listings.txt";
+    private static final String USER_FILE = "data/Users.txt";
+    private static final String LISTING_FILE = "data/Listings.txt";
 
     @Override
     public void writeUserData(User user) {
