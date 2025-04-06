@@ -38,10 +38,6 @@ public class Client implements Runnable {
         ois.close();
     }
 
-    public static void sendRequest(Request r) {
-    
-    }
-    
     @Override
     public void run() {
 
