@@ -16,12 +16,23 @@ import java.util.*;
  */
 public class Database implements DatabaseInterface {
 
-    private static final String USER_FILE = "Users.txt";
-    private static final String LISTING_FILE = "Listings.txt";
+    private static final String USER_FILE = "data/Users.txt";
+    private static final String LISTING_FILE = "data/Listings.txt";
 
     @Override
     public void writeUserData(User user) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE, true))) {
+            writer.write(user.toString());
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void writeUserData(User user, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(user.toString());
             writer.newLine();
         } catch (IOException e) {

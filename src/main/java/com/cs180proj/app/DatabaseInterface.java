@@ -18,6 +18,7 @@ public interface DatabaseInterface {
     String listingfile = "listingdata.txt";
 
     void writeUserData(User user); // method to write user data to file
+    void writeUserData(User user, String filePath); // overload method to write user data to a specified file path
 
     void writeListingData(Listing listing); // method to write listing data to file
 
