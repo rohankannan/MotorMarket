@@ -94,4 +94,35 @@ public class DatabaseTestCase {
         assertTrue(isWritten, "Listing data should be written to the database");
         dbFile.delete(); // Clean up the test file after the test case
     }
+
+    @Test
+    public void testReadUserData() {
+        // Create a test database file
+        File dbFile = new File("database_test.txt");
+        try {
+            if (dbFile.exists()) {
+                dbFile.delete();
+            }
+            dbFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error creating test case database file: " + e.getMessage());
+        }
+
+        // Write a test user to the file
+        Database db = new Database();
+        User u = new User("user6560", "mypassword1", 100.0, "1 Purdue Drive");
+        db.writeUserData(u, dbFile.getPath());
+
+        // Read the user data back from the file
+        var users = db.readUserData(dbFile.getPath());
+
+        assertEquals(1, users.size(), "There should be one user in the database");
+        assertEquals("user6560", users.get(0).getUsername(), "The username should match");
+        assertEquals("mypassword1", users.get(0).getPassword(), "The password should match");
+        assertEquals(100.0, users.get(0).getBalance(), 0.01, "The balance should match");
+        assertEquals("1 Purdue Drive", users.get(0).getAddress(), "The address should match");
+
+        dbFile.delete(); // Clean up the test file after the test case
+    }
+
 }

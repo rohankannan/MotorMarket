@@ -68,7 +68,24 @@ public class Database implements DatabaseInterface {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length >= 5) {
-                    users.add(new User(parts[0], parts[1], Double.parseDouble(parts[2]), parts[4]));
+                    users.add(new User(parts[0], parts[1], Double.parseDouble(parts[2]), parts[3]));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
+    public ArrayList<User> readUserData(String filePath) {
+        ArrayList<User> users = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 5) {
+                    users.add(new User(parts[0], parts[1], Double.parseDouble(parts[2]), parts[3]));
                 }
             }
         } catch (IOException e) {
