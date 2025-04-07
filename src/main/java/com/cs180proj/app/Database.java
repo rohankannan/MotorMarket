@@ -112,4 +112,23 @@ public class Database implements DatabaseInterface {
         }
         return listings;
     }
+
+    @Override
+    public ArrayList<Listing> readListingData(String filePath) {
+        ArrayList<Listing> listings = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 8) {
+                    listings.add(new Listing(parts[0], parts[1], parts[2], parts[3], Integer.parseInt(parts[4]),
+                            Integer.parseInt(parts[5]), Double.parseDouble(parts[6]), Boolean.parseBoolean(parts[7]),
+                            parts[8]));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return listings;
+    }
 }
