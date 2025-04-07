@@ -5,7 +5,8 @@ import java.util.ArrayList;
 /**
  * CS 18000 Group Project
  *
- * Insert Class Description Here
+ * Interface for Database class which contains all
+ * methods and fields.
  *
  * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
