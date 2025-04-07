@@ -2,18 +2,16 @@ package com.cs180proj.app;
 
 /**
  * CS 18000 Group Project
- *
  * Interface for Listing object which contains all
  * methods for each Listing object.
  *
- * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ * @author (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
  * @version April 4, 2025
  *
  */
 public interface ListingInterface {
 
-    // getters
     String getPhotoURL();
 
     String getCarType();
@@ -46,5 +44,4 @@ public interface ListingInterface {
     void setPrice(double price);
 
     void setManual(boolean manual);
-
 }

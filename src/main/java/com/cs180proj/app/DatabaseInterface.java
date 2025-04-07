@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Interface for Database class which contains all
  * methods and fields.
  *
- * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ * @author (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
  * @version April 4, 2025
  *

@@ -13,19 +13,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * CS 18000 Group Project
  *
  * This class contains various methods (test cases) which test
- * the functionality of the constructors, getters, setters, fields,
- * and additional methods of the Listing class.
+ * the functionality of the write and read methods found in the Database class.
  *
- * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ * @author (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
  * @version April 4, 2025
  *
  */
 public class DatabaseTestCase {
 
-    // Test cases for Listing class getters, constructor, and fields
-    // All getter test cases simultanously test the constructor and fields
-    // getSeller test case
+    /**
+     * Test case to ensure that the writeUserData method works correctly.
+     */
     @Test
     public void testWriteUserData() {
         File dbFile = new File("database_test.txt");
@@ -59,6 +58,9 @@ public class DatabaseTestCase {
         dbFile.delete(); // Clean up the test file after the test case
     }
 
+    /**
+     * Test case to ensure that the writeListingData method works correctly.
+     */
     @Test
     public void testWriteListingData() {
         File dbFile = new File("database_test.txt");
@@ -95,6 +97,9 @@ public class DatabaseTestCase {
         dbFile.delete(); // Clean up the test file after the test case
     }
 
+    /**
+     * Test case to ensure that the readListingData method works correctly.
+     */
     @Test
     public void testReadUserData() {
         // Create a test database file
@@ -125,6 +130,9 @@ public class DatabaseTestCase {
         dbFile.delete(); // Clean up the test file after the test case
     }
 
+    /**
+     * Test case to ensure that the readListingData method works correctly.
+     */
     @Test
     public void testReadListingData() {
         // Create a test database file

@@ -2,12 +2,11 @@ package com.cs180proj.app;
 
 /**
  * CS 18000 Group Project
- *
  * This class contains all methods and 
  * attributes of a Listing object. Each listing also
  * has a photoURL in order to display photos.
  *
- * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ * @author (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
  * @version April 4, 2025
  *
@@ -45,11 +44,8 @@ public class Listing implements ListingInterface {
         this.listingID = listingID;
     }
 
-    // getters
-    /**
-     * the getter/accessor methods for Listing objects returns the value of each
-     * attribute of a Listing object respectively
-     */
+
+    //getter methods
     public String getListingID() {
         return listingID;
     }
@@ -86,12 +82,9 @@ public class Listing implements ListingInterface {
         return manual;
     }
 
-    // setters
-    /**
-     * the setter methods for Listing objects updates/alters the value of each
-     * attribute of a Listing object respectively one parameter: the new value
-     * that the variable is being set to
-     */
+
+    // setter methods
+
     /**
      * one parameter a String that represents the new/updated ID
      */

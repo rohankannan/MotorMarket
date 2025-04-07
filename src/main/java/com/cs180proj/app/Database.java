@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * CS 18000 Group Project
  *
- * This class runs the database for the commerce platform using File I/O
+ * This class holds methods and a constructor for the database object that will be used for the commerce platform using File I/O
  *
  * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
