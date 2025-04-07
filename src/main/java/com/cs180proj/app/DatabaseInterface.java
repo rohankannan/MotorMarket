@@ -21,6 +21,7 @@ public interface DatabaseInterface {
     void writeUserData(User user, String filePath); // overload method to write user data to a specified file path
 
     void writeListingData(Listing listing); // method to write listing data to file
+    void writeListingData(Listing listing, String filePath);
 
     ArrayList<User> readUserData(); // method to read user data from file and return array of User objects
 

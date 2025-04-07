@@ -59,5 +59,39 @@ public class DatabaseTestCase {
         dbFile.delete(); // Clean up the test file after the test case
     }
 
+    @Test
+    public void testWriteListingData() {
+        File dbFile = new File("database_test.txt");
+        try {
+            if (dbFile.exists()) {
+                dbFile.delete();
+            }
+            dbFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error creating test case database file: " + e.getMessage());
+        }
 
+        Database db = new Database();
+        Listing l = new Listing("seller123", "http://example.com/photo.jpg", "Toyota Camry", "Blue", 50000,
+                1, 15000.0, false, "listing123");
+        db.writeListingData(l,dbFile.getPath());
+
+        boolean isWritten = false;
+        try (Scanner scanner = new Scanner(dbFile)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.contains("seller123") && line.contains("http://example.com/photo.jpg") && line.contains("Toyota Camry")
+                        && line.contains("Blue") && line.contains("50000") && line.contains("1")
+                        && line.contains("15000.0") && line.contains("false") && line.contains("listing123")) {
+                    isWritten = true;
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading test case database file: " + e.getMessage());
+        }
+
+        assertTrue(isWritten, "Listing data should be written to the database");
+        dbFile.delete(); // Clean up the test file after the test case
+    }
 }

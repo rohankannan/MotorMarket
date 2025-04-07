@@ -51,6 +51,16 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
+    public void writeListingData(Listing listing, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(listing.toString());
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public ArrayList<User> readUserData() {
         ArrayList<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(USER_FILE))) {
