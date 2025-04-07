@@ -1,13 +1,12 @@
 package com.cs180proj.app;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
  * CS 18000 Group Project
  *
- * Insert Class Description Here
+ * This class runs the database for the commerce platform using File I/O
  *
  * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
@@ -77,7 +76,8 @@ public class Database implements DatabaseInterface {
                 String[] parts = line.split(",");
                 if (parts.length >= 8) {
                     listings.add(new Listing(parts[0], parts[1], parts[2], parts[3], Integer.parseInt(parts[4]),
-                            Integer.parseInt(parts[5]), Double.parseDouble(parts[6]), Boolean.parseBoolean(parts[7]), ""));
+                            Integer.parseInt(parts[5]), Double.parseDouble(parts[6]), Boolean.parseBoolean(parts[7]),
+                            parts[8]));
                 }
             }
         } catch (IOException e) {

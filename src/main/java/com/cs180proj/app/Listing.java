@@ -32,7 +32,8 @@ public class Listing implements ListingInterface {
      * car(make/model), color of car, mileage, how many accidents, current
      * price, if it is manual, and unique ID number for the listing
      */
-    public Listing(String sellerUsername, String photoURL, String carType, String color, int mileage, int accidents, double price, boolean manual, String listingID) {
+    public Listing(String sellerUsername, String photoURL, String carType, String color, int mileage,
+                   int accidents, double price, boolean manual, String listingID) {
         this.sellerUsername = sellerUsername;
         this.photoURL = photoURL;
         this.carType = carType;
@@ -157,6 +158,7 @@ public class Listing implements ListingInterface {
     }
 
     //other methods
+
     /**
      * toString method returns a string representation of this Listing object
      */

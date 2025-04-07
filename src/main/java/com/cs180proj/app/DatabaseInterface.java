@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public interface DatabaseInterface {
 
-    String userfile = "userdata.txt";
-    String listingfile = "listingdata.txt";
+    String USER_FILE = "data/Users.txt";
+    String listingfile = "data/Listings.txt";
 
     void writeUserData(User user); // method to write user data to file
     void writeUserData(User user, String filePath); // overload method to write user data to a specified file path
