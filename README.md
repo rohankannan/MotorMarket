@@ -1,10 +1,10 @@
-#Project Choice: A market place for cars
+# Project Choice: A market place for cars
 
-##1. 
+## 1. 
 
 Currently, the project itself can't necessarily be run because there is no main file to run. However, for test cases you can use a java IDE to run the test cases using the IDE specific test case runner.
 
-##2. 
+## 2. 
 
 **Rohan Kannan** - Completed DatabaseTestCase class. Worked on general formatting and submitted project on Vocareum workspace.
 
@@ -14,7 +14,7 @@ Currently, the project itself can't necessarily be run because there is no main 
 
 **Stephen Tushentsov** - Completed DatabaseTestCase class and ListingTestCase class. Worked on repo structure, general formatting, and readme.
 
-##3.
+## 3.
 
 **Database.java** - Class contains four methods total which read and write to the files *Listings.txt* and *Users.txt*. Additionally, it has two static fields which are the paths to both these files. Class implements Database Interface.
 
