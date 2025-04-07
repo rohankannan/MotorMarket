@@ -8,16 +8,21 @@ import java.util.*;
  *
  * This class holds methods and a constructor for the database object that will be used for the commerce platform using File I/O
  *
- * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ * @author (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
  * @version April 4, 2025
  *
  */
 public class Database implements DatabaseInterface {
 
+
     private static final String USER_FILE = "data/Users.txt";
     private static final String LISTING_FILE = "data/Listings.txt";
 
+    /**
+     * Constructor for the Database class. This is used to initialize the database object.
+     * @param user the user object to initialize the database with
+     */
     @Override
     public void writeUserData(User user) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE, true))) {
@@ -29,6 +34,11 @@ public class Database implements DatabaseInterface {
 
     }
 
+    /**
+     * Overloaded method to write user data to a specified file path
+     * @param user the user object to write to file
+     * @param filePath the path of the file to write to
+     */
     @Override
     public void writeUserData(User user, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
@@ -40,6 +50,10 @@ public class Database implements DatabaseInterface {
 
     }
 
+    /**
+     * This method is used to write listing data to the default file path
+     * @param listing the listing object to write to file
+     */
     @Override
     public void writeListingData(Listing listing) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(LISTING_FILE, true))) {
@@ -50,6 +64,11 @@ public class Database implements DatabaseInterface {
         }
     }
 
+    /**
+     * Overloaded method to write listing data to a specified file path
+     * @param listing the listing object to write to file
+     * @param filePath the path of the file to write to
+     */
     @Override
     public void writeListingData(Listing listing, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
@@ -60,6 +79,10 @@ public class Database implements DatabaseInterface {
         }
     }
 
+    /**
+     * This method reads user data from the default file path and returns an ArrayList of User objects
+     * @return ArrayList<User> a list of users read from the file
+     */
     @Override
     public ArrayList<User> readUserData() {
         ArrayList<User> users = new ArrayList<>();
@@ -77,6 +100,11 @@ public class Database implements DatabaseInterface {
         return users;
     }
 
+    /**
+     * Overloaded method to read user data from a specified file path and return an ArrayList of User objects
+     * @param filePath the path of the file to read from
+     * @return ArrayList<User> a list of users read from the specified file
+     */
     @Override
     public ArrayList<User> readUserData(String filePath) {
         ArrayList<User> users = new ArrayList<>();
@@ -94,6 +122,10 @@ public class Database implements DatabaseInterface {
         return users;
     }
 
+    /**
+     * This method reads listing data from the default file path and returns an ArrayList of Listing objects
+     * @return ArrayList<Listing> a list of listings read from the file
+     */
     @Override
     public ArrayList<Listing> readListingData() {
         ArrayList<Listing> listings = new ArrayList<>();
@@ -113,6 +145,11 @@ public class Database implements DatabaseInterface {
         return listings;
     }
 
+    /**
+     * Overloaded method to read listing data from a specified file path and return an ArrayList of Listing objects
+     * @param filePath the path of the file to read from
+     * @return ArrayList<Listing> a list of listings read from the specified file
+     */
     @Override
     public ArrayList<Listing> readListingData(String filePath) {
         ArrayList<Listing> listings = new ArrayList<>();
