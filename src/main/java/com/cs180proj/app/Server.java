@@ -1,10 +1,9 @@
 package com.cs180proj.app;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
 /**
  * CS 18000 Group Project
  *
@@ -18,43 +17,59 @@ import java.net.Socket;
 public class Server {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-// create socket on agreed-upon port...
+        Database db = new Database();
+
         ServerSocket serverSocket = new ServerSocket(4242);
-// wait for client to connect, get socket connection...
-        Socket socket = serverSocket.accept();
-// open output stream to client, flush send header, then input stream...
-        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-        oos.flush(); // ensure data is sent to the client
-        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-// send object(s) to client...
-        String s1 = "hello there";
-        oos.writeObject(s1);
-        oos.flush(); // ensure data is sent to the client
-        System.out.printf("sent to client: %s\n", s1);
-// read object(s) from client...
-        String s2 = (String) ois.readObject();
-        System.out.printf("received from client: %s\n", s2);
-// close streams...
-        oos.close();
-        ois.close();
+        System.out.println("Server is running on port 4242...");
+
+        while (true) {
+            Socket socket = serverSocket.accept();
+            System.out.println("Client connected.");
+
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.flush();
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+            String command = (String) ois.readObject();
+            System.out.println("Received command from client: " + command);
+
+            switch (command) {
+                case "GET_USERS":
+                    ArrayList<User> users = db.readUserData();
+                    oos.writeObject(users);
+                    oos.flush();
+                    break;
+
+                case "GET_LISTINGS":
+                    ArrayList<Listing> listings = db.readListingData();
+                    oos.writeObject(listings);
+                    oos.flush();
+                    break;
+
+                case "ADD_USER":
+                    User newUser = (User) ois.readObject();
+                    db.writeUserData(newUser);
+                    oos.writeObject("User added successfully.");
+                    oos.flush();
+                    break;
+
+                case "ADD_LISTING":
+                    Listing newListing = (Listing) ois.readObject();
+                    db.writeListingData(newListing);
+                    oos.writeObject("Listing added successfully.");
+                    oos.flush();
+                    break;
+
+                default:
+                    oos.writeObject("Invalid command.");
+                    oos.flush();
+                    break;
+            }
+
+            oos.close();
+            ois.close();
+            socket.close();
+            System.out.println("Client disconnected.\n");
+        }
     }
-
-    public static void writeUserData() {
-
-    }
-
-    public static void writeListingData() {
-
-    }
-
-    public static User[] readUserData() {
-        // this method will read the user data from a file
-        // and return the user objects
-        return null;
-    }
-
-    public static Listing[] readListingData() {
-        return null;
-    }
-
 }
