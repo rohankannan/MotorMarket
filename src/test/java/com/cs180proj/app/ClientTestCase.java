@@ -16,6 +16,39 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version April 10, 2025
  *
  */
-public class ClientTestCase {
 
+public class ClientTestCase {
+    /**
+     * Test case to ensure that the client can connect to server.
+     */
+    @Test
+    public void testServerConnection() {
+        //METHOD TEST HERE
+    }
+
+    /**
+     * Test case to ensure that  GET_USERS  works correctly
+     */
+    @Test
+    public void testGetUsers() {
+        //METHOD TEST HERE
+    }
+
+    /**
+     * Test case to ensure that GET_LISTINGS  works correctly
+     */
+    @Test
+    public void testGetListings() {
+        //METHOD TEST HERE
+    }
+
+    /**
+     * Test case to ensure that error handling is proper
+     */
+    @Test
+    public void testInvalidCommand() {
+        //METHOD TEST HERE
+    }
+
+    
 }
