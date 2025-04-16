@@ -1,4 +1,9 @@
+package com.cs180proj.app;
 // imports
+import org.junit.jupiter.api.Test;
+import java.io.*;
+import java.net.Socket;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * CS 18000 Group Project
@@ -11,3 +16,6 @@
  * @version April 10, 2025
  *
  */
+public class ClientTestCase {
+
+}
