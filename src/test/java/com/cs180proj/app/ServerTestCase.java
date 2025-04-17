@@ -21,7 +21,7 @@ public class ServerTestCase {
     */
     // Test case for isServerRunning() method, startServer() method, stopServer() method, constructor, and fields
     @Test
-    public void testIsServerRunning() throws Exception {
+    public void testIsServerRunningStartingStopping() throws Exception {
         Server server = new Server();
         Thread serverThread = new Thread(new Runnable() {
             public void run() {

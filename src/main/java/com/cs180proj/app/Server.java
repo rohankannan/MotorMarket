@@ -11,7 +11,8 @@ import java.util.ArrayList;
 /**
  * CS 18000 Group Project
  *
- * Insert Class Description Here
+ * Class contains all methods and attributes of a server object.
+ * Also holds the main method to run the server.
  *
  * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
@@ -24,10 +25,17 @@ public class Server implements Serializable {
     private ServerSocket serverSocket;
     private boolean isActive;
 
+    /**
+     * Constructor for server class used to initialize server object
+     */
     public Server() {
         this.db = new Database();
     }
 
+    /**
+     * Method used to start the server and listen for incoming connections
+     * @param port the port the server will run on
+     */
     public void startServer(int port) throws IOException {
         this.serverSocket = new ServerSocket(port);
         this.isActive = true;
@@ -49,6 +57,11 @@ public class Server implements Serializable {
         }
     }
 
+    /**
+     * This method is used to connect the client and the server
+     * and handle the communication between them
+     * @param socket the client socket to communicate with
+     */
     public void workWithClient(Socket socket) {
         ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
@@ -89,6 +102,13 @@ public class Server implements Serializable {
         }
     }
 
+    /**
+     * This method is used to check the command received from the client
+     * and perform the corresponding action
+     * @param command the command string recieived from the client
+     * @param ois the ObjectInputStream to read data from the client
+     * @param oos the ObjectOutputStream to send data to the client
+     */
     public void checkClientCommand(String command, ObjectInputStream ois, ObjectOutputStream oos) throws IOException, ClassNotFoundException{
         switch (command) {
             case "GET_USERS":
@@ -124,6 +144,9 @@ public class Server implements Serializable {
         }
     }
 
+    /**
+     * This method is used to stop the server from running
+     */
     public void stopServer() throws IOException {
         isActive = false;
         if (serverSocket != null && !serverSocket.isClosed()) {
@@ -131,10 +154,17 @@ public class Server implements Serializable {
         }
     }
 
+    /**
+     * This method is used to check if the server is running or not
+     * @return true if the server is running, false otherwise
+     */
     public boolean isServerRunning() {
         return isActive;
     }
 
+    /**
+     * Main method runs server on port 4242
+     */
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Server server = new Server();
         server.startServer(4242);
