@@ -32,8 +32,20 @@ public class Server implements Serializable {
         this.serverSocket = new ServerSocket(port);
         this.isActive = true;
         System.out.println("Server is running on port " + port + "...");
-        while (isActive) {
-            workWithClient(serverSocket.accept());
+        try {    
+            while (isActive) {
+                try {
+                    workWithClient(serverSocket.accept());
+                } catch (IOException e) {
+                    if (!isActive) {
+                        break;
+                    }
+                }
+            }
+        } finally {
+            if (serverSocket != null && !serverSocket.isClosed()) {
+                serverSocket.close();
+            }
         }
     }
 
@@ -114,7 +126,7 @@ public class Server implements Serializable {
 
     public void stopServer() throws IOException {
         isActive = false;
-        if (serverSocket != null) {
+        if (serverSocket != null && !serverSocket.isClosed()) {
             serverSocket.close();
         }
     }
