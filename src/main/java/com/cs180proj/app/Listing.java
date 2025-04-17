@@ -1,5 +1,7 @@
 package com.cs180proj.app;
 
+import java.io.Serializable;
+
 /**
  * CS 18000 Group Project
  * This class contains all methods and 
@@ -11,7 +13,7 @@ package com.cs180proj.app;
  * @version April 4, 2025
  *
  */
-public class Listing implements ListingInterface {
+public class Listing implements ListingInterface, Serializable {
 
     private String listingID;        // the identification number for each listing
     private String sellerUsername;   // the username of the seller for this listing

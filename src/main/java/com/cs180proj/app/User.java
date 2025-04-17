@@ -1,5 +1,7 @@
 package com.cs180proj.app;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * CS 18000 Group Project
@@ -13,7 +15,7 @@ import java.util.ArrayList;
  *
  */
 
-public class User implements UserInterface {
+public class User implements UserInterface, Serializable {
     // attributes
 
     private String username;              // stores the unique username of this user
