@@ -1,5 +1,6 @@
 package com.cs180proj.app;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.util.*;
 
@@ -16,8 +17,8 @@ import java.util.*;
 public class Database implements DatabaseInterface {
 
 
-    private static final String USER_FILE = "data/Users.txt";
-    private static final String LISTING_FILE = "data/Listings.txt";
+    private static final String USER_FILE = "src/main/java/com/cs180proj/app/data/Users.txt";
+    private static final String LISTING_FILE = "src/main/java/com/cs180proj/app/data/Listings.txt";
 
     /**
      * Constructor for the Database class. This is used to initialize the database object.
@@ -167,5 +168,11 @@ public class Database implements DatabaseInterface {
             e.printStackTrace();
         }
         return listings;
+    }
+
+    public static void main(String[] args) {
+        User u1 = new User("ab", "1234", 0.29, "217 abc ct");
+        Database db = new Database();
+        db.writeUserData(u1);
     }
 }
