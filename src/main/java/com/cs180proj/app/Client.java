@@ -123,7 +123,11 @@ public class Client {
                         String id = scanner.nextLine();
 
                         Listing newListing = new Listing(seller, url, type, color, mileage, accidents, price, manual, id);
-                        oos.writeObject(newListing);
+                        try {
+                            oos.writeObject(newListing);
+                        } catch (Exception e) {
+                            System.out.println("Didn't write Listing - Exception: " + e);
+                        }
                         oos.flush();
 
                         try {
