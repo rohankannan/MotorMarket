@@ -1,1 +1,3 @@
 aj,jdnsnfns,mazda,red,291,0,33445.0,false,1
+sc30,hiehfheus,madza,red,3000,0,40000.0,false,2
+sc30,no/url,Mercedes-Benz,White,300,0,90000.0,false,3

@@ -133,8 +133,8 @@ public class Database implements DatabaseInterface {
         try (BufferedReader reader = new BufferedReader(new FileReader(LISTING_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length >= 8) {
+                String[] parts = line.trim().split(",");
+                if (parts.length >= 9) {
                     listings.add(new Listing(parts[0], parts[1], parts[2], parts[3], Integer.parseInt(parts[4]),
                             Integer.parseInt(parts[5]), Double.parseDouble(parts[6]), Boolean.parseBoolean(parts[7]),
                             parts[8]));
@@ -157,8 +157,8 @@ public class Database implements DatabaseInterface {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length >= 8) {
+                String[] parts = line.trim().split(",");
+                if (parts.length >= 9) {
                     listings.add(new Listing(parts[0], parts[1], parts[2], parts[3], Integer.parseInt(parts[4]),
                             Integer.parseInt(parts[5]), Double.parseDouble(parts[6]), Boolean.parseBoolean(parts[7]),
                             parts[8]));

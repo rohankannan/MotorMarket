@@ -65,32 +65,41 @@ public class Server implements Serializable {
     public void workWithClient(Socket socket) {
         ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
-        try {    
+
+        try {
             oos = new ObjectOutputStream(socket.getOutputStream());
             oos.flush();
             ois = new ObjectInputStream(socket.getInputStream());
             System.out.println("Client connected.");
-            String command = (String) ois.readObject();
-            System.out.println("Received command from client: " + command);
-            checkClientCommand(command, ois, oos);
+
+            while (true) {
+                String command = (String) ois.readObject();
+                System.out.println("Received command from client: " + command);
+
+                if (command.equals("EXIT")) {
+                    System.out.println("Client requested to exit.");
+                    break;
+                }
+
+                checkClientCommand(command, ois, oos);
+            }
+
         } catch (Exception e) {
             System.out.println("Server-Client Error: " + e.getMessage());
+            e.printStackTrace();
         } finally {
             try {
-                if (ois != null) {
-                    ois.close();
-                }
+                if (ois != null) ois.close();
             } catch (Exception e) {
                 System.out.println("Error closing ObjectInputStream: " + e.getMessage());
             }
+
             try {
-                if (oos != null) {
-                    oos.close();
-                }
+                if (oos != null) oos.close();
             } catch (Exception e) {
                 System.out.println("Error closing ObjectOutputStream: " + e.getMessage());
             }
-            
+
             try {
                 if (socket != null) {
                     socket.close();
