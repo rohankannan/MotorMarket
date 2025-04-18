@@ -23,7 +23,12 @@ public class ClientTestCase {
      */
     @Test
     public void testServerConnection() {
-        //METHOD TEST HERE
+        // testing the socket object and catching exception if the client is unable to connect
+        try (Socket socket = new Socket("localhost", 4242)) {
+            assertTrue(socket.isConnected(), "Client should be able to connect to server.");
+        } catch (IOException e) {
+            fail("Failed to connect to server: " + e.getMessage());
+        }
     }
 
     /**
@@ -31,7 +36,23 @@ public class ClientTestCase {
      */
     @Test
     public void testGetUsers() {
-        //METHOD TEST HERE
+        // trying these objects
+        try (Socket socket = new Socket("localhost", 4242); 
+        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream()); 
+        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+            // writing the command
+            oos.writeObject("GET_USERS");
+            oos.flush();
+
+            // collecting response and checking if it returns a list of users
+            Object response = ois.readObject();
+            assertTrue(response instanceof java.util.ArrayList, "Server should return a list of users.");
+        } catch (ClassNotFoundException e) {
+            fail("Error occurred in GET_USERS test: " + e.getMessage());
+        } catch (IOException e) {
+            fail("Error occurred in GET_USERS test: " + e.getMessage());
+        }
+        
     }
 
     /**
@@ -39,7 +60,22 @@ public class ClientTestCase {
      */
     @Test
     public void testGetListings() {
-        //METHOD TEST HERE
+        // trying each object and the command
+        try (Socket socket = new Socket("localhost", 4242); 
+        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+            // writing the command
+            oos.writeObject("GET_LISTINGS");
+            oos.flush();
+
+            // collecting the response and test if it returns a list of listings
+            Object response = ois.readObject();
+            assertTrue(response instanceof java.util.ArrayList, "Server should return a list of listings.");
+        } catch (ClassNotFoundException e) {
+            fail("Error occurred in GET_LISTING test: " + e.getMessage());
+        } catch (IOException e) {
+            fail("Error occurred in GET_LISTING test: " + e.getMessage());
+        }
     }
 
     /**
@@ -47,7 +83,22 @@ public class ClientTestCase {
      */
     @Test
     public void testInvalidCommand() {
-        //METHOD TEST HERE
+        // trying with these objects
+        try (Socket socket = new Socket("localhost", 4242);
+        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+            // writing command
+            oos.writeObject("INVALID_COMMAND");
+            oos.flush();
+
+            // collecting response and checking if the server returns the correct message
+            Object response = ois.readObject();
+            assertEquals("Error: Invalid Command", response, "Server should return an error for invalid commands.");
+        } catch (ClassNotFoundException e) {
+            fail("Error occurred in invalid command test: " + e.getMessage());
+        } catch (IOException e) {
+            fail("Error occurred in invalid command test: " + e.getMessage());
+        }
     }
 
     
