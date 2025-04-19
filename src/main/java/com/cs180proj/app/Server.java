@@ -21,6 +21,11 @@ import java.util.ArrayList;
  */
 public class Server implements Serializable {
 
+    /**
+     * db - database object used to read and write data to the database
+     * serverSocket - server socket object used to listen for incoming connections
+     * isActive - boolean used to check if the server is running or not
+     */
     private Database db;
     private ServerSocket serverSocket;
     private boolean isActive;
@@ -65,41 +70,37 @@ public class Server implements Serializable {
     public void workWithClient(Socket socket) {
         ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
-
         try {
             oos = new ObjectOutputStream(socket.getOutputStream());
             oos.flush();
             ois = new ObjectInputStream(socket.getInputStream());
             System.out.println("Client connected.");
-
             while (true) {
                 String command = (String) ois.readObject();
                 System.out.println("Received command from client: " + command);
-
                 if (command.equals("EXIT")) {
                     System.out.println("Client requested to exit.");
                     break;
                 }
-
                 checkClientCommand(command, ois, oos);
             }
-
         } catch (Exception e) {
             System.out.println("Server-Client Error: " + e.getMessage());
             e.printStackTrace();
         } finally {
             try {
-                if (ois != null) ois.close();
+                if (ois != null) 
+                    ois.close();
             } catch (Exception e) {
                 System.out.println("Error closing ObjectInputStream: " + e.getMessage());
             }
 
             try {
-                if (oos != null) oos.close();
+                if (oos != null) 
+                    oos.close();
             } catch (Exception e) {
                 System.out.println("Error closing ObjectOutputStream: " + e.getMessage());
             }
-
             try {
                 if (socket != null) {
                     socket.close();
@@ -125,27 +126,23 @@ public class Server implements Serializable {
                 oos.writeObject(users);
                 oos.flush();
                 break;
-
             case "GET_LISTINGS":
                 ArrayList<Listing> listings = db.readListingData();
                 oos.writeObject(listings);
                 oos.flush();
                 break;
-
             case "ADD_USER":
                 User newUser = (User) ois.readObject();
                 db.writeUserData(newUser);
                 oos.writeObject("User added successfully.");
                 oos.flush();
                 break;
-
             case "ADD_LISTING":
                 Listing newListing = (Listing) ois.readObject();
                 db.writeListingData(newListing);
                 oos.writeObject("Listing added successfully.");
                 oos.flush();
                 break;
-
             default:
                 oos.writeObject("Invalid command.");
                 oos.flush();

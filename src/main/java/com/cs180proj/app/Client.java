@@ -21,49 +21,77 @@ import java.util.Scanner;
 
 public class Client {
 
-    public static void main(String[] args) {
-        try (
-                Socket socket = new Socket("localhost", 4242);
-                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-                Scanner scanner = new Scanner(System.in)
-        ) {
+    // Socket object used to connect to the server
+    private Socket socket;
+
+    /**
+     * Method used to start the client and connect to the server
+     * @param port the port the client will run on
+     */
+    public void startClient(int port) throws IOException {
+        this.socket = new Socket("localhost", port);
+        ObjectOutputStream oos = null;
+        ObjectInputStream ois = null;
+        try {
+            oos = new ObjectOutputStream(socket.getOutputStream());
+            ois = new ObjectInputStream(socket.getInputStream());
+            Scanner scanner = new Scanner(System.in);
             oos.flush();
-
             System.out.println("Connected to server.");
-
             while (true) {
                 printMenu();
                 String choice = scanner.nextLine();
-
-                switch (choice) {
-                    case "1":
-                        getUsers(oos, ois);
-                        break;
-                    case "2":
-                        getListings(oos, ois);
-                        break;
-                    case "3":
-                        addUser(scanner, oos, ois);
-                        break;
-                    case "4":
-                        addListing(scanner, oos, ois);
-                        break;
-                    case "5":
-                        exit(oos);
-                        return;
-                    default:
-                        System.out.println("Invalid input. Try again.");
-                }
+                checkCommand(choice, ois, oos, scanner);
             }
-
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Client error: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            if (ois != null) {
+                ois.close();
+            }
+            if (oos != null) {
+                oos.close();
+            }
+            if (socket != null && !socket.isClosed()) {
+                socket.close();
+            }
         }
     }
 
-    private static void printMenu() {
+    /**
+     * Method used to check which command the user has chosen and call the appropriate method
+     * @param choice the command chosen by the user
+     * @param ois the ObjectInputStream used to read data from the server
+     * @param oos the ObjectOutputStream used to write data to the server
+     * @param scanner the Scanner object used to read user input
+     */
+    public void checkCommand(String choice, ObjectInputStream ois, ObjectOutputStream oos, Scanner scanner) throws IOException, ClassNotFoundException {
+        switch (choice) {
+            case "1":
+                getUsers(oos, ois);
+                break;
+            case "2":
+                getListings(oos, ois);
+                break;
+            case "3":
+                addUser(scanner, oos, ois);
+                break;
+            case "4":
+                addListing(scanner, oos, ois);
+                break;
+            case "5":
+                exit(oos);
+                break;
+            default:
+                System.out.println("Invalid input. Try again.");
+        }
+    }
+
+    /**
+     * Method that prints all the commands available to the user
+     */
+    public void printMenu() {
         System.out.println("\nChoose a command:");
         System.out.println("1. GET_USERS");
         System.out.println("2. GET_LISTINGS");
@@ -72,7 +100,12 @@ public class Client {
         System.out.println("5. EXIT");
     }
 
-    private static void getUsers(ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException {
+    /**
+     * Method used to get all users from the server
+     * @param oos the ObjectOutputStream used to write data to the server
+     * @param ois the ObjectInputStream used to read data from the server
+     */
+    public void getUsers(ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException {
         oos.writeObject("GET_USERS");
         oos.flush();
 
@@ -87,7 +120,12 @@ public class Client {
         }
     }
 
-    private static void getListings(ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException {
+    /**
+     * Method used to get all listings from the server
+     * @param oos the ObjectOutputStream used to write data to the server
+     * @param ois the ObjectInputStream used to read data from the server
+     */
+    public void getListings(ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException {
         oos.writeObject("GET_LISTINGS");
         oos.flush();
 
@@ -102,7 +140,13 @@ public class Client {
         }
     }
 
-    private static void addUser(Scanner scanner, ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException {
+    /**
+     * Method used to add a new user to the server
+     * @param scanner the Scanner object used to read user input
+     * @param oos the ObjectOutputStream used to write data to the server
+     * @param ois the ObjectInputStream used to read data from the server
+     */
+    public void addUser(Scanner scanner, ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException {
         oos.writeObject("ADD_USER");
         oos.flush();
 
@@ -132,7 +176,13 @@ public class Client {
         }
     }
 
-    private static void addListing(Scanner scanner, ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException {
+    /**
+     * Method used to add a new listing to the server
+     * @param scanner the Scanner object used to read user input
+     * @param oos the ObjectOutputStream used to write data to the server
+     * @param ois the ObjectInputStream used to read data from the server
+     */
+    public void addListing(Scanner scanner, ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException {
         oos.writeObject("ADD_LISTING");
         oos.flush();
 
@@ -172,9 +222,25 @@ public class Client {
         }
     }
 
-    private static void exit(ObjectOutputStream oos) throws IOException {
+    /**
+     * Method used to exit the client
+     * @param oos the ObjectOutputStream used to write data to the server
+     */
+    public void exit(ObjectOutputStream oos) throws IOException {
         System.out.println("Exiting...");
         oos.writeObject("EXIT");
         oos.flush();
+    }
+
+    /**
+     * Main method runs client on port 4242
+     */
+    public static void main(String[] args) {
+        Client client = new Client();
+        try {
+            client.startClient(4242);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
