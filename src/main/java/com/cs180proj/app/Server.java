@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * @version April 4, 2025
  *
  */
-public class Server implements Serializable {
+public class Server implements ServerInterface, Serializable {
 
     /**
      * db - database object used to read and write data to the database

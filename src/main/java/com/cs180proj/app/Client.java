@@ -19,7 +19,7 @@ import java.util.Scanner;
  * @version April 4, 2025
  */
 
-public class Client {
+public class Client implements ClientInterface {
 
     // Socket object used to connect to the server
     private Socket socket;
