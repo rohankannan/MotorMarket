@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * CS 18000 Group Project
  *
  * Class contains all methods and attributes of a server object.
- * Also holds the main method to run the server.
+ * Also holds the main method to run the server on port 4242.
  *
  * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *

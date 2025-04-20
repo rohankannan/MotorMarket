@@ -66,7 +66,8 @@ public class Client implements ClientInterface {
      * @param oos the ObjectOutputStream used to write data to the server
      * @param scanner the Scanner object used to read user input
      */
-    public void checkCommand(String choice, ObjectInputStream ois, ObjectOutputStream oos, Scanner scanner) throws IOException, ClassNotFoundException {
+    public void checkCommand(String choice, ObjectInputStream ois,
+                             ObjectOutputStream oos, Scanner scanner) throws IOException, ClassNotFoundException {
         switch (choice) {
             case "1":
                 getUsers(oos, ois);
@@ -146,7 +147,8 @@ public class Client implements ClientInterface {
      * @param oos the ObjectOutputStream used to write data to the server
      * @param ois the ObjectInputStream used to read data from the server
      */
-    public void addUser(Scanner scanner, ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException {
+    public void addUser(Scanner scanner, ObjectOutputStream oos,
+                        ObjectInputStream ois) throws IOException, ClassNotFoundException {
         oos.writeObject("ADD_USER");
         oos.flush();
 
@@ -182,7 +184,8 @@ public class Client implements ClientInterface {
      * @param oos the ObjectOutputStream used to write data to the server
      * @param ois the ObjectInputStream used to read data from the server
      */
-    public void addListing(Scanner scanner, ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException {
+    public void addListing(Scanner scanner, ObjectOutputStream oos,
+                           ObjectInputStream ois) throws IOException, ClassNotFoundException {
         oos.writeObject("ADD_LISTING");
         oos.flush();
 

@@ -1,13 +1,13 @@
 package com.cs180proj.app;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.util.*;
 
 /**
  * CS 18000 Group Project
  *
- * This class holds methods and a constructor for the database object that will be used for the commerce platform using File I/O
+ * This class holds methods and a constructor for the database object that
+ * will be used for the commerce platform using File I/O
  *
  * @author (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
@@ -168,11 +168,5 @@ public class Database implements DatabaseInterface {
             e.printStackTrace();
         }
         return listings;
-    }
-
-    public static void main(String[] args) {
-        User u1 = new User("ab", "1234", 0.29, "217 abc ct");
-        Database db = new Database();
-        db.writeUserData(u1);
     }
 }

@@ -1,4 +1,4 @@
-# Project Choice: A market place for cars
+# Project Choice: A marketplace for cars
 
 ## 1. 
 

@@ -9,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * CS 18000 Group Project
  *
  * This class contains various methods (test cases) which test
- * the functionality of Client 
+ * the functionality of Client. Server.java MUST be running in order for test cases
+ * to pass.
  *
  * @author (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
@@ -93,7 +94,7 @@ public class ClientTestCase {
 
             // collecting response and checking if the server returns the correct message
             Object response = ois.readObject();
-            assertEquals("Error: Invalid Command", response, "Server should return an error for invalid commands.");
+            assertEquals("Invalid command.", response, "Server should return an error for invalid commands.");
         } catch (ClassNotFoundException e) {
             fail("Error occurred in invalid command test: " + e.getMessage());
         } catch (IOException e) {
