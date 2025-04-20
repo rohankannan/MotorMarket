@@ -2,7 +2,7 @@
 
 ## 1. 
 
-Currently, the project itself can't necessarily be run because there is no main file to run. However, for test cases you can use a java IDE to run the test cases using the IDE specific test case runner.
+Currently, the project itself can't necessarily be run because there is no main file to run. However, for test cases you can use a java IDE to run the test cases using the IDE specific test case runner. Note that to test **Client.java**, **Server.java** must be running.
 
 ## 2. 
 
