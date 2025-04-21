@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Class contains all methods and attributes of a server object.
  * Also holds the main method to run the server on port 4242.
  *
- * @authors (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ * @author (Rohan Kannan, Alistair Joseph, Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
  * @version April 4, 2025
  *
@@ -119,7 +119,8 @@ public class Server implements ServerInterface, Serializable {
      * @param ois the ObjectInputStream to read data from the client
      * @param oos the ObjectOutputStream to send data to the client
      */
-    public void checkClientCommand(String command, ObjectInputStream ois, ObjectOutputStream oos) throws IOException, ClassNotFoundException{
+    public void checkClientCommand(String command, ObjectInputStream ois, ObjectOutputStream oos) 
+        throws IOException, ClassNotFoundException {
         switch (command) {
             case "GET_USERS":
                 ArrayList<User> users = db.readUserData();

@@ -13,7 +13,7 @@ import java.util.Scanner;
  *
  * Client app for interacting with the car listing server
  *
- * @authors (Rohan Kannan, Alistair Joseph,
+ * @author (Rohan Kannan, Alistair Joseph,
  * Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
  * @version April 4, 2025

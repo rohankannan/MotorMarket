@@ -10,7 +10,7 @@ import java.net.Socket;
  * Interface for Server class which contains all
  * methods and fields.
  *
- * @authors (Rohan Kannan, Alistair Joseph,
+ * @author (Rohan Kannan, Alistair Joseph,
  * Lydia Schmucker, Stephen Tushentsov) lab sec 19
  *
  * @version April 19, 2025
@@ -21,7 +21,8 @@ public interface ServerInterface {
     
     void workWithClient(Socket socket) throws IOException, ClassNotFoundException;
 
-    void checkClientCommand(String command, ObjectInputStream ois, ObjectOutputStream oos) throws IOException, ClassNotFoundException;
+    void checkClientCommand(String command, ObjectInputStream ois, 
+        ObjectOutputStream oos) throws IOException, ClassNotFoundException;
 
     void stopServer() throws IOException;
 

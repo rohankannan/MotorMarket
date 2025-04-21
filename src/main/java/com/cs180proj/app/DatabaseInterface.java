@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public interface DatabaseInterface {
 
     String USER_FILE = "data/Users.txt";
-    String listingfile = "data/Listings.txt";
+    String LISTING_FILE = "data/Listings.txt";
 
     void writeUserData(User user); // method to write user data to file
     void writeUserData(User user, String filePath); // overload method to write user data to a specified file path
@@ -25,9 +25,11 @@ public interface DatabaseInterface {
     void writeListingData(Listing listing, String filePath);
 
     ArrayList<User> readUserData(); // method to read user data from file and return array of User objects
-    ArrayList<User> readUserData(String filePath); // overload method to read user data from a specified file path and return array of User objects
+    ArrayList<User> readUserData(String filePath); 
+    // overload method to read user data from a specified file path and return array of User objects
 
     ArrayList<Listing> readListingData(); // method to read listing data from file and return array of Listing objects
-    ArrayList<Listing> readListingData(String filePath); // overload method to read listing data from a specified file path and return array of Listing objects
+    ArrayList<Listing> readListingData(String filePath); 
+    // overload method to read listing data from a specified file path and return array of Listing objects
 
 }
