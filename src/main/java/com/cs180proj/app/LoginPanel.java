@@ -1,0 +1,43 @@
+package com.cs180proj.app;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class LoginPanel extends JPanel {
+    public LoginPanel(MainFrame mainFrame, NewClient client) {
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        JTextField usernameField = new JTextField(15);
+        JPasswordField passwordField = new JPasswordField(15);
+        JButton loginButton = new JButton("Login");
+        JButton registerButton = new JButton("Create Account");
+
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.gridx = 0; gbc.gridy = 0; add(new JLabel("Username:"), gbc);
+        gbc.gridx = 1; add(usernameField, gbc);
+        gbc.gridx = 0; gbc.gridy = 1; add(new JLabel("Password:"), gbc);
+        gbc.gridx = 1; add(passwordField, gbc);
+        gbc.gridx = 0; gbc.gridy = 2; add(loginButton, gbc);
+        gbc.gridx = 1; add(registerButton, gbc);
+
+        loginButton.addActionListener(e -> {
+            String username = usernameField.getText().trim();
+            String password = new String(passwordField.getPassword()).trim();
+
+            try {
+                Object response = client.sendCommand("LOGIN", username, password);
+                if (response instanceof User user) {
+                    mainFrame.setCurrentUser(user);
+                    mainFrame.showPanel("Hub");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid credentials.");
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Login error: " + ex.getMessage());
+            }
+        });
+
+        registerButton.addActionListener(e -> mainFrame.showPanel("Register"));
+    }
+}

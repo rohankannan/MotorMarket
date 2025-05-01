@@ -119,37 +119,59 @@ public class Server implements ServerInterface, Serializable {
      * @param ois the ObjectInputStream to read data from the client
      * @param oos the ObjectOutputStream to send data to the client
      */
-    public void checkClientCommand(String command, ObjectInputStream ois, ObjectOutputStream oos) 
-        throws IOException, ClassNotFoundException {
+    public void checkClientCommand(String command, ObjectInputStream ois, ObjectOutputStream oos)
+            throws IOException, ClassNotFoundException {
         switch (command) {
-            case "GET_USERS":
+            case "GET_USERS" -> {
                 ArrayList<User> users = db.readUserData();
                 oos.writeObject(users);
                 oos.flush();
-                break;
-            case "GET_LISTINGS":
+            }
+            case "GET_LISTINGS" -> {
                 ArrayList<Listing> listings = db.readListingData();
                 oos.writeObject(listings);
                 oos.flush();
-                break;
-            case "ADD_USER":
+            }
+            case "ADD_USER" -> {
                 User newUser = (User) ois.readObject();
                 db.writeUserData(newUser);
                 oos.writeObject("User added successfully.");
                 oos.flush();
-                break;
-            case "ADD_LISTING":
+            }
+            case "ADD_LISTING" -> {
                 Listing newListing = (Listing) ois.readObject();
                 db.writeListingData(newListing);
                 oos.writeObject("Listing added successfully.");
                 oos.flush();
-                break;
-            default:
+            }
+            case "LOGIN" -> {
+                String username = (String) ois.readObject();
+                String password = (String) ois.readObject();
+
+                ArrayList<User> users = db.readUserData();
+                User matched = null;
+
+                for (User u : users) {
+                    if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+                        matched = u;
+                        break;
+                    }
+                }
+
+                if (matched != null) {
+                    oos.writeObject(matched);
+                } else {
+                    oos.writeObject("FAIL");
+                }
+                oos.flush();
+            }
+            default -> {
                 oos.writeObject("Invalid command.");
                 oos.flush();
-                break;
+            }
         }
     }
+
 
     /**
      * This method is used to stop the server from running

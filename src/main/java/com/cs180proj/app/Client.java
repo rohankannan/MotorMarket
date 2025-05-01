@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.SwingUtilities;
 
 /**
  * CS 18000 Group Project
@@ -18,6 +19,7 @@ import java.util.Scanner;
  *
  * @version April 4, 2025
  */
+
 
 public class Client implements ClientInterface {
 
@@ -239,11 +241,15 @@ public class Client implements ClientInterface {
      * Main method runs client on port 4242
      */
     public static void main(String[] args) {
+        /*
         Client client = new Client();
         try {
             client.startClient(4242);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        */
     }
+
+
 }
