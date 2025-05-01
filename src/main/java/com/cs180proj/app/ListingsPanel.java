@@ -2,46 +2,105 @@ package com.cs180proj.app;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class ListingsPanel extends JPanel {
-    private JTextArea listingsArea;
+    private JPanel listingsContainer;
+    private JScrollPane scrollPane;
     private NewClient client;
 
     public ListingsPanel(MainFrame mainFrame, NewClient client) {
         this.client = client;
+
         setLayout(new BorderLayout());
 
-        listingsArea = new JTextArea();
-        listingsArea.setEditable(false);
-        JScrollPane scroll = new JScrollPane(listingsArea);
-        add(scroll, BorderLayout.CENTER);
+        listingsContainer = new JPanel();
+        listingsContainer.setLayout(new BoxLayout(listingsContainer, BoxLayout.Y_AXIS));
+
+        scrollPane = new JScrollPane(listingsContainer);
+        add(scrollPane, BorderLayout.CENTER);
 
         JButton backButton = new JButton("Back");
+        backButton.addActionListener(e -> mainFrame.showPanel("Hub"));
         add(backButton, BorderLayout.SOUTH);
 
-        backButton.addActionListener(e -> mainFrame.showPanel("Hub"));
-
-        // 🔽 Add the AncestorListener HERE (at the end of constructor):
         this.addAncestorListener(new AncestorListenerAdapter() {
             @Override
             public void ancestorAdded(javax.swing.event.AncestorEvent event) {
-                refreshListings();
+                refreshListings(mainFrame);
             }
         });
     }
 
-    public void refreshListings() {
-        listingsArea.setText("");
+    public void refreshListings(MainFrame mainFrame) {
+        listingsContainer.removeAll();
         try {
             Object response = client.sendCommand("GET_LISTINGS");
             if (response instanceof ArrayList<?> listings) {
                 for (Object obj : listings) {
-                    listingsArea.append(obj.toString() + "\n\n");
+                    if (obj instanceof Listing listing) {
+                        listingsContainer.add(createListingCard(listing, mainFrame));
+                        listingsContainer.add(Box.createVerticalStrut(10));
+                    }
                 }
             }
         } catch (Exception e) {
-            listingsArea.setText("Error fetching listings: " + e.getMessage());
+            listingsContainer.add(new JLabel("Error loading listings: " + e.getMessage()));
         }
+
+        listingsContainer.revalidate();
+        listingsContainer.repaint();
+    }
+
+    private JPanel createListingCard(Listing listing, MainFrame mainFrame) {
+        JPanel card = new JPanel(new BorderLayout());
+        card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+        card.setPreferredSize(new Dimension(750, 150));
+        card.setMaximumSize(new Dimension(750, 150));
+        card.setBackground(Color.WHITE);
+
+        JLabel imageLabel = new JLabel();
+        try {
+            ImageIcon icon = new ImageIcon(new URL(listing.getPhotoURL()));
+            Image img = icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+            imageLabel.setIcon(new ImageIcon(img));
+        } catch (Exception e) {
+            imageLabel.setText("No Image");
+            imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            imageLabel.setPreferredSize(new Dimension(120, 120));
+        }
+
+        JTextArea info = new JTextArea();
+        info.setEditable(false);
+        info.setBackground(Color.WHITE);
+        info.setText(
+                "Seller: " + listing.getSeller() + "\n" +
+                        "Type: " + listing.getCarType() + "\n" +
+                        "Color: " + listing.getColor() + "\n" +
+                        "Mileage: " + listing.getMileage() + "\n" +
+                        "Accidents: " + listing.getAccidents() + "\n" +
+                        "Price: $" + listing.getPrice() + "\n" +
+                        "Manual: " + listing.isManual() + "\n" +
+                        "ID: " + listing.getListingID()
+        );
+
+        JButton messageButton = new JButton("Message Seller");
+        messageButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this,
+                    "Messaging feature coming soon for seller: " + listing.getSeller());
+        });
+
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        rightPanel.add(Box.createVerticalGlue());
+        rightPanel.add(messageButton);
+        rightPanel.add(Box.createVerticalGlue());
+
+        card.add(imageLabel, BorderLayout.WEST);
+        card.add(info, BorderLayout.CENTER);
+        card.add(rightPanel, BorderLayout.EAST);
+
+        return card;
     }
 }
