@@ -29,3 +29,16 @@ Currently, the project itself can't necessarily be run because there is no main 
 
 **Server.java** - Class contains three fields for the Database object to interact with the database, a ServerSocket object to listen for connections, and a boolean variable to check if the server is or is not running. This class has a constructor which takes no parameters and initializes this Database. Class contains six methods including a main method which runs on port 4242. There is a method which starts the server and listens for connections, a method which connects the server to the client and works with their communication, a method that checks if the clients command is recieved, a method which stops the server, and a getter method for the field isActive. 
 
+**AddListingPanel.java** -
+
+**AncestorListenerAdapter.java** -
+
+**HubPanel.java** -
+
+**LoginPanel.java** -
+
+**MainFrame.java** -
+
+**NewClient.java** -
+
+**RegistrationPanel.java** -
