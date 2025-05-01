@@ -29,6 +29,8 @@ public class MainFrame extends JFrame {
         mainPanel.add(new RegistrationPanel(this, client), "Register");
         mainPanel.add(new HubPanel(this, client), "Hub");
         mainPanel.add(new ListingsPanel(this, client), "Listings");
+        mainPanel.add(new AddListingPanel(this, client), "AddListing");
+
 
         add(mainPanel);
         cardLayout.show(mainPanel, "Login");

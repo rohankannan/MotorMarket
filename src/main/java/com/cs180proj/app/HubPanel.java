@@ -34,6 +34,7 @@ public class HubPanel extends JPanel {
 
         viewListingsButton.addActionListener(e -> mainFrame.showPanel("Listings"));
         addListingButton.addActionListener(e -> mainFrame.showPanel("AddListing"));
+
         logoutButton.addActionListener(e -> {
             mainFrame.setCurrentUser(null);
             mainFrame.showPanel("Login");

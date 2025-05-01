@@ -1,7 +1,10 @@
 package com.cs180proj.app;
 
-abstract class AncestorListenerAdapter implements javax.swing.event.AncestorListener {
-    public void ancestorAdded(javax.swing.event.AncestorEvent event) {}
-    public void ancestorRemoved(javax.swing.event.AncestorEvent event) {}
-    public void ancestorMoved(javax.swing.event.AncestorEvent event) {}
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+
+public abstract class AncestorListenerAdapter implements AncestorListener {
+    public void ancestorAdded(AncestorEvent event) {}
+    public void ancestorRemoved(AncestorEvent event) {}
+    public void ancestorMoved(AncestorEvent event) {}
 }

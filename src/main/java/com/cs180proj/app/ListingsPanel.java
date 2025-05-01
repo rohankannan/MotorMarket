@@ -5,10 +5,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ListingsPanel extends JPanel {
+    private JTextArea listingsArea;
+    private NewClient client;
+
     public ListingsPanel(MainFrame mainFrame, NewClient client) {
+        this.client = client;
         setLayout(new BorderLayout());
 
-        JTextArea listingsArea = new JTextArea();
+        listingsArea = new JTextArea();
         listingsArea.setEditable(false);
         JScrollPane scroll = new JScrollPane(listingsArea);
         add(scroll, BorderLayout.CENTER);
@@ -18,6 +22,17 @@ public class ListingsPanel extends JPanel {
 
         backButton.addActionListener(e -> mainFrame.showPanel("Hub"));
 
+        // 🔽 Add the AncestorListener HERE (at the end of constructor):
+        this.addAncestorListener(new AncestorListenerAdapter() {
+            @Override
+            public void ancestorAdded(javax.swing.event.AncestorEvent event) {
+                refreshListings();
+            }
+        });
+    }
+
+    public void refreshListings() {
+        listingsArea.setText("");
         try {
             Object response = client.sendCommand("GET_LISTINGS");
             if (response instanceof ArrayList<?> listings) {
