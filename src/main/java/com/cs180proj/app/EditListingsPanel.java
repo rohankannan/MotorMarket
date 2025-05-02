@@ -67,7 +67,7 @@ public class EditListingsPanel extends JPanel {
                 "ID: " + listing.getListingID() + "\n" +
                         "Type: " + listing.getCarType() + "\n" +
                         "Color: " + listing.getColor() + "\n" +
-                        "Price: $" + listing.getPrice()
+                        "Price: $" + String.format("%.2f", listing.getPrice())
         );
         info.setEditable(false);
         info.setBackground(Color.WHITE);
@@ -88,7 +88,7 @@ public class EditListingsPanel extends JPanel {
         JTextField urlField = new JTextField(listing.getPhotoURL());
         JTextField typeField = new JTextField(listing.getCarType());
         JTextField colorField = new JTextField(listing.getColor());
-        JTextField priceField = new JTextField(String.valueOf(listing.getPrice()));
+        JTextField priceField = new JTextField(String.format("%.2f", listing.getPrice()));
 
         Object[] fields = {
                 "Image URL:", urlField,

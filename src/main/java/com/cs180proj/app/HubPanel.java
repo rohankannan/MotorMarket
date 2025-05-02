@@ -14,16 +14,13 @@ public class HubPanel extends JPanel {
         this.client = client;
         setLayout(new BorderLayout());
 
-        // ===== TOP WELCOME =====
         welcomeLabel = new JLabel("Welcome to MotorMarket", SwingConstants.CENTER);
         welcomeLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
         welcomeLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         add(welcomeLabel, BorderLayout.NORTH);
 
-        // ===== MAIN CENTER AREA =====
         JPanel centerPanel = new JPanel(new GridLayout(1, 2));
 
-        // ===== LEFT: FEATURED LISTING =====
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
         leftPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 10));
@@ -48,16 +45,14 @@ public class HubPanel extends JPanel {
         leftPanel.add(captionLabel);
         centerPanel.add(leftPanel);
 
-        // ===== RIGHT: BUTTONS =====
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 20));
 
-        // Buttons
         JButton viewListingsButton = new JButton("View Listings");
         JButton addListingButton = new JButton("Add Listing");
         JButton editListingsButton = new JButton("Edit My Listings");
-        JButton profileButton = new JButton("My Profile"); // Future
+        JButton profileButton = new JButton("My Profile");
         JButton logoutButton = new JButton("Logout");
 
         Dimension btnSize = new Dimension(200, 40);
@@ -72,7 +67,6 @@ public class HubPanel extends JPanel {
         centerPanel.add(rightPanel);
         add(centerPanel, BorderLayout.CENTER);
 
-        // ===== Button actions =====
         viewListingsButton.addActionListener(e -> mainFrame.showPanel("Listings"));
         addListingButton.addActionListener(e -> mainFrame.showPanel("AddListing"));
         editListingsButton.addActionListener(e -> mainFrame.showPanel("EditListings"));
@@ -83,15 +77,12 @@ public class HubPanel extends JPanel {
             mainFrame.showPanel("Login");
         });
 
-        // ===== Refresh featured listing + greeting on panel show =====
         this.addAncestorListener(new AncestorListenerAdapter() {
             @Override
             public void ancestorAdded(javax.swing.event.AncestorEvent event) {
-                // Update greeting
                 User user = mainFrame.getCurrentUser();
                 welcomeLabel.setText("Welcome to MotorMarket, " + (user != null ? user.getUsername() : ""));
 
-                // Load random featured listing
                 try {
                     Object response = client.sendCommand("GET_LISTINGS");
                     if (response instanceof ArrayList<?> listings && !listings.isEmpty()) {
@@ -100,7 +91,7 @@ public class HubPanel extends JPanel {
                             ImageIcon icon = new ImageIcon(new URL(random.getPhotoURL()));
                             Image img = icon.getImage().getScaledInstance(380, 250, Image.SCALE_SMOOTH);
                             featuredImageLabel.setIcon(new ImageIcon(img));
-                            featuredImageLabel.setText(""); // clear fallback
+                            featuredImageLabel.setText("");
                         } catch (Exception ex) {
                             featuredImageLabel.setIcon(null);
                             featuredImageLabel.setText("No Image Available");

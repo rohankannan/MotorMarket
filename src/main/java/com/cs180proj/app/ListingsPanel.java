@@ -118,7 +118,7 @@ public class ListingsPanel extends JPanel {
                         "Color: " + listing.getColor() + "\n" +
                         "Mileage: " + listing.getMileage() + "\n" +
                         "Accidents: " + listing.getAccidents() + "\n" +
-                        "Price: $" + String.format("%.2d", listing.getPrice()) + "\n" +
+                        "Price: $" + String.format("%.2f", listing.getPrice()) + "\n" +
                         "Manual: " + listing.isManual() + "\n" +
                         "ID: " + listing.getListingID()
         );
