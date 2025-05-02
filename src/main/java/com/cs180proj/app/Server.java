@@ -144,6 +144,12 @@ public class Server implements ServerInterface, Serializable {
                 oos.writeObject("Listing added successfully.");
                 oos.flush();
             }
+            case "UPDATE_LISTING" -> {
+                Listing updated = (Listing) ois.readObject();
+                db.updateListing(updated);
+                oos.writeObject("Listing updated successfully.");
+                oos.flush();
+            }
             case "LOGIN" -> {
                 String username = (String) ois.readObject();
                 String password = (String) ois.readObject();

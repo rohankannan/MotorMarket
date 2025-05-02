@@ -10,15 +10,16 @@ public class MainFrame extends JFrame {
     private User currentUser;
 
     public MainFrame() {
-        setTitle("Car Marketplace");
-        setSize(800, 600);
+        setTitle("MotorMarket");
+        setSize(900, 675);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         try {
             client = new NewClient("localhost", 4242);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Could not connect to server: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Could not connect to server: "
+                    + e.getMessage());
             System.exit(1);
         }
 
@@ -30,6 +31,7 @@ public class MainFrame extends JFrame {
         mainPanel.add(new HubPanel(this, client), "Hub");
         mainPanel.add(new ListingsPanel(this, client), "Listings");
         mainPanel.add(new AddListingPanel(this, client), "AddListing");
+        mainPanel.add(new EditListingsPanel(this, client), "EditListings");
 
 
         add(mainPanel);

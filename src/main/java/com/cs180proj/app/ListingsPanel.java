@@ -9,6 +9,8 @@ public class ListingsPanel extends JPanel {
     private JPanel listingsContainer;
     private JScrollPane scrollPane;
     private NewClient client;
+    private JTextField searchField;
+    private ArrayList<Listing> allListings = new ArrayList<>();
 
     public ListingsPanel(MainFrame mainFrame, NewClient client) {
         this.client = client;
@@ -31,6 +33,32 @@ public class ListingsPanel extends JPanel {
                 refreshListings(mainFrame);
             }
         });
+
+        JPanel searchPanel = new JPanel(new BorderLayout());
+        searchField = new JTextField("search by keyword here");
+        searchField.setForeground(Color.GRAY);
+
+        searchField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (searchField.getText().equals("search by keyword here")) {
+                    searchField.setText("");
+                    searchField.setForeground(Color.BLACK);
+                }
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (searchField.getText().isEmpty()) {
+                    searchField.setForeground(Color.GRAY);
+                    searchField.setText("search by keyword here");
+                }
+            }
+        });
+
+        JButton searchButton = new JButton("Search");
+        searchButton.addActionListener(e -> filterListings(searchField.getText()));
+
+        searchPanel.add(searchField, BorderLayout.CENTER);
+        searchPanel.add(searchButton, BorderLayout.EAST);
+        add(searchPanel, BorderLayout.NORTH);
     }
 
     public void refreshListings(MainFrame mainFrame) {
@@ -38,10 +66,10 @@ public class ListingsPanel extends JPanel {
         try {
             Object response = client.sendCommand("GET_LISTINGS");
             if (response instanceof ArrayList<?> listings) {
+                allListings.clear();
                 for (Object obj : listings) {
-                    if (obj instanceof Listing listing) {
-                        listingsContainer.add(createListingCard(listing, mainFrame));
-                        listingsContainer.add(Box.createVerticalStrut(10));
+                    if (obj instanceof Listing l) {
+                        allListings.add(l);
                     }
                 }
             }
@@ -49,6 +77,15 @@ public class ListingsPanel extends JPanel {
             listingsContainer.add(new JLabel("Error loading listings: " + e.getMessage()));
         }
 
+        displayListings(allListings);
+    }
+
+    private void displayListings(ArrayList<Listing> listings) {
+        listingsContainer.removeAll();
+        for (Listing listing : listings) {
+            listingsContainer.add(createListingCard(listing, null));
+            listingsContainer.add(Box.createVerticalStrut(10));
+        }
         listingsContainer.revalidate();
         listingsContainer.repaint();
     }
@@ -63,7 +100,8 @@ public class ListingsPanel extends JPanel {
         JLabel imageLabel = new JLabel();
         try {
             ImageIcon icon = new ImageIcon(new URL(listing.getPhotoURL()));
-            Image img = icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+            Image img = icon.getImage().getScaledInstance(280, 140, Image.SCALE_SMOOTH);
+
             imageLabel.setIcon(new ImageIcon(img));
         } catch (Exception e) {
             imageLabel.setText("No Image");
@@ -102,5 +140,28 @@ public class ListingsPanel extends JPanel {
         card.add(rightPanel, BorderLayout.EAST);
 
         return card;
+    }
+
+    private void filterListings(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty() || keyword.equals("search by keyword here")) {
+            displayListings(allListings);
+            return;
+        }
+
+        String lowerKeyword = keyword.toLowerCase();
+        ArrayList<Listing> filtered = new ArrayList<>();
+
+        for (Listing l : allListings) {
+            if (l.getSeller().toLowerCase().contains(lowerKeyword) ||
+                    l.getCarType().toLowerCase().contains(lowerKeyword) ||
+                    l.getColor().toLowerCase().contains(lowerKeyword) ||
+                    String.valueOf(l.getMileage()).contains(lowerKeyword) ||
+                    String.valueOf(l.getPrice()).contains(lowerKeyword) ||
+                    l.getListingID().toLowerCase().contains(lowerKeyword)) {
+                filtered.add(l);
+            }
+        }
+
+        displayListings(filtered);
     }
 }

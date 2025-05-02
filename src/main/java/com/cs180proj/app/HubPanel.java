@@ -15,10 +15,13 @@ public class HubPanel extends JPanel {
         JButton viewListingsButton = new JButton("Browse Listings");
         JButton addListingButton = new JButton("Post Listing");
         JButton logoutButton = new JButton("Logout");
+        JButton editButton = new JButton("Edit My Listings");
 
         viewListingsButton.setPreferredSize(new Dimension(200, 40));
         addListingButton.setPreferredSize(new Dimension(200, 40));
         logoutButton.setPreferredSize(new Dimension(200, 40));
+        editButton.setPreferredSize(new Dimension(200, 40));
+
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
@@ -28,12 +31,16 @@ public class HubPanel extends JPanel {
         buttonPanel.add(Box.createVerticalStrut(20));
         buttonPanel.add(centerAlign(addListingButton));
         buttonPanel.add(Box.createVerticalStrut(20));
+        buttonPanel.add(centerAlign(editButton));
         buttonPanel.add(centerAlign(logoutButton));
 
         add(buttonPanel, BorderLayout.CENTER);
 
         viewListingsButton.addActionListener(e -> mainFrame.showPanel("Listings"));
         addListingButton.addActionListener(e -> mainFrame.showPanel("AddListing"));
+        editButton.addActionListener(e -> mainFrame.showPanel("EditListings"));
+
+
 
         logoutButton.addActionListener(e -> {
             mainFrame.setCurrentUser(null);
