@@ -19,7 +19,7 @@ public class MainFrameTestCase {
     
     /**  
     * Test cases for setCurrentUser method, getCurrentUser method, 
-    * getClient() method, showPanel() method, and valid title check.
+    * getClient() method, showPanel() method, getCurrentPanelName, and valid title check.
     * All test cases test constructor and fields of MainFrame class.
     */
     // Test case for setCurrentUser method, getCurrentUser method, constructor, and fields
@@ -72,7 +72,7 @@ public class MainFrameTestCase {
 
     // Test case for showPanel() method, constructor, and fields
     @Test
-    public void testShowPanel() throws Exception {
+    public void testShowPanelGetPanelName() throws Exception {
         Server server = new Server();
         Thread serverThread = new Thread(new Runnable() {
             public void run() {
@@ -86,6 +86,7 @@ public class MainFrameTestCase {
         Thread.sleep(200);
         MainFrame f = new MainFrame();
         f.showPanel("Login");
+        assertEquals("Login", f.getCurrentPanelName());
         f.showPanel("Register");
         f.showPanel("Hub");
         f.showPanel("Listings");
