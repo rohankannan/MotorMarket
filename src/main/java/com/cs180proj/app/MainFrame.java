@@ -11,7 +11,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         setTitle("MotorMarket");
-        setSize(900, 675);
+        setSize(800, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 

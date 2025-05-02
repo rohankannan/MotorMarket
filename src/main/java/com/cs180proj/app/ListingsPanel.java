@@ -35,12 +35,12 @@ public class ListingsPanel extends JPanel {
         });
 
         JPanel searchPanel = new JPanel(new BorderLayout());
-        searchField = new JTextField("search by keyword here");
+        searchField = new JTextField("Search by keyword here");
         searchField.setForeground(Color.GRAY);
 
         searchField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                if (searchField.getText().equals("search by keyword here")) {
+                if (searchField.getText().equals("Search by keyword here")) {
                     searchField.setText("");
                     searchField.setForeground(Color.BLACK);
                 }
@@ -48,7 +48,7 @@ public class ListingsPanel extends JPanel {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (searchField.getText().isEmpty()) {
                     searchField.setForeground(Color.GRAY);
-                    searchField.setText("search by keyword here");
+                    searchField.setText("Search by keyword here");
                 }
             }
         });
@@ -118,12 +118,18 @@ public class ListingsPanel extends JPanel {
                         "Color: " + listing.getColor() + "\n" +
                         "Mileage: " + listing.getMileage() + "\n" +
                         "Accidents: " + listing.getAccidents() + "\n" +
-                        "Price: $" + listing.getPrice() + "\n" +
+                        "Price: $" + String.format("%.2d", listing.getPrice()) + "\n" +
                         "Manual: " + listing.isManual() + "\n" +
                         "ID: " + listing.getListingID()
         );
 
         JButton messageButton = new JButton("Message Seller");
+        messageButton.putClientProperty("JButton.buttonType", "segmented-only");
+        /*
+        messageButton.setBackground(new Color(89,207,163));
+        messageButton.setOpaque(true);
+        messageButton.setBorderPainted(false);
+        */
         messageButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(this,
                     "Messaging feature coming soon for seller: " + listing.getSeller());
@@ -143,7 +149,7 @@ public class ListingsPanel extends JPanel {
     }
 
     private void filterListings(String keyword) {
-        if (keyword == null || keyword.trim().isEmpty() || keyword.equals("search by keyword here")) {
+        if (keyword == null || keyword.trim().isEmpty() || keyword.equals("Search by keyword here")) {
             displayListings(allListings);
             return;
         }

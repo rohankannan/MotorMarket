@@ -2,66 +2,115 @@ package com.cs180proj.app;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class HubPanel extends JPanel {
+    private NewClient client;
+    private JLabel welcomeLabel;
 
     public HubPanel(MainFrame mainFrame, NewClient client) {
+        this.client = client;
         setLayout(new BorderLayout());
 
-        JLabel welcomeLabel = new JLabel("", SwingConstants.CENTER);
-        welcomeLabel.setFont(new Font("Helvetica", Font.BOLD, 24));
+        // ===== TOP WELCOME =====
+        welcomeLabel = new JLabel("Welcome to MotorMarket", SwingConstants.CENTER);
+        welcomeLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
+        welcomeLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         add(welcomeLabel, BorderLayout.NORTH);
 
-        JButton viewListingsButton = new JButton("Browse Listings");
-        JButton addListingButton = new JButton("Post Listing");
+        // ===== MAIN CENTER AREA =====
+        JPanel centerPanel = new JPanel(new GridLayout(1, 2));
+
+        // ===== LEFT: FEATURED LISTING =====
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+        leftPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 10));
+
+        JLabel featuredTitle = new JLabel("Featured Listing:");
+        featuredTitle.setFont(new Font("SansSerif", Font.BOLD, 18));
+        featuredTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel featuredImageLabel = new JLabel();
+        featuredImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        featuredImageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        featuredImageLabel.setPreferredSize(new Dimension(380, 250));
+
+        JLabel captionLabel = new JLabel("", SwingConstants.CENTER);
+        captionLabel.setFont(new Font("SansSerif", Font.ITALIC, 16));
+        captionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        captionLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+
+        leftPanel.add(featuredTitle);
+        leftPanel.add(Box.createVerticalStrut(10));
+        leftPanel.add(featuredImageLabel);
+        leftPanel.add(captionLabel);
+        centerPanel.add(leftPanel);
+
+        // ===== RIGHT: BUTTONS =====
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        rightPanel.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 20));
+
+        // Buttons
+        JButton viewListingsButton = new JButton("View Listings");
+        JButton addListingButton = new JButton("Add Listing");
+        JButton editListingsButton = new JButton("Edit My Listings");
+        JButton profileButton = new JButton("My Profile"); // Future
         JButton logoutButton = new JButton("Logout");
-        JButton editButton = new JButton("Edit My Listings");
 
-        viewListingsButton.setPreferredSize(new Dimension(200, 40));
-        addListingButton.setPreferredSize(new Dimension(200, 40));
-        logoutButton.setPreferredSize(new Dimension(200, 40));
-        editButton.setPreferredSize(new Dimension(200, 40));
+        Dimension btnSize = new Dimension(200, 40);
+        for (JButton btn : new JButton[]{viewListingsButton, addListingButton, editListingsButton, profileButton, logoutButton}) {
+            btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+            btn.setMaximumSize(btnSize);
+            btn.setPreferredSize(btnSize);
+            rightPanel.add(Box.createVerticalStrut(15));
+            rightPanel.add(btn);
+        }
 
+        centerPanel.add(rightPanel);
+        add(centerPanel, BorderLayout.CENTER);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
-        buttonPanel.add(Box.createVerticalStrut(20));
-        buttonPanel.add(centerAlign(viewListingsButton));
-        buttonPanel.add(Box.createVerticalStrut(20));
-        buttonPanel.add(centerAlign(addListingButton));
-        buttonPanel.add(Box.createVerticalStrut(20));
-        buttonPanel.add(centerAlign(editButton));
-        buttonPanel.add(centerAlign(logoutButton));
-
-        add(buttonPanel, BorderLayout.CENTER);
-
+        // ===== Button actions =====
         viewListingsButton.addActionListener(e -> mainFrame.showPanel("Listings"));
         addListingButton.addActionListener(e -> mainFrame.showPanel("AddListing"));
-        editButton.addActionListener(e -> mainFrame.showPanel("EditListings"));
-
-
-
+        editListingsButton.addActionListener(e -> mainFrame.showPanel("EditListings"));
+        profileButton.addActionListener(e ->
+                JOptionPane.showMessageDialog(this, "Profile page coming soon!"));
         logoutButton.addActionListener(e -> {
             mainFrame.setCurrentUser(null);
             mainFrame.showPanel("Login");
         });
 
+        // ===== Refresh featured listing + greeting on panel show =====
         this.addAncestorListener(new AncestorListenerAdapter() {
             @Override
             public void ancestorAdded(javax.swing.event.AncestorEvent event) {
+                // Update greeting
                 User user = mainFrame.getCurrentUser();
-                if (user != null) {
-                    welcomeLabel.setText("Welcome, " + user.getUsername() + "!");
+                welcomeLabel.setText("Welcome to MotorMarket, " + (user != null ? user.getUsername() : ""));
+
+                // Load random featured listing
+                try {
+                    Object response = client.sendCommand("GET_LISTINGS");
+                    if (response instanceof ArrayList<?> listings && !listings.isEmpty()) {
+                        Listing random = (Listing) listings.get(new Random().nextInt(listings.size()));
+                        try {
+                            ImageIcon icon = new ImageIcon(new URL(random.getPhotoURL()));
+                            Image img = icon.getImage().getScaledInstance(380, 250, Image.SCALE_SMOOTH);
+                            featuredImageLabel.setIcon(new ImageIcon(img));
+                            featuredImageLabel.setText(""); // clear fallback
+                        } catch (Exception ex) {
+                            featuredImageLabel.setIcon(null);
+                            featuredImageLabel.setText("No Image Available");
+                        }
+                        captionLabel.setText("<html><i>" + random.getCarType() + " - " + random.getColor() + "</i></html>");
+                    }
+                } catch (Exception e) {
+                    captionLabel.setText("No listings available.");
                 }
             }
         });
-    }
-
-    private JPanel centerAlign(JComponent comp) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        panel.add(comp);
-        return panel;
     }
 }
