@@ -56,12 +56,11 @@ public class Database implements DatabaseInterface {
      * @param listing the listing object to write to file
      */
     @Override
-    public void writeListingData(Listing listing) {
+    public void writeListingData(Listing listing) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(LISTING_FILE, true))) {
-            writer.write(listing.toString());
+            writer.write(serializeListing(listing));
             writer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
+            writer.flush();
         }
     }
 
@@ -188,5 +187,19 @@ public class Database implements DatabaseInterface {
             }
         }
         overwriteListingData(all);
+    }
+
+    private String serializeListing(Listing l) {
+        return String.join(",",
+                l.getSeller(),
+                l.getPhotoURL(),
+                l.getCarType(),
+                l.getColor(),
+                String.valueOf(l.getMileage()),
+                String.valueOf(l.getAccidents()),
+                String.valueOf(l.getPrice()),
+                String.valueOf(l.isManual()),
+                l.getListingID()
+        );
     }
 }
