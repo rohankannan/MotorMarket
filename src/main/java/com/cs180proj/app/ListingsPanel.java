@@ -1,9 +1,25 @@
 package com.cs180proj.app;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
 import java.net.URL;
 import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 
 public class ListingsPanel extends JPanel {
     private JPanel listingsContainer;
@@ -30,7 +46,13 @@ public class ListingsPanel extends JPanel {
         this.addAncestorListener(new AncestorListenerAdapter() {
             @Override
             public void ancestorAdded(javax.swing.event.AncestorEvent event) {
-                refreshListings(mainFrame);
+                new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() {
+                        refreshListings(mainFrame);
+                        return null;
+                    }
+                }.execute();
             }
         });
 

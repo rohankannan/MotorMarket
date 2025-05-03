@@ -33,7 +33,8 @@ public class ListingsPanelTestCase {
             public void run() {
                 try {
                     server.startServer(4242);
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
             }
         });
         serverThread.start();
@@ -96,7 +97,8 @@ public class ListingsPanelTestCase {
             public void run() {
                 try {
                     server.startServer(4242);
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
             }
         });
         serverThread.start();
