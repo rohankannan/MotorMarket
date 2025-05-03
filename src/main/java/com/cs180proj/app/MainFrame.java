@@ -1,13 +1,18 @@
 package com.cs180proj.app;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.CardLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class MainFrame extends JFrame {
     private CardLayout cardLayout;
     private JPanel mainPanel;
     private NewClient client;
     private User currentUser;
+    private String currentPanelName;
 
     public MainFrame() {
         setTitle("MotorMarket");
@@ -41,6 +46,7 @@ public class MainFrame extends JFrame {
 
     public void showPanel(String name) {
         cardLayout.show(mainPanel, name);
+        currentPanelName = name;
     }
 
     public void setCurrentUser(User user) {
@@ -53,6 +59,10 @@ public class MainFrame extends JFrame {
 
     public NewClient getClient() {
         return client;
+    }
+
+    public String getCurrentPanelName() {
+        return currentPanelName;
     }
 
     public static void main(String[] args) {
