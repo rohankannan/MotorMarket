@@ -23,7 +23,7 @@ import javax.swing.JTextField;
  *
  * @version May 3, 2025
  */
-public class AddListingPanel extends JPanel {
+public class AddListingPanel extends JPanel implements AddListingPanelInterface {
 
     private JTextField urlField = new JTextField(15);
     private JTextField typeField = new JTextField(15);
@@ -102,7 +102,7 @@ public class AddListingPanel extends JPanel {
         });
     }
 
-    private void addField(String label, JTextField field, GridBagConstraints gbc, int row) {
+    public void addField(String label, JTextField field, GridBagConstraints gbc, int row) {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridx = 0; gbc.gridy = row; gbc.gridwidth = 1;
         add(new JLabel(label), gbc);
