@@ -31,7 +31,7 @@ import javax.swing.SwingConstants;
  *
  * @version May 3, 2025
  */
-public class EditListingsPanel extends JPanel {
+public class EditListingsPanel extends JPanel implements EditListingPanelInterface {
     private NewClient client;
 
     public EditListingsPanel(MainFrame mainFrame, NewClient client) {
@@ -71,7 +71,7 @@ public class EditListingsPanel extends JPanel {
         });
     }
 
-    private JPanel createEditableCard(Listing listing, MainFrame mainFrame) {
+    public JPanel createEditableCard(Listing listing, MainFrame mainFrame) {
         JPanel card = new JPanel(new BorderLayout());
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         card.setPreferredSize(new Dimension(750, 150));
@@ -110,7 +110,7 @@ public class EditListingsPanel extends JPanel {
         return card;
     }
 
-    private void openEditing(Listing listing, MainFrame mainFrame) {
+    public void openEditing(Listing listing, MainFrame mainFrame) {
         JTextField urlField = new JTextField(listing.getPhotoURL());
         JTextField typeField = new JTextField(listing.getCarType());
         JTextField colorField = new JTextField(listing.getColor());
