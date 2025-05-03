@@ -1,11 +1,37 @@
 package com.cs180proj.app;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+/**
+ * CS 18000 Group Project
+ *
+ * HubPanel in GUI system which acts as
+ * an intermediary panel to access other
+ * subpanels in the system.
+ *
+ * @author (Rohan Kannan, Alistair Joseph,
+ * Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version May 3, 2025
+ */
 public class HubPanel extends JPanel {
     private NewClient client;
     private JLabel welcomeLabel;

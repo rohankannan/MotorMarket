@@ -1,8 +1,27 @@
 package com.cs180proj.app;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+/**
+ * CS 18000 Group Project
+ *
+ * LoginPanel in GUI system which allows
+ * user to log into their account or create
+ * a new one if they dont have one
+ *
+ * @author (Rohan Kannan, Alistair Joseph,
+ * Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version May 3, 2025
+ */
 public class LoginPanel extends JPanel {
     public LoginPanel(MainFrame mainFrame, NewClient client) {
         setLayout(new GridBagLayout());

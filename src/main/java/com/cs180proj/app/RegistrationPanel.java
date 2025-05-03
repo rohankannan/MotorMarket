@@ -1,8 +1,26 @@
 package com.cs180proj.app;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+/**
+ * CS 18000 Group Project
+ *
+ * RegistrationPanel in GUI system allows for
+ * users to create a new account and add it to
+ * the collective user database file.
+ *
+ * @author (Rohan Kannan, Alistair Joseph,
+ * Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version May 3, 2025
+ */
 public class RegistrationPanel extends JPanel {
     public RegistrationPanel(MainFrame mainFrame, NewClient client) {
         setLayout(new GridBagLayout());

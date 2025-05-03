@@ -4,7 +4,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-
+/**
+ * CS 18000 Group Project
+ *
+ * NewClient class sends commands to server
+ * to properly send actions and open GUI
+ * panels.
+ *
+ * @author (Rohan Kannan, Alistair Joseph,
+ * Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version May 3, 2025
+ */
 public class NewClient {
     private Socket socket;
     private ObjectOutputStream oos;

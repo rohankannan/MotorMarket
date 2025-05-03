@@ -1,10 +1,28 @@
 package com.cs180proj.app;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.UUID;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
+/**
+ * CS 18000 Group Project
+ *
+ * AddListingPanel in GUI system which allows
+ * user to add listing
+ *
+ * @author (Rohan Kannan, Alistair Joseph,
+ * Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version May 3, 2025
+ */
 public class AddListingPanel extends JPanel {
 
     private JTextField urlField = new JTextField(15);

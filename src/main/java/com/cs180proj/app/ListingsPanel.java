@@ -7,8 +7,31 @@ import java.awt.Image;
 import java.net.URL;
 import java.util.ArrayList;
 
-import javax.swing.*;
-
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+/**
+ * CS 18000 Group Project
+ *
+ * ListingsPanel in GUI system which allows
+ * user to view all avaliable listings
+ *
+ * @author (Rohan Kannan, Alistair Joseph,
+ * Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version May 3, 2025
+ */
 public class ListingsPanel extends JPanel {
     private JPanel listingsContainer;
     private JScrollPane scrollPane;

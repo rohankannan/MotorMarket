@@ -6,7 +6,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
+/**
+ * CS 18000 Group Project
+ *
+ * MainFrame in GUI system serves as the
+ * frame which all panels go onto.
+ *
+ * @author (Rohan Kannan, Alistair Joseph,
+ * Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version May 3, 2025
+ */
 public class MainFrame extends JFrame {
     private CardLayout cardLayout;
     private JPanel mainPanel;
