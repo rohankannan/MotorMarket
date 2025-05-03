@@ -7,19 +7,7 @@ import java.awt.Image;
 import java.net.URL;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.SwingWorker;
+import javax.swing.*;
 
 public class ListingsPanel extends JPanel {
     private JPanel listingsContainer;
@@ -85,21 +73,39 @@ public class ListingsPanel extends JPanel {
 
     public void refreshListings(MainFrame mainFrame) {
         listingsContainer.removeAll();
-        try {
-            Object response = client.sendCommand("GET_LISTINGS");
-            if (response instanceof ArrayList<?> listings) {
-                allListings.clear();
-                for (Object obj : listings) {
-                    if (obj instanceof Listing l) {
-                        allListings.add(l);
+        listingsContainer.add(new JLabel("Loading listings..."));
+        listingsContainer.revalidate();
+        listingsContainer.repaint();
+
+        new SwingWorker<ArrayList<Listing>, Void>() {
+            @Override
+            protected ArrayList<Listing> doInBackground() {
+                try {
+                    Object response = client.sendCommand("GET_LISTINGS");
+                    if (response instanceof ArrayList<?> rawList) {
+                        ArrayList<Listing> result = new ArrayList<>();
+                        for (Object o : rawList) {
+                            if (o instanceof Listing l) result.add(l);
+                        }
+                        return result;
                     }
+                } catch (Exception ignored) {}
+                return new ArrayList<>();
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    allListings = get();
+                    displayListings(allListings);
+                } catch (Exception e) {
+                    listingsContainer.removeAll();
+                    listingsContainer.add(new JLabel("Error loading listings."));
+                    listingsContainer.revalidate();
+                    listingsContainer.repaint();
                 }
             }
-        } catch (Exception e) {
-            listingsContainer.add(new JLabel("Error loading listings: " + e.getMessage()));
-        }
-
-        displayListings(allListings);
+        }.execute();
     }
 
     private void displayListings(ArrayList<Listing> listings) {
@@ -119,17 +125,24 @@ public class ListingsPanel extends JPanel {
         card.setMaximumSize(new Dimension(750, 150));
         card.setBackground(Color.WHITE);
 
-        JLabel imageLabel = new JLabel();
-        try {
-            ImageIcon icon = new ImageIcon(new URL(listing.getPhotoURL()));
-            Image img = icon.getImage().getScaledInstance(280, 140, Image.SCALE_SMOOTH);
+        JLabel imageLabel = new JLabel("Loading...");
+        imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        imageLabel.setPreferredSize(new Dimension(280, 140));
 
-            imageLabel.setIcon(new ImageIcon(img));
-        } catch (Exception e) {
-            imageLabel.setText("No Image");
-            imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            imageLabel.setPreferredSize(new Dimension(120, 120));
-        }
+        new Thread(() -> {
+            try {
+                ImageIcon icon = new ImageIcon(new URL(listing.getPhotoURL()));
+                Image img = icon.getImage().getScaledInstance(280, 140, Image.SCALE_SMOOTH);
+                SwingUtilities.invokeLater(() -> {
+                    imageLabel.setText("");
+                    imageLabel.setIcon(new ImageIcon(img));
+                });
+            } catch (Exception e) {
+                SwingUtilities.invokeLater(() -> {
+                    imageLabel.setText("No Image");
+                });
+            }
+        }).start();
 
         JTextArea info = new JTextArea();
         info.setEditable(false);
@@ -147,11 +160,6 @@ public class ListingsPanel extends JPanel {
 
         JButton messageButton = new JButton("Message Seller");
         messageButton.putClientProperty("JButton.buttonType", "segmented-only");
-        /*
-        messageButton.setBackground(new Color(89,207,163));
-        messageButton.setOpaque(true);
-        messageButton.setBorderPainted(false);
-        */
         messageButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(this,
                     "Messaging feature coming soon for seller: " + listing.getSeller());
@@ -169,6 +177,7 @@ public class ListingsPanel extends JPanel {
 
         return card;
     }
+
 
     private void filterListings(String keyword) {
         if (keyword == null || keyword.trim().isEmpty() || keyword.equals("Search by keyword here")) {

@@ -6,17 +6,26 @@ import java.util.UUID;
 
 
 public class AddListingPanel extends JPanel {
+
+    private JTextField urlField = new JTextField(15);
+    private JTextField typeField = new JTextField(15);
+    private JTextField colorField = new JTextField(15);
+    private JTextField mileageField = new JTextField(15);
+    private JTextField accidentsField = new JTextField(15);
+    private JTextField priceField = new JTextField(15);
+    private JCheckBox manualBox = new JCheckBox("Manual Transmission");
+
     public AddListingPanel(MainFrame mainFrame, NewClient client) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        JTextField urlField = new JTextField(15);
-        JTextField typeField = new JTextField(15);
-        JTextField colorField = new JTextField(15);
-        JTextField mileageField = new JTextField(15);
-        JTextField accidentsField = new JTextField(15);
-        JTextField priceField = new JTextField(15);
-        JCheckBox manualBox = new JCheckBox("Manual Transmission");
+        urlField = new JTextField(15);
+        typeField = new JTextField(15);
+        colorField = new JTextField(15);
+        mileageField = new JTextField(15);
+        accidentsField = new JTextField(15);
+        priceField = new JTextField(15);
+        manualBox = new JCheckBox("Manual Transmission");
         String generatedID = UUID.randomUUID().toString().substring(0, 8);
         JLabel idLabel = new JLabel(generatedID);
         JButton submitButton = new JButton("Submit Listing");
@@ -66,6 +75,13 @@ public class AddListingPanel extends JPanel {
         });
 
         backButton.addActionListener(e -> mainFrame.showPanel("Hub"));
+
+        this.addAncestorListener(new AncestorListenerAdapter() {
+            @Override
+            public void ancestorAdded(javax.swing.event.AncestorEvent event) {
+                resetFields();
+            }
+        });
     }
 
     private void addField(String label, JTextField field, GridBagConstraints gbc, int row) {
@@ -74,5 +90,15 @@ public class AddListingPanel extends JPanel {
         add(new JLabel(label), gbc);
         gbc.gridx = 1;
         add(field, gbc);
+    }
+
+    public void resetFields() {
+        urlField.setText("");
+        typeField.setText("");
+        colorField.setText("");
+        mileageField.setText("");
+        accidentsField.setText("");
+        priceField.setText("");
+        manualBox.setSelected(false);
     }
 }

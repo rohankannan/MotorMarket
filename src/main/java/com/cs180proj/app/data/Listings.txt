@@ -3,3 +3,6 @@ jojo,https://issimi-vehicles-cdn.b-cdn.net/publicamlvehiclemanagement/VehicleDet
 sc30,https://pictures.dealer.com/t/toyotaofbrookfield/1968/6815c561d538d64092dc3c49c03742e0x.jpg?impolicy=resize&w=640,Toyota Corolla,Silver,2321,0,15000.0,false,5d6ed083
 draymond,https://www.ilusso.com/imagetag/3303/main/l/Used-2023-Porsche-911-GT3-RS-1725405580.jpg,Porsche 911 GT3 RS,Electric Blue,1000,0,102731.0,true,f90dc174
 villain,https://moderncarcollector.com/wp-content/uploads/2024/06/Screen-Shot-2024-06-10-at-6.04.51-PM.png,Koenigsegg Jesko,Green,0,0,3900000.0,true,ff618bb5
+labrador,https://www.edmunds.com/assets/m/for-sale/6d-wby2z2c56fv391067/img-1-600x400.jpg,BMW i8,Black,0,0,83019.0,false,3c1c21b8
+penguin,https://images-stag.jazelc.com/uploads/theautopian-m2en/exterior0-2.jpg,Ford Mustang GT,Orange,2812,0,77251.87,true,3c1c21b8
+penguin,https://thehamiltoncollection.com/cdn/shop/articles/ev-22_1.jpg?v=1738216710,Bugatti Chiron SS,Gray,0,0,8.17,true,3692e07c
