@@ -17,5 +17,15 @@ public class Chat implements Serializable {
         return sender + "," +  recipient + "," + message;
     }
 
+    public String getSender() {
+        return sender;
+    }
+    public String getRecipient() {
+        return recipient;
+    }
+    public String getMessage() {
+        return message;
+    }
+
 
 }

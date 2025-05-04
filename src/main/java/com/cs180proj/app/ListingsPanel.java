@@ -186,7 +186,7 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
         messageButton.putClientProperty("JButton.buttonType", "segmented-only");
         messageButton.addActionListener(e -> {
             ChatPanel chatPanel = new ChatPanel(mf, client, listing.getSeller(), mf.getCurrentUser());
-            mf.add(chatPanel, "Chat");
+            mf.mainPanel.add(chatPanel, "Chat");
             mf.showPanel("Chat");
         });
 

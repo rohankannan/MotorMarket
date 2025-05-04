@@ -1,13 +1,21 @@
 package com.cs180proj.app;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatPanel extends JPanel {
     private NewClient client;
     private MainFrame mainFrame;
     private String recipient;
     private User sender;
+    private JTextArea chatArea;
+    private SwingWorker<Void, String> chatUpdater;
 
     public ChatPanel(MainFrame mainFrame, NewClient client, String recipient, User sender)
     {
@@ -15,17 +23,33 @@ public class ChatPanel extends JPanel {
         this.mainFrame = mainFrame;
         this.recipient = recipient;
         this.sender = sender;
+        setLayout(new BorderLayout());
+        JLabel titleLabel = new JLabel("Chat with " + recipient, SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Optional: Set font style and size
+        add(titleLabel, BorderLayout.NORTH);
 
-        JTextArea chatArea = new JTextArea(20, 50);
+        JPanel chatContent = new JPanel();
+        chatContent.setLayout(new BoxLayout(chatContent, BoxLayout.Y_AXIS));
+        add(chatContent, BorderLayout.CENTER);
+
+        chatArea = new JTextArea(20, 50);
         chatArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(chatArea);
-        add(scrollPane);
+        chatContent.add(scrollPane);
 
+        chatArea.setLineWrap(true);
         JTextField messageField = new JTextField(50);
-        add(messageField);
+        messageField.setPreferredSize(new Dimension((int) chatArea.getPreferredScrollableViewportSize().getWidth(), 25));
+        chatContent.add(messageField);
 
+        JPanel buttonPanel = new JPanel(new BorderLayout());
         JButton sendButton = new JButton("Send");
-        add(sendButton);
+        JButton backButton = new JButton("Back");
+
+        buttonPanel.add(backButton, BorderLayout.WEST);
+        buttonPanel.add(sendButton, BorderLayout.EAST);
+
+        add(buttonPanel, BorderLayout.SOUTH);
 
         sendButton.addActionListener(e -> {
             String message = messageField.getText();
@@ -36,13 +60,59 @@ public class ChatPanel extends JPanel {
                 } catch (Exception a) {
                     a.printStackTrace();
                 }
+                messageField.setText("");
 
             }
 
         });
-        JButton backButton = new JButton("Back");
-        add(backButton);
+
         backButton.addActionListener(e -> mainFrame.showPanel("Listings"));
+        startChatUpdater(sender.getUsername(), recipient);
 
     }
+
+    private void startChatUpdater(String sender, String recipient) {
+        chatUpdater = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() {
+                while (!isCancelled()) {
+                    try {
+
+                        Object response = client.sendCommand("GET_CHAT");
+                        System.out.println("Response: " + response.getClass());
+                        ArrayList<Chat> chats = (ArrayList<Chat>) response;
+                        chatArea.setText(""); // Clear the chat area before updating
+                        for (Chat chat : chats) {
+                            if ((chat.getSender().equals(sender) && chat.getRecipient().equals(recipient)) ||
+                                    (chat.getSender().equals(recipient) && chat.getRecipient().equals(sender))) {
+                                chatArea.append(chat.getSender() + ": " + chat.getMessage() + "\n");
+                            }
+                        }
+                        Thread.sleep(1000); // Update every second
+                    } catch (Exception e) {
+                        System.out.println("oops");
+
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void process(List<String> messages) {
+                for (String message : messages) {
+                    chatArea.append(message + "\n");
+                }
+            }
+        };
+        chatUpdater.execute();
+    }
+
+    @Override
+    public void removeNotify() {
+        super.removeNotify();
+        if (chatUpdater != null) {
+            chatUpdater.cancel(true);
+        }
+    }
+
 }

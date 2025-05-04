@@ -19,7 +19,7 @@ import javax.swing.SwingUtilities;
  */
 public class MainFrame extends JFrame implements MainFrameInterface {
     private CardLayout cardLayout;
-    private JPanel mainPanel;
+    public JPanel mainPanel;
     private NewClient client;
     private User currentUser;
     private String currentPanelName;
