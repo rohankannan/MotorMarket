@@ -73,25 +73,29 @@ public class ChatPanel extends JPanel {
 
     private void startChatUpdater(String sender, String recipient) {
         chatUpdater = new SwingWorker<>() {
+            private long lastUpdated = 0; // Track the last update time
+
             @Override
             protected Void doInBackground() {
                 while (!isCancelled()) {
                     try {
-
-                        Object response = client.sendCommand("GET_CHAT");
-                        System.out.println("Response: " + response.getClass());
+                        Object response = client.sendCommand("GET_CHAT", lastUpdated);
                         ArrayList<Chat> chats = (ArrayList<Chat>) response;
-                        chatArea.setText(""); // Clear the chat area before updating
+
                         for (Chat chat : chats) {
                             if ((chat.getSender().equals(sender) && chat.getRecipient().equals(recipient)) ||
                                     (chat.getSender().equals(recipient) && chat.getRecipient().equals(sender))) {
-                                chatArea.append(chat.getSender() + ": " + chat.getMessage() + "\n");
+                                publish(chat.getSender() + ": " + chat.getMessage());
                             }
                         }
+
+                        if (!chats.isEmpty()) {
+                            lastUpdated = chats.get(chats.size() - 1).getTimestamp(); // Update the lastUpdated timestamp
+                        }
+
                         Thread.sleep(1000); // Update every second
                     } catch (Exception e) {
-                        System.out.println("oops");
-
+                        e.printStackTrace();
                     }
                 }
                 return null;

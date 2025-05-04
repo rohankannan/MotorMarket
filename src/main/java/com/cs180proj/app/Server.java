@@ -137,8 +137,17 @@ public class Server implements ServerInterface, Serializable {
                     oos.flush();
                 }
                 case "GET_CHAT" -> {
+                    long lastUpdated = (long) ois.readObject(); // Read the lastUpdated timestamp
                     ArrayList<Chat> chats = db.readChatData("src/main/java/com/cs180proj/app/data/Chatlog.txt");
-                    oos.writeObject(chats);
+                    ArrayList<Chat> newChats = new ArrayList<>();
+
+                    for (Chat chat : chats) {
+                        if (chat.getTimestamp() > lastUpdated) { // Filter messages by timestamp
+                            newChats.add(chat);
+                        }
+                    }
+
+                    oos.writeObject(newChats); // Send only new messages
                     oos.flush();
                 }
                 case "ADD_CHAT" -> {

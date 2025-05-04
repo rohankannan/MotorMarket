@@ -220,12 +220,14 @@ public class Database implements DatabaseInterface {
             String sender = "";
             String recipient = "";
             String message = "";
+            Long timestamp = 0L;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 sender = parts[0];
                 recipient = parts[1];
                 message = parts[2];
-                chats.add(new Chat(sender, recipient, message));
+                timestamp = Long.parseLong(parts[3]);
+                chats.add(new Chat(sender, recipient, message, timestamp));
             }
         } catch (IOException e) {
             e.printStackTrace();
