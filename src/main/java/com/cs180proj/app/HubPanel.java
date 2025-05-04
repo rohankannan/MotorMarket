@@ -32,7 +32,7 @@ import javax.swing.SwingConstants;
  *
  * @version May 3, 2025
  */
-public class HubPanel extends JPanel {
+public class HubPanel extends JPanel implements HubPanelInterface {
     private NewClient client;
     private JLabel welcomeLabel;
 

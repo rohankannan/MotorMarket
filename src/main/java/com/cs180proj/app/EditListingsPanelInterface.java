@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 /**
  * CS 18000 Group Project
  *
- * Interface for Client class which contains all
+ * Interface for EditListingsPanel class which contains all
  * methods and fields.
  *
  * @author (Rohan Kannan, Alistair Joseph,

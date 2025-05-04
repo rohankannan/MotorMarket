@@ -16,7 +16,7 @@ import java.net.Socket;
  *
  * @version May 3, 2025
  */
-public class NewClient {
+public class NewClient implements NewClientInterface {
     private Socket socket;
     private ObjectOutputStream oos;
     private ObjectInputStream ois;

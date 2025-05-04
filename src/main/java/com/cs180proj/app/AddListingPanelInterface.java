@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * CS 18000 Group Project
  *
- * Interface for Client class which contains all
+ * Interface for AddListingPanel class which contains all
  * methods and fields.
  *
  * @author (Rohan Kannan, Alistair Joseph,
