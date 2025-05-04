@@ -132,7 +132,7 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
         }.execute();
     }
 
-    private void displayListings(ArrayList<Listing> listings) {
+    public void displayListings(ArrayList<Listing> listings) {
         listingsContainer.removeAll();
         for (Listing listing : listings) {
             listingsContainer.add(createListingCard(listing));
@@ -142,7 +142,7 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
         listingsContainer.repaint();
     }
 
-    private JPanel createListingCard(Listing listing) {
+    public JPanel createListingCard(Listing listing) {
         JPanel card = new JPanel(new BorderLayout());
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         card.setPreferredSize(new Dimension(750, 150));
@@ -186,7 +186,7 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
         messageButton.putClientProperty("JButton.buttonType", "segmented-only");
         messageButton.addActionListener(e -> {
             ChatPanel chatPanel = new ChatPanel(mf, client, listing.getSeller(), mf.getCurrentUser());
-            mf.mainPanel.add(chatPanel, "Chat");
+            mf.add(chatPanel, "Chat");
             mf.showPanel("Chat");
         });
 
@@ -204,7 +204,7 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
     }
 
 
-    private void filterListings(String keyword) {
+    public void filterListings(String keyword) {
         if (keyword == null || keyword.trim().isEmpty() || keyword.equals("Search by keyword here")) {
             displayListings(allListings);
             return;

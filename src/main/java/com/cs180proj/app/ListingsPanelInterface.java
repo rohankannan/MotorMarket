@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 public interface ListingsPanelInterface {
 
-    void refreshListings(MainFrame mainFrame);
+    void refreshListings();
     void displayListings(ArrayList<Listing> listings);
-    JPanel createListingCard(Listing listing, MainFrame mainFrame);
+    JPanel createListingCard(Listing listing);
     void filterListings(String keyword);
 
 }

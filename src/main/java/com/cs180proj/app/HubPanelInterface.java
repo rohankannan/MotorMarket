@@ -18,6 +18,6 @@ import java.awt.*;
 
  public interface HubPanelInterface {
 
-    JPanel centerAlign(JComponent comp);
+    // JPanel centerAlign(JComponent comp); commented out by Rohan because there is currently no related method
     
  }
