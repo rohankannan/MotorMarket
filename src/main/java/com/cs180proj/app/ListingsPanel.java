@@ -105,7 +105,7 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
             @Override
             protected ArrayList<Listing> doInBackground() {
                 try {
-                    Object response = client.sendCommand("GET_LISTINGS");
+                    Object response = client.sendCommand("GET_LISTINGS", mf.getCurrentUser().getUsername());
                     if (response instanceof ArrayList<?> rawList) {
                         ArrayList<Listing> result = new ArrayList<>();
                         for (Object o : rawList) {

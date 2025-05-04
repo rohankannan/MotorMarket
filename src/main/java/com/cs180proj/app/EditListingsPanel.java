@@ -52,7 +52,7 @@ public class EditListingsPanel extends JPanel implements EditListingsPanelInterf
             public void ancestorAdded(javax.swing.event.AncestorEvent event) {
                 listingsContainer.removeAll();
                 try {
-                    Object response = client.sendCommand("GET_LISTINGS");
+                    Object response = client.sendCommand("GET_LISTINGS", mainFrame.getCurrentUser().getUsername());
                     if (response instanceof ArrayList<?> listings) {
                         for (Object obj : listings) {
                             if (obj instanceof Listing l &&

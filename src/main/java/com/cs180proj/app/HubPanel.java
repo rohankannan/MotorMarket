@@ -78,11 +78,13 @@ public class HubPanel extends JPanel implements HubPanelInterface {
         JButton viewListingsButton = new JButton("View Listings");
         JButton addListingButton = new JButton("Add Listing");
         JButton editListingsButton = new JButton("Edit My Listings");
+        JButton chatButton = new JButton("My Chats");
         JButton profileButton = new JButton("My Profile");
         JButton logoutButton = new JButton("Logout");
 
+
         Dimension btnSize = new Dimension(200, 40);
-        for (JButton btn : new JButton[]{viewListingsButton, addListingButton, editListingsButton, profileButton, logoutButton}) {
+        for (JButton btn : new JButton[]{viewListingsButton, addListingButton, editListingsButton, chatButton, profileButton, logoutButton}) {
             btn.setAlignmentX(Component.CENTER_ALIGNMENT);
             btn.setMaximumSize(btnSize);
             btn.setPreferredSize(btnSize);
@@ -93,6 +95,12 @@ public class HubPanel extends JPanel implements HubPanelInterface {
         centerPanel.add(rightPanel);
         add(centerPanel, BorderLayout.CENTER);
 
+        chatButton.addActionListener(e -> {
+                    mainFrame.mainPanel.add(new MessagingPanel(mainFrame, client), "Messaging");
+                    mainFrame.showPanel("Messaging");
+
+                }
+                );
         viewListingsButton.addActionListener(e -> mainFrame.showPanel("Listings"));
         addListingButton.addActionListener(e -> mainFrame.showPanel("AddListing"));
         editListingsButton.addActionListener(e -> mainFrame.showPanel("EditListings"));
@@ -110,7 +118,7 @@ public class HubPanel extends JPanel implements HubPanelInterface {
                 welcomeLabel.setText("Welcome to MotorMarket, " + (user != null ? user.getUsername() : ""));
 
                 try {
-                    Object response = client.sendCommand("GET_LISTINGS");
+                    Object response = client.sendCommand("GET_LISTINGS", user.getUsername());
                     if (response instanceof ArrayList<?> listings && !listings.isEmpty()) {
                         Listing random = (Listing) listings.get(new Random().nextInt(listings.size()));
                         try {

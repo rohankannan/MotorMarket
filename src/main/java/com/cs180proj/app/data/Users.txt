@@ -5,3 +5,4 @@ villain,321,44000.0,321 Pizza St,Listings:
 leomessi,wc22,1.010100101011E11,10 Catalunya Ct,Listings:
 labrador,dog,327368.45,101 Fetch Ln,Listings:
 penguin,penguin,567832.21,121 North Pole Ln,Listings:
+Charlie,123123,56.0,1 mitch daniels blvd,Listings:

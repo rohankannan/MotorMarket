@@ -115,7 +115,16 @@ public class Server implements ServerInterface, Serializable {
                 }
                 case "GET_LISTINGS" -> {
                     ArrayList<Listing> listings = db.readListingData();
-                    oos.writeObject(listings);
+                    ArrayList<Listing> filteredListings = new ArrayList<>();
+                    String username = (String) ois.readObject();
+                    for (Listing l : listings)
+                    {
+                        if (!l.getSeller().equals(username))
+                        {
+                            filteredListings.add(l);
+                        }
+                    }
+                    oos.writeObject(filteredListings);
                     oos.flush();
                 }
                 case "ADD_USER" -> {

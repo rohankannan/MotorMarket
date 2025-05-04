@@ -66,7 +66,7 @@ public class ChatPanel extends JPanel {
 
         });
 
-        backButton.addActionListener(e -> mainFrame.showPanel("Listings"));
+        backButton.addActionListener(e -> mainFrame.showPanel("Hub"));
         startChatUpdater(sender.getUsername(), recipient);
 
     }
