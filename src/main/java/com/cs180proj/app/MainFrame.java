@@ -17,7 +17,7 @@ import javax.swing.SwingUtilities;
  *
  * @version May 3, 2025
  */
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements MainFrameInterface {
     private CardLayout cardLayout;
     private JPanel mainPanel;
     private NewClient client;
