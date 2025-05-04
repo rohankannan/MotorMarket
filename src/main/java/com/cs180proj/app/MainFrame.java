@@ -18,11 +18,11 @@ import javax.swing.SwingUtilities;
  * @version May 3, 2025
  */
 public class MainFrame extends JFrame {
-    private CardLayout cardLayout;
+    public CardLayout cardLayout;
     public JPanel mainPanel;
-    private NewClient client;
-    private User currentUser;
-    private String currentPanelName;
+    public NewClient client;
+    public User currentUser;
+    public String currentPanelName;
 
     public MainFrame() {
         setTitle("MotorMarket");
@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Could not connect to server: "
                     + e.getMessage());
-            System.exit(1);
+            return;
         }
 
         cardLayout = new CardLayout();
@@ -76,5 +76,6 @@ public class MainFrame extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(MainFrame::new);
+
     }
 }
