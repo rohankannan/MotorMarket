@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ClientManager implements Runnable {
+public class ClientManager implements Runnable, ClientManagerInterface {
 
     public static ArrayList<ClientManager> clientManagers = new ArrayList<>();
     private Socket socket;
