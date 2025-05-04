@@ -32,7 +32,7 @@ import javax.swing.SwingWorker;
  *
  * @version May 3, 2025
  */
-public class ListingsPanel extends JPanel {
+public class ListingsPanel extends JPanel implements ListingsPanelInterface {
     private JPanel listingsContainer;
     private JScrollPane scrollPane;
     private NewClient client;
