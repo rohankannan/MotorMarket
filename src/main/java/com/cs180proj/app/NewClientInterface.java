@@ -6,7 +6,7 @@ import java.net.Socket;
 /**
  * CS 18000 Group Project
  *
- * Interface for Client class which contains all
+ * Interface for NewClient class which contains all
  * methods and fields.
  *
  * @author (Rohan Kannan, Alistair Joseph,
@@ -19,5 +19,6 @@ import java.net.Socket;
 
     Object sendCommand(String command, Object... args) throws IOException, ClassNotFoundException;
     void close() throws IOException;
+    boolean isClosed();
     
  }
