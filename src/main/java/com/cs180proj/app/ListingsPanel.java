@@ -38,10 +38,11 @@ public class ListingsPanel extends JPanel {
     private NewClient client;
     private JTextField searchField;
     private ArrayList<Listing> allListings = new ArrayList<>();
+    private MainFrame mf;
 
     public ListingsPanel(MainFrame mainFrame, NewClient client) {
         this.client = client;
-
+        this.mf = mainFrame;
         setLayout(new BorderLayout());
 
         listingsContainer = new JPanel();
@@ -51,7 +52,7 @@ public class ListingsPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
 
         JButton backButton = new JButton("Back");
-        backButton.addActionListener(e -> mainFrame.showPanel("Hub"));
+        backButton.addActionListener(e -> mf.showPanel("Hub"));
         add(backButton, BorderLayout.SOUTH);
 
         this.addAncestorListener(new AncestorListenerAdapter() {
@@ -60,7 +61,7 @@ public class ListingsPanel extends JPanel {
                 new SwingWorker<Void, Void>() {
                     @Override
                     protected Void doInBackground() {
-                        refreshListings(mainFrame);
+                        refreshListings();
                         return null;
                     }
                 }.execute();
@@ -94,7 +95,7 @@ public class ListingsPanel extends JPanel {
         add(searchPanel, BorderLayout.NORTH);
     }
 
-    public void refreshListings(MainFrame mainFrame) {
+    public void refreshListings() {
         listingsContainer.removeAll();
         listingsContainer.add(new JLabel("Loading listings..."));
         listingsContainer.revalidate();
@@ -134,14 +135,14 @@ public class ListingsPanel extends JPanel {
     private void displayListings(ArrayList<Listing> listings) {
         listingsContainer.removeAll();
         for (Listing listing : listings) {
-            listingsContainer.add(createListingCard(listing, null));
+            listingsContainer.add(createListingCard(listing));
             listingsContainer.add(Box.createVerticalStrut(10));
         }
         listingsContainer.revalidate();
         listingsContainer.repaint();
     }
 
-    private JPanel createListingCard(Listing listing, MainFrame mainFrame) {
+    private JPanel createListingCard(Listing listing) {
         JPanel card = new JPanel(new BorderLayout());
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         card.setPreferredSize(new Dimension(750, 150));
@@ -184,8 +185,7 @@ public class ListingsPanel extends JPanel {
         JButton messageButton = new JButton("Message Seller");
         messageButton.putClientProperty("JButton.buttonType", "segmented-only");
         messageButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this,
-                    "Messaging feature coming soon for seller: " + listing.getSeller());
+            mf.showPanel("Chat");
         });
 
         JPanel rightPanel = new JPanel();

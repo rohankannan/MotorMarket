@@ -31,7 +31,7 @@ import javax.swing.SwingConstants;
  *
  * @version May 3, 2025
  */
-public class EditListingsPanel extends JPanel implements EditListingPanelInterface {
+public class EditListingsPanel extends JPanel implements EditListingsPanelInterface {
     private NewClient client;
 
     public EditListingsPanel(MainFrame mainFrame, NewClient client) {

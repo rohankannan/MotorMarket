@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
         mainPanel.add(new ListingsPanel(this, client), "Listings");
         mainPanel.add(new AddListingPanel(this, client), "AddListing");
         mainPanel.add(new EditListingsPanel(this, client), "EditListings");
-
+        mainPanel.add(new ChatPanel(this, client), "Chat");
 
         add(mainPanel);
         cardLayout.show(mainPanel, "Login");

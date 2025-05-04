@@ -106,7 +106,7 @@ public class ListingsPanelTestCase {
         MainFrame f = new MainFrame();
         f.setVisible(false);
         ListingsPanel lp = new ListingsPanel(f, f.getClient());
-        lp.refreshListings(f);
+        lp.refreshListings();
         java.lang.reflect.Field cf = ListingsPanel.class.getDeclaredField("listingsContainer");
         cf.setAccessible(true);
         JPanel listingsContainer = (JPanel) cf.get(lp);
