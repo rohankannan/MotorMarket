@@ -150,6 +150,18 @@ public class Server implements ServerInterface, Serializable {
                 oos.writeObject("Listing updated successfully.");
                 oos.flush();
             }
+            case "GET_CHAT" -> {
+                ArrayList<Chat> chats = db.readChatData("chatLog.txt");
+                oos.writeObject(chats);
+                oos.flush();
+            }
+            case "ADD_CHAT" -> {
+                Chat newChat = (Chat) ois.readObject();
+                db.writeChatData(newChat, "chatLog.txt");
+                oos.writeObject("Chat added successfully.");
+                oos.flush();
+            }
+
             case "LOGIN" -> {
                 String username = (String) ois.readObject();
                 String password = (String) ois.readObject();

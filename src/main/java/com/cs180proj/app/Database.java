@@ -202,4 +202,35 @@ public class Database implements DatabaseInterface {
                 l.getListingID()
         );
     }
+
+    public void writeChatData(Chat c, String filePath)
+    {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(c.toString());
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Chat> readChatData(String filePath) {
+        ArrayList<Chat> chats = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            String sender = "";
+            String recipient = "";
+            String message = "";
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                sender = parts[0];
+                recipient = parts[1];
+                message = parts[2];
+                chats.add(new Chat(sender, recipient, message));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return chats;
+    }
+
 }
