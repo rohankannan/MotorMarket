@@ -69,7 +69,7 @@ public class HubPanel extends JPanel implements HubPanelInterface {
 
         JButton viewListingsButton = new JButton("View Listings");
         JButton addListingButton = new JButton("Add Listing");
-        JButton editListingsButton = new JButton("Edit My Listings");
+        JButton editListingsButton = new JButton("My Listings");
         JButton chatButton = new JButton("My Chats");
         JButton profileButton = new JButton("My Profile");
         JButton logoutButton = new JButton("Logout");

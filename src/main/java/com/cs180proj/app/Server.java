@@ -223,6 +223,21 @@ public class Server implements ServerInterface, Serializable {
                     oos.writeObject("Invalid command.");
                     oos.flush();
                 }
+
+                case "GET_MY_LISTINGS" -> {
+                    ArrayList<Listing> listings = db.readListingData();
+                    String username = (String) ois.readObject();
+
+                    ArrayList<Listing> myListings = new ArrayList<>();
+                    for (Listing l : listings) {
+                        if (l.getSeller().equals(username)) {
+                            myListings.add(l);
+                        }
+                    }
+
+                    oos.writeObject(myListings);
+                    oos.flush();
+                }
             }
         }
     }
