@@ -1,6 +1,5 @@
 package com.cs180proj.app;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 /**
@@ -37,6 +36,7 @@ public class User implements UserInterface, Serializable {
         this.password = password;
         this.balance = balance;
         this.address = address;
+        listings = new ArrayList<>();
     }
 
 

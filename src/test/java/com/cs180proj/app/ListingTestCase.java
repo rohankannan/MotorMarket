@@ -158,7 +158,7 @@ public class ListingTestCase {
     @Test
     public void testToString() {
         Listing listing = new Listing("john", "link", "toyota", "red", 2500, 2, 360.89, true, "1234");
-        String expected = "john,link,toyota,red,2500,2,360.89,true,1234";
+        String expected = "john,link,toyota,red,2500,2,360.89,true,1234,false";
         assertEquals(expected, listing.toString());
     }
 
