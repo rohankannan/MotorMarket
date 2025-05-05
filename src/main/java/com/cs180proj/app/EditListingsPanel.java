@@ -30,10 +30,6 @@ public class EditListingsPanel extends JPanel implements EditListingsPanelInterf
             @Override
             public void ancestorAdded(javax.swing.event.AncestorEvent event) {
                 listingsContainer.removeAll();
-                listingsContainer.add(new JLabel("Loading listings...", SwingConstants.CENTER));
-                listingsContainer.revalidate();
-                listingsContainer.repaint();
-
                 try {
                     Object response = client.sendCommand("GET_MY_LISTINGS", mainFrame.getCurrentUser().getUsername());
                     if (response instanceof ArrayList<?> listings) {
