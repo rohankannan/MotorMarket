@@ -30,5 +30,6 @@ public interface DatabaseInterface {
     // overload method to read user data from a specified file path and return array of User objects
 
     ArrayList<Listing> readListingData(); // method to read listing data from file and return array of Listing objects
+    ArrayList<Listing> readListingData(String filePath); // method to read listing data from file and return array of Listing objects
 
 }

@@ -1,7 +1,14 @@
 package com.cs180proj.app;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -141,6 +148,35 @@ public class Database implements DatabaseInterface {
         Map<String, Listing> listingMap = new LinkedHashMap<>();  // preserve insertion order
 
         try (BufferedReader reader = new BufferedReader(new FileReader(LISTING_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.trim().split(",");
+                if (parts.length >= 10) {
+                    Listing listing = new Listing(
+                            parts[0], parts[1], parts[2], parts[3],
+                            Integer.parseInt(parts[4]),
+                            Integer.parseInt(parts[5]),
+                            Double.parseDouble(parts[6]),
+                            Boolean.parseBoolean(parts[7]),
+                            parts[8]
+                    );
+                    listing.setSold(Boolean.parseBoolean(parts[9]));
+
+                    listingMap.put(listing.getListingID(), listing);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>(listingMap.values());
+    }
+
+    @Override
+    public ArrayList<Listing> readListingData(String filePath) {
+        Map<String, Listing> listingMap = new LinkedHashMap<>();  // preserve insertion order
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.trim().split(",");
