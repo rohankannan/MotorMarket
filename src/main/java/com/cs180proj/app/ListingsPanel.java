@@ -212,6 +212,12 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
 
                         if ("PURCHASE_SUCCESS".equals(res)) {
                             JOptionPane.showMessageDialog(mf, "Purchase successful!");
+
+                            Object updated = client.sendCommand("LOGIN", mf.getCurrentUser().getUsername(), mf.getCurrentUser().getPassword());
+                            if (updated instanceof User updatedUser) {
+                                mf.setCurrentUser(updatedUser);
+                            }
+
                             mf.refreshListingsPanel();
                         } else if ("INSUFFICIENT_FUNDS".equals(res)) {
                             JOptionPane.showMessageDialog(mf, "Insufficient funds.");
