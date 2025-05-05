@@ -1,5 +1,8 @@
 # MotorMarket: an Online Car Shop
 
+## User Guide
+![*A basic flowchart to use the app*](./Flowchart.png)
+
 ## 1. 
 
 To run the project, you need to run Server.java to start the server. After starting the server, you can run Mainframe.java to launch the GUI system, which will put you right onto the login screen. You are also able to open multiple instances of Mainframe.java which allows for multiple users to connect to the server at once. To do this in IntelliJ, you will need to edit the configuration for your run process. To do this, go to Run > Edit Configurations > Modify Options (dropdown menu) and enable the "Allow Multiple Instances" option. As for the tests, you can just use the test runner specific to the IDE that you are on. Keep in mind, when running the tests, some GUI windows will open up, and for the ones that remain open, you either need to press "Ok" or "Cancel" to close the window and finish the test.
