@@ -129,7 +129,7 @@ public class Database implements DatabaseInterface {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length >= 5) {
+                if (parts.length >= 4) {
                     users.add(new User(parts[0], parts[1], Double.parseDouble(parts[2]), parts[3]));
                 }
             }
@@ -171,7 +171,7 @@ public class Database implements DatabaseInterface {
 
         return new ArrayList<>(listingMap.values());
     }
-
+    
     @Override
     public ArrayList<Listing> readListingData(String filePath) {
         Map<String, Listing> listingMap = new LinkedHashMap<>();  // preserve insertion order
