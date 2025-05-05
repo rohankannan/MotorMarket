@@ -2,6 +2,7 @@ package com.cs180proj.app;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * CS 18000 Group Project
@@ -19,6 +20,9 @@ public class Database implements DatabaseInterface {
 
     private static final String USER_FILE = "src/main/java/com/cs180proj/app/data/Users.txt";
     private static final String LISTING_FILE = "src/main/java/com/cs180proj/app/data/Listings.txt";
+    private static final String CHAT_FILE = "src/main/java/com/cs180proj/app/data/Chatlog.txt";
+
+    private final ReentrantLock chatLock = new ReentrantLock();
 
     /**
      * Constructor for the Database class. This is used to initialize the database object.
@@ -203,36 +207,42 @@ public class Database implements DatabaseInterface {
         );
     }
 
-    public void writeChatData(Chat c, String filePath)
-    {
+    public void writeChatData(Chat chat, String filePath) throws IOException {
+        if (chat.getSender() == null || chat.getRecipient() == null || chat.getMessage() == null) return;
+
+        chatLock.lock();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            writer.write(c.toString());
+            writer.write(chat.toString());
             writer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
+            writer.flush();
+        } finally {
+            chatLock.unlock();
         }
     }
 
-    public ArrayList<Chat> readChatData(String filePath) {
+    public ArrayList<Chat> readChatData(String filePath) throws IOException {
         ArrayList<Chat> chats = new ArrayList<>();
+        chatLock.lock();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
-            String sender = "";
-            String recipient = "";
-            String message = "";
-            Long timestamp = 0L;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                sender = parts[0];
-                recipient = parts[1];
-                message = parts[2];
-                timestamp = Long.parseLong(parts[3]);
-                chats.add(new Chat(sender, recipient, message, timestamp));
+                try {
+                    String[] parts = line.split(",", 4);
+                    if (parts.length != 4) continue;
+                    String sender = parts[0];
+                    String recipient = parts[1];
+                    String message = parts[2];
+                    long timestamp = Long.parseLong(parts[3]);
+                    chats.add(new Chat(sender, recipient, message, timestamp));
+                } catch (Exception e) {
+                    System.err.println("Corrupt chat line: " + line);
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } finally {
+            chatLock.unlock();
         }
         return chats;
     }
+
 
 }

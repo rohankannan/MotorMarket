@@ -1,9 +1,4 @@
-jojo,sc30,hello,1746395234799
-jojo,sc30,no,1746395299422
-jojo,sc30,yo,1746395488883
-sc30,jojo,whats up,1746395527557
-sc30,jojo,test,1746399435812
-jojo,sc30,jhkljkhljhkjhkjh,1746399455291
-jojo,draymond,hello how much for the car,1746399484226
-draymond,jojo,5$,1746399545836
-Charlie,jojo,hi,1746399681528
+sc30,penguin,hello,1746404143472
+sc30,penguin,can I buy this item,1746404394498
+penguin,sc30,yes,1746404627041
+sc30,penguin,nice,1746404652213

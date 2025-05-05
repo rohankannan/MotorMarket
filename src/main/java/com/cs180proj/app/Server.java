@@ -146,12 +146,12 @@ public class Server implements ServerInterface, Serializable {
                     oos.flush();
                 }
                 case "GET_CHAT" -> {
-                    long lastUpdated = (long) ois.readObject(); // Read the lastUpdated timestamp
+                    long lastUpdated = (long) ois.readObject();
                     ArrayList<Chat> chats = db.readChatData("src/main/java/com/cs180proj/app/data/Chatlog.txt");
                     ArrayList<Chat> newChats = new ArrayList<>();
 
                     for (Chat chat : chats) {
-                        if (chat.getTimestamp() > lastUpdated) { // Filter messages by timestamp
+                        if (chat.getTimestamp() > lastUpdated) {
                             newChats.add(chat);
                         }
                     }

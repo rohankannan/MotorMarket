@@ -178,7 +178,7 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
                         "Mileage: " + listing.getMileage() + "\n" +
                         "Accidents: " + listing.getAccidents() + "\n" +
                         "Price: $" + String.format("%.2f", listing.getPrice()) + "\n" +
-                        "Manual: " + listing.isManual() + "\n" +
+                        "Transmission: " + (listing.isManual() ? "Manual" : "Automatic")  + "\n" +
                         "ID: " + listing.getListingID()
         );
 
