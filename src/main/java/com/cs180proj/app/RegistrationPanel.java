@@ -21,6 +21,7 @@ import javax.swing.JTextField;
  *
  * @version May 3, 2025
  */
+
 public class RegistrationPanel extends JPanel {
     public RegistrationPanel(MainFrame mainFrame, NewClient client) {
         setLayout(new GridBagLayout());
