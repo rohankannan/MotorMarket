@@ -1,4 +1,4 @@
-# Project Choice: A marketplace for cars
+# MotorMarket: an Online Car Shop
 
 ## 1. 
 
