@@ -1,6 +1,6 @@
 package com.cs180proj.app;
 
-import java.awt.CardLayout;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -72,6 +72,29 @@ public class MainFrame extends JFrame implements MainFrameInterface {
 
     public String getCurrentPanelName() {
         return currentPanelName;
+    }
+
+    public JPanel getPanel(String name) {
+        for (Component comp : mainPanel.getComponents()) {
+            if (comp instanceof JPanel panel && name.equals(panel.getName())) {
+                return panel;
+            }
+        }
+        return null;
+    }
+
+    public void refreshListingsPanel() {
+        ListingsPanel newPanel = new ListingsPanel(this, client);
+        mainPanel.add(newPanel, "Listings");
+        showPanel("Listings");
+    }
+
+    public void refreshEditListingsPanel() {
+        mainPanel.remove(getPanel("EditListings")); // Remove the old panel
+        EditListingsPanel refreshed = new EditListingsPanel(this, client);
+        refreshed.setName("EditListings");
+        mainPanel.add(refreshed, "EditListings");
+        showPanel("EditListings");
     }
 
     public static void main(String[] args) {

@@ -28,7 +28,7 @@ public class NewClient implements NewClientInterface {
     public NewClient(String host, int port) throws IOException {
         this.socket = new Socket(host, port);
         this.oos = new ObjectOutputStream(socket.getOutputStream());
-        this.oos.flush(); // Send stream header
+        this.oos.flush();
         this.ois = new ObjectInputStream(socket.getInputStream());
         isClosed = false;
     }

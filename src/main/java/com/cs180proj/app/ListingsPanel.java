@@ -1,9 +1,6 @@
 package com.cs180proj.app;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Image;
+import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -145,8 +142,8 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
     public JPanel createListingCard(Listing listing) {
         JPanel card = new JPanel(new BorderLayout());
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-        card.setPreferredSize(new Dimension(750, 150));
-        card.setMaximumSize(new Dimension(750, 150));
+        card.setPreferredSize(new Dimension(750, 170));
+        card.setMaximumSize(new Dimension(750, 170));
         card.setBackground(Color.WHITE);
 
         JLabel imageLabel = new JLabel("Loading...");
@@ -162,9 +159,7 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
                     imageLabel.setIcon(new ImageIcon(img));
                 });
             } catch (Exception e) {
-                SwingUtilities.invokeLater(() -> {
-                    imageLabel.setText("No Image");
-                });
+                SwingUtilities.invokeLater(() -> imageLabel.setText("No Image"));
             }
         }).start();
 
@@ -178,22 +173,71 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
                         "Mileage: " + listing.getMileage() + "\n" +
                         "Accidents: " + listing.getAccidents() + "\n" +
                         "Price: $" + String.format("%.2f", listing.getPrice()) + "\n" +
-                        "Transmission: " + (listing.isManual() ? "Manual" : "Automatic")  + "\n" +
+                        "Transmission: " + (listing.isManual() ? "Manual" : "Automatic") + "\n" +
                         "ID: " + listing.getListingID()
         );
 
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        rightPanel.setOpaque(false);
+
         JButton messageButton = new JButton("Message Seller");
-        messageButton.putClientProperty("JButton.buttonType", "segmented-only");
         messageButton.addActionListener(e -> {
             ChatPanel chatPanel = new ChatPanel(mf, client, listing.getSeller(), mf.getCurrentUser());
             mf.mainPanel.add(chatPanel, "Chat");
             mf.showPanel("Chat");
         });
-
-        JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-        rightPanel.add(Box.createVerticalGlue());
+        rightPanel.add(Box.createVerticalStrut(10));
         rightPanel.add(messageButton);
+
+        if (!listing.getSeller().equals(mf.getCurrentUser().getUsername()) && !listing.isSold()) {
+            JButton buyButton = new JButton("Buy Now");
+            buyButton.setBackground(new Color(46, 204, 113));  // green
+            buyButton.setForeground(Color.WHITE);
+            buyButton.setOpaque(true);
+            buyButton.setBorderPainted(false);
+            buyButton.putClientProperty("JButton.buttonType", "segmented-only");
+            buyButton.addActionListener(e -> {
+                int result = JOptionPane.showConfirmDialog(
+                        mf,
+                        "Confirm purchase - " + listing.getCarType() + " - $" + String.format("%.2f", listing.getPrice()) +
+                                " will be deducted from your balance",
+                        "Confirm Purchase",
+                        JOptionPane.YES_NO_OPTION
+                );
+
+                if (result == JOptionPane.YES_OPTION) {
+                    try {
+                        Object res = client.sendCommand("BUY_LISTING", listing.getListingID(), mf.getCurrentUser().getUsername());
+
+                        if ("PURCHASE_SUCCESS".equals(res)) {
+                            JOptionPane.showMessageDialog(mf, "Purchase successful!");
+                            mf.refreshListingsPanel();  // <-- see step 2
+                        } else if ("INSUFFICIENT_FUNDS".equals(res)) {
+                            JOptionPane.showMessageDialog(mf, "Insufficient funds.");
+                        } else if ("LISTING_NOT_FOUND".equals(res)) {
+                            JOptionPane.showMessageDialog(mf, "Listing no longer available.");
+                        } else {
+                            JOptionPane.showMessageDialog(mf, "Unknown error.");
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(mf, "Error during purchase: " + ex.getMessage());
+                    }
+                }
+            });
+            rightPanel.add(Box.createVerticalStrut(10));
+            rightPanel.add(buyButton);
+        }
+
+        if (listing.isSold()) {
+            JLabel soldLabel = new JLabel("SOLD");
+            soldLabel.setForeground(Color.RED);
+            soldLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+            soldLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            rightPanel.add(Box.createVerticalStrut(10));
+            rightPanel.add(soldLabel);
+        }
+
         rightPanel.add(Box.createVerticalGlue());
 
         card.add(imageLabel, BorderLayout.WEST);

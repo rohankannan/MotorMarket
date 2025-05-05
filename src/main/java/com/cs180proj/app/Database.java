@@ -94,7 +94,8 @@ public class Database implements DatabaseInterface {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length >= 5) {
+                if (parts.length >= 4) {
+                    System.out.println("Reading user: " + Arrays.toString(parts));
                     users.add(new User(parts[0], parts[1], Double.parseDouble(parts[2]), parts[3]));
                 }
             }
@@ -173,26 +174,6 @@ public class Database implements DatabaseInterface {
         return listings;
     }
 
-    public void overwriteListingData(ArrayList<Listing> listings) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(LISTING_FILE, false))) {
-            for (Listing l : listings) {
-                writer.write(l.toString());
-                writer.newLine();
-            }
-        }
-    }
-
-    public void updateListing(Listing updated) throws IOException {
-        ArrayList<Listing> all = readListingData();
-        for (int i = 0; i < all.size(); i++) {
-            if (all.get(i).getListingID().equals(updated.getListingID())) {
-                all.set(i, updated);
-                break;
-            }
-        }
-        overwriteListingData(all);
-    }
-
     private String serializeListing(Listing l) {
         return String.join(",",
                 l.getSeller(),
@@ -242,6 +223,69 @@ public class Database implements DatabaseInterface {
             chatLock.unlock();
         }
         return chats;
+    }
+
+    public Listing getListingById(String id) {
+        ArrayList<Listing> listings = readListingData();
+        for (Listing l : listings) {
+            if (l.getListingID().equals(id)) return l;
+        }
+        return null;
+    }
+
+    public void overwriteListingData(ArrayList<Listing> listings) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(LISTING_FILE))) {
+            for (Listing l : listings) {
+                writer.write(l.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateListing(Listing updated) {
+        ArrayList<Listing> listings = readListingData();
+        for (int i = 0; i < listings.size(); i++) {
+            if (listings.get(i).getListingID().equals(updated.getListingID())) {
+                listings.set(i, updated);
+                break;
+            }
+        }
+        overwriteListingData(listings);
+    }
+
+    public User getUserByUsername(String username) {
+        ArrayList<User> users = readUserData();
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public void updateUser(User updatedUser) {
+        ArrayList<User> users = readUserData();
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equals(updatedUser.getUsername())) {
+                users.set(i, updatedUser);
+                break;
+            }
+        }
+        overwriteUserData(users);
+    }
+
+
+    public void overwriteUserData(ArrayList<User> users) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE))) {
+            for (User user : users) {
+                writer.write(user.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

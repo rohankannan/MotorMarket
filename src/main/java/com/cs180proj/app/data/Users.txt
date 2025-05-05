@@ -1,8 +1,9 @@
-sc30,3ball,30000.3,30 Oakland Dr,Listings:sc30,https://pictures.dealer.com/t/toyotaofbrookfield/1968/6815c561d538d64092dc3c49c03742e0x.jpg?impolicy=resize&w=640,Toyota Corolla,Silver,2321,0,15000.0,false,5d6ed083;
-draymond,donkey23,4621.21,300 Backpack Rd,Listings:
-jojo,12345,9.999999999E7,123 Camel Ct,Listings:
-villain,321,44000.0,321 Pizza St,Listings:
-leomessi,wc22,1.010100101011E11,10 Catalunya Ct,Listings:
-labrador,dog,327368.45,101 Fetch Ln,Listings:
-penguin,penguin,567832.21,121 North Pole Ln,Listings:
-Charlie,123123,56.0,1 mitch daniels blvd,Listings:
+sc30,3ball,29992.13,30 Oakland Dr
+draymond,donkey23,4621.21,300 Backpack Rd
+jojo,12345,9.999999999E7,123 Camel Ct
+villain,321,44000.0,321 Pizza St
+leomessi,wc22,1.010100101011E11,10 Catalunya Ct
+labrador,dog,327368.45,101 Fetch Ln
+penguin,penguin,567848.55,121 North Pole Ln
+Charlie,123123,56.0,1 mitch daniels blvd
+test,password123,2000.0,123 Main Street

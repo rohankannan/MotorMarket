@@ -37,7 +37,6 @@ public class User implements UserInterface, Serializable {
         this.password = password;
         this.balance = balance;
         this.address = address;
-        listings = new ArrayList<>();
     }
 
 
@@ -170,12 +169,7 @@ public class User implements UserInterface, Serializable {
      */
     @Override
     public String toString() {
-        String listingsString = "Listings:";
-        // adds all listings to String
-        for (Listing listing : listings) {
-            listingsString += listing.toString() + ";";
-        }
-        return username + "," + password + "," + balance + "," + address + "," + listingsString;
+        return username + "," + password + "," + balance + "," + address;
     }
 
 

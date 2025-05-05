@@ -15,7 +15,7 @@ import javax.swing.JTextField;
  *
  * LoginPanel in GUI system which allows
  * user to log into their account or create
- * a new one if they dont have one
+ * a new one if they don't have one
  *
  * @author (Rohan Kannan, Alistair Joseph,
  * Lydia Schmucker, Stephen Tushentsov) lab sec 19
@@ -46,14 +46,18 @@ public class LoginPanel extends JPanel {
 
             try {
                 Object response = client.sendCommand("LOGIN", username, password);
+
                 if (response instanceof User user) {
                     mainFrame.setCurrentUser(user);
                     mainFrame.showPanel("Hub");
-                } else {
+                } else if (response instanceof String str && str.equals("FAIL")) {
                     JOptionPane.showMessageDialog(this, "Invalid credentials.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Unexpected response from server: " + response);
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Login error: " + ex.getMessage());
+                ex.printStackTrace();
             }
         });
 

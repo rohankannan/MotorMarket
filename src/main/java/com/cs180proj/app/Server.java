@@ -24,11 +24,9 @@ public class Server implements ServerInterface, Serializable {
 
         try {
             while (isActive) {
-                // Wait for incoming client connections
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("New client connected: " + clientSocket);
 
-                // Create a new thread for each client
                 new Thread(new ClientHandler(clientSocket)).start();
             }
         } finally {
@@ -68,7 +66,6 @@ public class Server implements ServerInterface, Serializable {
                 ois = new ObjectInputStream(socket.getInputStream());
                 System.out.println("Client connected.");
 
-                // Handle client communication
                 while (true) {
                     String command = (String) ois.readObject();
                     System.out.println("Received command from client: " + command);
@@ -186,6 +183,37 @@ public class Server implements ServerInterface, Serializable {
                     }
                     oos.flush();
                 }
+
+                case "BUY_LISTING" -> {
+                    String listingID = (String) ois.readObject();
+                    String buyerUsername = (String) ois.readObject();
+
+                    Listing listing = db.getListingById(listingID);
+                    if (listing == null || listing.isSold()) {
+                        oos.writeObject("LISTING_NOT_FOUND");
+                        break;
+                    }
+
+                    User buyer = db.getUserByUsername(buyerUsername);
+                    User seller = db.getUserByUsername(listing.getSeller());
+
+                    if (buyer.getBalance() < listing.getPrice()) {
+                        oos.writeObject("INSUFFICIENT_FUNDS");
+                    } else {
+                        buyer.setBalance(buyer.getBalance() - listing.getPrice());
+                        seller.setBalance(seller.getBalance() + listing.getPrice());
+
+                        db.updateUser(buyer);
+                        db.updateUser(seller);
+
+                        listing.setSold(true);
+                        db.updateListing(listing);
+
+                        oos.writeObject("PURCHASE_SUCCESS");
+                    }
+                    oos.flush();
+                }
+
                 default -> {
                     oos.writeObject("Invalid command.");
                     oos.flush();

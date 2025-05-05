@@ -1,35 +1,14 @@
 package com.cs180proj.app;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Image;
+import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 /**
  * CS 18000 Group Project
- *
- * EditListingPanel in GUI system which allows
- * user to edit a listing
- *
- * @author (Rohan Kannan, Alistair Joseph,
- * Lydia Schmucker, Stephen Tushentsov) lab sec 19
- *
- * @version May 3, 2025
+ * EditListingsPanel in GUI system which allows user to edit a listing.
  */
 public class EditListingsPanel extends JPanel implements EditListingsPanelInterface {
     private NewClient client;
@@ -54,9 +33,24 @@ public class EditListingsPanel extends JPanel implements EditListingsPanelInterf
                 try {
                     Object response = client.sendCommand("GET_LISTINGS", mainFrame.getCurrentUser().getUsername());
                     if (response instanceof ArrayList<?> listings) {
+                        ArrayList<Listing> userListings = new ArrayList<>();
+
                         for (Object obj : listings) {
                             if (obj instanceof Listing l &&
                                     l.getSeller().equals(mainFrame.getCurrentUser().getUsername())) {
+                                userListings.add(l);
+                            }
+                        }
+
+                        if (userListings.isEmpty()) {
+                            JLabel noListingsLabel = new JLabel("You have no listings.");
+                            noListingsLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+                            noListingsLabel.setForeground(Color.GRAY);
+                            noListingsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                            listingsContainer.setLayout(new BorderLayout());
+                            listingsContainer.add(noListingsLabel, BorderLayout.CENTER);
+                        } else {
+                            for (Listing l : userListings) {
                                 listingsContainer.add(createEditableCard(l, mainFrame));
                                 listingsContainer.add(Box.createVerticalStrut(10));
                             }
@@ -65,6 +59,7 @@ public class EditListingsPanel extends JPanel implements EditListingsPanelInterf
                 } catch (Exception e) {
                     listingsContainer.add(new JLabel("Error loading listings: " + e.getMessage()));
                 }
+
                 listingsContainer.revalidate();
                 listingsContainer.repaint();
             }
@@ -74,11 +69,12 @@ public class EditListingsPanel extends JPanel implements EditListingsPanelInterf
     public JPanel createEditableCard(Listing listing, MainFrame mainFrame) {
         JPanel card = new JPanel(new BorderLayout());
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-        card.setPreferredSize(new Dimension(750, 150));
-        card.setMaximumSize(new Dimension(750, 150));
+        card.setPreferredSize(new Dimension(750, 160));
+        card.setMaximumSize(new Dimension(750, 160));
         card.setBackground(Color.WHITE);
 
         JLabel imageLabel = new JLabel();
+        imageLabel.setPreferredSize(new Dimension(180, 120));
         try {
             ImageIcon icon = new ImageIcon(new URL(listing.getPhotoURL()));
             Image img = icon.getImage().getScaledInstance(180, 120, Image.SCALE_SMOOTH);
@@ -86,24 +82,34 @@ public class EditListingsPanel extends JPanel implements EditListingsPanelInterf
         } catch (Exception e) {
             imageLabel.setText("No Image");
             imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            imageLabel.setPreferredSize(new Dimension(180, 120));
         }
 
-        JTextArea info = new JTextArea(
-                "ID: " + listing.getListingID() + "\n" +
-                        "Type: " + listing.getCarType() + "\n" +
-                        "Color: " + listing.getColor() + "\n" +
-                        "Price: $" + String.format("%.2f", listing.getPrice())
-        );
+        JTextArea info = new JTextArea();
         info.setEditable(false);
         info.setBackground(Color.WHITE);
 
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID: ").append(listing.getListingID()).append("\n");
+        sb.append("Type: ").append(listing.getCarType()).append("\n");
+        sb.append("Color: ").append(listing.getColor()).append("\n");
+        sb.append("Price: $").append(String.format("%.2f", listing.getPrice())).append("\n");
+
+        if (listing.isSold()) {
+            sb.append("\n*** SOLD ***\nYou earned $").append(String.format("%.2f", listing.getPrice()));
+            info.setForeground(new Color(192, 57, 43));
+        }
+
+        info.setText(sb.toString());
+
         JButton editButton = new JButton("Edit");
+        editButton.setEnabled(!listing.isSold());
         editButton.addActionListener(e -> openEditing(listing, mainFrame));
 
         JPanel rightPanel = new JPanel(new BorderLayout());
         rightPanel.add(info, BorderLayout.CENTER);
-        rightPanel.add(editButton, BorderLayout.SOUTH);
+        if (!listing.isSold()) {
+            rightPanel.add(editButton, BorderLayout.SOUTH);
+        }
 
         card.add(imageLabel, BorderLayout.WEST);
         card.add(rightPanel, BorderLayout.CENTER);

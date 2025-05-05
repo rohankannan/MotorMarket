@@ -24,6 +24,15 @@ public class Listing implements ListingInterface, Serializable {
     private int accidents;           // how many accidents this car has been in
     private double price;            // the current price of this listing
     private boolean manual;          // whether the car being sold is manual
+    private boolean sold; // whether listing has been sold or not
+
+    public boolean isSold() {
+        return sold;
+    }
+
+    public void setSold(boolean sold) {
+        this.sold = sold;
+    }
 
     /**
      * constructor for Listing objects 9 parameters for each of the 9 attributes

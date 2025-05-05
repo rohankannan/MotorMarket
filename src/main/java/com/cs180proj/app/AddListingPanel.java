@@ -5,12 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.UUID;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 /**
  * CS 18000 Group Project
@@ -85,7 +80,8 @@ public class AddListingPanel extends JPanel implements AddListingPanelInterface 
 
                 Object response = client.sendCommand("ADD_LISTING", listing);
                 JOptionPane.showMessageDialog(this, response.toString());
-                mainFrame.showPanel("Hub");
+                mainFrame.refreshEditListingsPanel();
+                SwingUtilities.invokeLater(() -> mainFrame.showPanel("Hub"));
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error creating listing: " + ex.getMessage());
