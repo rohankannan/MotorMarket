@@ -1,4 +1,3 @@
-sc30,penguin,hello,1746404143472
-sc30,penguin,can I buy this item,1746404394498
-penguin,sc30,yes,1746404627041
-sc30,penguin,nice,1746404652213
+jojo,draymond,hi,1746471154207
+draymond,jojo,hi ,1746471165979
+jojo,draymond,how much for the car?,1746471187956

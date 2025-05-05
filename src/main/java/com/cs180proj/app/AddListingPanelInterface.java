@@ -22,5 +22,5 @@ import java.util.UUID;
     // methods
     void addField(String label, JTextField field, GridBagConstraints gbc, int row);
     void resetFields();
-
+    
  }

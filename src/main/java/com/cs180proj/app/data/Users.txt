@@ -1,6 +1,6 @@
 sc30,3ball,29992.13,30 Oakland Dr
-draymond,donkey23,4621.21,300 Backpack Rd
-jojo,12345,9.999995004E7,123 Camel Ct
+draymond,donkey23,107352.21,300 Backpack Rd
+jojo,12345,9.989721904E7,123 Camel Ct
 villain,321,44000.0,321 Pizza St
 leomessi,wc22,1.010100101011E11,10 Catalunya Ct
 labrador,dog,327368.45,101 Fetch Ln

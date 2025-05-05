@@ -236,7 +236,7 @@ public class Database implements DatabaseInterface {
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
-                    String[] parts = line.split(",", 4);
+                    String[] parts = line.split("\t", 4);
                     if (parts.length != 4) continue;
                     String sender = parts[0];
                     String recipient = parts[1];
