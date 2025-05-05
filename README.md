@@ -10,7 +10,7 @@ To run the project, you need to run Server.java to start the server. After start
 
 **Alistair Joseph** - Worked on Database Interface and Database class. Formatted both classes too. Worked on Client and Server classes, completed Client class. Designed and implemented all GUI and functionality with the exception of Chat and ChatPanel
 
-**Lydia Schmucker** - Completed User class, Listing class, and Interfaces for both those classes. Formatted both classes too. Completed the ClientTestCase class and formatting. Worked on the readme.
+**Lydia Schmucker** - Completed User class, Listing class, and Interfaces for both those classes. Formatted both classes too. Completed the ClientTestCase class and formatting. Worked on the readme. Created the GUI system flowchart and wrote and formatted GUI panel interfaces.
 
 **Stephen Tushentsov** - Completed DatabaseTestCase class and ListingTestCase class. Worked on repo structure, general formatting, and readme. Completed and formatted the ServerTestCase. Added client and server interfaces. Completed and formatted all test case files relating to GUI panels or frames along with NewClientTestCase. Worked on testing section/slide on project report & group presentation.
 
