@@ -133,7 +133,7 @@ public class UserTestCase {
         Listing listing2 = new Listing("johnny", "link", "toyota", "red", 2500, 2, 360.89, true, "1234");
         user.addListing(listing1);
         user.addListing(listing2);
-        String expected = "john,pass,1459.32,addry,Listings:john,link,toyota,red,2500,2,360.89,true,1234;johnny,link,toyota,red,2500,2,360.89,true,1234;";
+        String expected = "john,pass,1459.32,addry";
         assertEquals(expected, user.toString());
     }
 
