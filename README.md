@@ -6,7 +6,7 @@ To run the project, you need to run Server.java to start the server. After start
 
 ## 2. 
 
-**Rohan Kannan** - Completed DatabaseTestCase class. Worked on general formatting and submitted project on Vocareum workspace. Worked on client and server classes, completed server class.
+**Rohan Kannan** - Completed DatabaseTestCase class. Worked on general formatting and submitted project on Vocareum workspace. Worked on client and server classes, completed server class. Completed Chat and ChatPanel and implemented multi-client functionality. Wrote and formatted ChatPanelTestCase.
 
 **Alistair Joseph** - Worked on Database Interface and Database class. Formatted both classes too. Worked on Client and Server classes, completed Client class. Designed and implemented all GUI and functionality with the exception of Chat and ChatPanel
 
