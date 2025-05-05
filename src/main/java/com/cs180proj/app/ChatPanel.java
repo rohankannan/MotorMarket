@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatPanel extends JPanel {
+public class ChatPanel extends JPanel implements ChatPanelInterface {
     private NewClient client;
     private MainFrame mainFrame;
     private String recipient;
@@ -71,7 +71,7 @@ public class ChatPanel extends JPanel {
 
     }
 
-    private void startChatUpdater(String sender, String recipient) {
+    public void startChatUpdater(String sender, String recipient) {
         chatUpdater = new SwingWorker<>() {
             private long lastUpdated = 0; // Track the last update time
 
