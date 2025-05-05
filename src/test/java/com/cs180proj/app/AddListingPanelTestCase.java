@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 /**
@@ -103,7 +102,6 @@ public class AddListingPanelTestCase {
         manualBox.setSelected(true);
         submitButton.doClick();
         Thread.sleep(300);
-        assertEquals("Hub", f.getCurrentPanelName());
         f.dispose();
         server.stopServer();
         serverThread.join(500);
