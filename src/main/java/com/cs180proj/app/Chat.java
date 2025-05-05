@@ -1,8 +1,6 @@
 package com.cs180proj.app;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 public class Chat implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -48,7 +46,7 @@ public class Chat implements Serializable {
     @Override
     public String toString()
     {
-        return sender +","+ recipient +","+ message +","+ timestamp;
+        return sender +"\t"+ recipient +"\t"+ message +"\t"+ timestamp;
     }
 
 }
