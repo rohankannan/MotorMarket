@@ -20,14 +20,19 @@ import javax.swing.*;
  */
 public class AddListingPanel extends JPanel implements AddListingPanelInterface {
 
-    private JTextField urlField = new JTextField(15);
-    private JTextField typeField = new JTextField(15);
-    private JTextField colorField = new JTextField(15);
-    private JTextField mileageField = new JTextField(15);
-    private JTextField accidentsField = new JTextField(15);
-    private JTextField priceField = new JTextField(15);
-    private JCheckBox manualBox = new JCheckBox("Manual Transmission");
+    private JTextField urlField = new JTextField(15); // text field to enter a photo URL
+    private JTextField typeField = new JTextField(15); // text field to enter type of car
+    private JTextField colorField = new JTextField(15); // text field to enter car's color
+    private JTextField mileageField = new JTextField(15); // text field to enter car's mileage
+    private JTextField accidentsField = new JTextField(15); // text field to enter the number of accidents 
+    private JTextField priceField = new JTextField(15); // text field to enter the car's price
+    private JCheckBox manualBox = new JCheckBox("Manual Transmission"); // checkbox to enter if the car is manual or not
 
+    /**
+    * Constructor for class AddListingPanel
+    * @param mainFrame MainFrame object being used, 
+    * @param client NewClient object that is adding the listing
+    */
     public AddListingPanel(MainFrame mainFrame, NewClient client) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -100,6 +105,14 @@ public class AddListingPanel extends JPanel implements AddListingPanelInterface 
         });
     }
 
+    /**
+    * A method to add a field, given constraints
+    * @param label is the label for the JLabel, 
+    * @param field is the JTextField added, 
+    * @param gbc is the GridBagConstraints object for adding the field, 
+    * @param row is an int that defines the gbc grid's y value
+    * @return void
+    */
     public void addField(String label, JTextField field, GridBagConstraints gbc, int row) {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridx = 0; gbc.gridy = row; gbc.gridwidth = 1;
@@ -108,6 +121,10 @@ public class AddListingPanel extends JPanel implements AddListingPanelInterface 
         add(field, gbc);
     }
 
+    /**
+    * A method which resets the fields by setting the text of each to empty and the boolean to false
+    * @return void
+    */
     public void resetFields() {
         urlField.setText("");
         typeField.setText("");
