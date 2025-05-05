@@ -9,7 +9,13 @@ import javax.swing.*;
 /**
  * CS 18000 Group Project
  * EditListingsPanel in GUI system which allows user to edit a listing.
+ *
+ * @author (Rohan Kannan, Alistair Joseph,
+ * Lydia Schmucker, Stephen Tushentsov) lab sec 19
+ *
+ * @version May 3, 2025
  */
+
 public class EditListingsPanel extends JPanel implements EditListingsPanelInterface {
     private NewClient client;
 
