@@ -215,7 +215,7 @@ public class Listing implements ListingInterface, Serializable {
      */
     @Override
     public String toString() {
-        return sellerUsername + "," + photoURL + "," + carType + "," + color + ","
-                + mileage + "," + accidents + "," + price + "," + manual + "," + listingID;
+        return sellerUsername + "," + photoURL + "," + carType + "," + color + "," +
+                mileage + "," + accidents + "," + price + "," + manual + "," + listingID + "," + sold;
     }
 }

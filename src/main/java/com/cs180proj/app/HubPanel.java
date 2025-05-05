@@ -10,15 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 /**
  * CS 18000 Group Project
@@ -104,8 +96,7 @@ public class HubPanel extends JPanel implements HubPanelInterface {
         viewListingsButton.addActionListener(e -> mainFrame.showPanel("Listings"));
         addListingButton.addActionListener(e -> mainFrame.showPanel("AddListing"));
         editListingsButton.addActionListener(e -> mainFrame.showPanel("EditListings"));
-        profileButton.addActionListener(e ->
-                JOptionPane.showMessageDialog(this, "Profile page coming soon!"));
+        profileButton.addActionListener(e -> showProfileDialog(mainFrame.getCurrentUser(), client));
         logoutButton.addActionListener(e -> {
             mainFrame.setCurrentUser(null);
             mainFrame.showPanel("Login");
@@ -137,5 +128,37 @@ public class HubPanel extends JPanel implements HubPanelInterface {
                 }
             }
         });
+    }
+
+    private void showProfileDialog(User user, NewClient client) {
+        JTextField addressField = new JTextField(user.getAddress(), 20);
+        JTextField balanceField = new JTextField(String.format("%.2f", user.getBalance()), 20);
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(new JLabel("Username: " + user.getUsername()));
+        panel.add(new JLabel("Address:"));
+        panel.add(addressField);
+        panel.add(new JLabel("Balance:"));
+        panel.add(balanceField);
+
+        int result = JOptionPane.showConfirmDialog(
+                this, panel, "My Profile", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            try {
+                String newAddress = addressField.getText().trim();
+                double newBalance = Double.parseDouble(balanceField.getText().trim());
+
+                user.setAddress(newAddress);
+                user.setBalance(newBalance);
+
+                Object response = client.sendCommand("UPDATE_USER", user);
+                JOptionPane.showMessageDialog(this, "Profile updated successfully.");
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Invalid balance format.");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error updating profile: " + e.getMessage());
+            }
+        }
     }
 }

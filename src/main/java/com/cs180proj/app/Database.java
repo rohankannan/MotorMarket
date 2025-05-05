@@ -61,10 +61,15 @@ public class Database implements DatabaseInterface {
      */
     @Override
     public void writeListingData(Listing listing) throws IOException {
+        Listing existing = getListingById(listing.getListingID());
+        if (existing != null) {
+            updateListing(listing);
+            return;
+        }
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(LISTING_FILE, true))) {
             writer.write(serializeListing(listing));
             writer.newLine();
-            writer.flush();
         }
     }
 
@@ -133,45 +138,31 @@ public class Database implements DatabaseInterface {
      */
     @Override
     public ArrayList<Listing> readListingData() {
-        ArrayList<Listing> listings = new ArrayList<>();
+        Map<String, Listing> listingMap = new LinkedHashMap<>();  // preserve insertion order
+
         try (BufferedReader reader = new BufferedReader(new FileReader(LISTING_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.trim().split(",");
-                if (parts.length >= 9) {
-                    listings.add(new Listing(parts[0], parts[1], parts[2], parts[3], Integer.parseInt(parts[4]),
-                            Integer.parseInt(parts[5]), Double.parseDouble(parts[6]), Boolean.parseBoolean(parts[7]),
-                            parts[8]));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return listings;
-    }
+                if (parts.length >= 10) {
+                    Listing listing = new Listing(
+                            parts[0], parts[1], parts[2], parts[3],
+                            Integer.parseInt(parts[4]),
+                            Integer.parseInt(parts[5]),
+                            Double.parseDouble(parts[6]),
+                            Boolean.parseBoolean(parts[7]),
+                            parts[8]
+                    );
+                    listing.setSold(Boolean.parseBoolean(parts[9]));
 
-    /**
-     * Overloaded method to read listing data from a specified file path and return an ArrayList of Listing objects
-     * @param filePath the path of the file to read from
-     * @return ArrayList<Listing> a list of listings read from the specified file
-     */
-    @Override
-    public ArrayList<Listing> readListingData(String filePath) {
-        ArrayList<Listing> listings = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.trim().split(",");
-                if (parts.length >= 9) {
-                    listings.add(new Listing(parts[0], parts[1], parts[2], parts[3], Integer.parseInt(parts[4]),
-                            Integer.parseInt(parts[5]), Double.parseDouble(parts[6]), Boolean.parseBoolean(parts[7]),
-                            parts[8]));
+                    listingMap.put(listing.getListingID(), listing);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return listings;
+
+        return new ArrayList<>(listingMap.values());
     }
 
     private String serializeListing(Listing l) {
@@ -184,7 +175,8 @@ public class Database implements DatabaseInterface {
                 String.valueOf(l.getAccidents()),
                 String.valueOf(l.getPrice()),
                 String.valueOf(l.isManual()),
-                l.getListingID()
+                l.getListingID(),
+                String.valueOf(l.isSold())
         );
     }
 

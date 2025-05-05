@@ -114,10 +114,9 @@ public class Server implements ServerInterface, Serializable {
                     ArrayList<Listing> listings = db.readListingData();
                     ArrayList<Listing> filteredListings = new ArrayList<>();
                     String username = (String) ois.readObject();
-                    for (Listing l : listings)
-                    {
-                        if (!l.getSeller().equals(username))
-                        {
+                    for (Listing l : listings) {
+                        if (!l.getSeller().equals(username) && !l.isSold()) {
+                            System.out.println("added: " + l);
                             filteredListings.add(l);
                         }
                     }
@@ -207,13 +206,19 @@ public class Server implements ServerInterface, Serializable {
                         db.updateUser(seller);
 
                         listing.setSold(true);
+                        System.out.println("SOLD: " + listing.toString());
                         db.updateListing(listing);
 
                         oos.writeObject("PURCHASE_SUCCESS");
                     }
                     oos.flush();
                 }
-
+                case "UPDATE_USER" -> {
+                    User updated = (User) ois.readObject();
+                    db.updateUser(updated);
+                    oos.writeObject("User updated successfully.");
+                    oos.flush();
+                }
                 default -> {
                     oos.writeObject("Invalid command.");
                     oos.flush();

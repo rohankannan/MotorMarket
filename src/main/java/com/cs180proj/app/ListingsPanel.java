@@ -212,7 +212,7 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
 
                         if ("PURCHASE_SUCCESS".equals(res)) {
                             JOptionPane.showMessageDialog(mf, "Purchase successful!");
-                            mf.refreshListingsPanel();  // <-- see step 2
+                            mf.refreshListingsPanel();
                         } else if ("INSUFFICIENT_FUNDS".equals(res)) {
                             JOptionPane.showMessageDialog(mf, "Insufficient funds.");
                         } else if ("LISTING_NOT_FOUND".equals(res)) {

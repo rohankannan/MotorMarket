@@ -90,7 +90,7 @@ public class MainFrame extends JFrame implements MainFrameInterface {
     }
 
     public void refreshEditListingsPanel() {
-        mainPanel.remove(getPanel("EditListings")); // Remove the old panel
+        mainPanel.remove(getPanel("EditListings"));
         EditListingsPanel refreshed = new EditListingsPanel(this, client);
         refreshed.setName("EditListings");
         mainPanel.add(refreshed, "EditListings");
