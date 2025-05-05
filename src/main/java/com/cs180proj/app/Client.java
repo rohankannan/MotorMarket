@@ -13,6 +13,8 @@ import javax.swing.SwingUtilities;
  * CS 18000 Group Project
  *
  * Client app for interacting with the car listing server
+ * NOTE: This class is no longer in use as of Phase 3.
+ * The program can now be run through MainFrame.java
  *
  * @author (Rohan Kannan, Alistair Joseph,
  * Lydia Schmucker, Stephen Tushentsov) lab sec 19
