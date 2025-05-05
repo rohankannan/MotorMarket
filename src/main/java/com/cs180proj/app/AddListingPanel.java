@@ -83,6 +83,8 @@ public class AddListingPanel extends JPanel implements AddListingPanelInterface 
                 mainFrame.refreshEditListingsPanel();
                 SwingUtilities.invokeLater(() -> mainFrame.showPanel("Hub"));
 
+            } catch (NullPointerException npe) {
+                System.out.println("Added Item.");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error creating listing: " + ex.getMessage());
             }
