@@ -24,6 +24,7 @@ public class Server implements ServerInterface, Serializable {
 
         try {
             while (isActive) {
+                // Accept incoming client connections
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("New client connected: " + clientSocket);
 
@@ -76,6 +77,8 @@ public class Server implements ServerInterface, Serializable {
                     }
                     checkClientCommand(command, ois, oos);
                 }
+            } catch (SocketException e) {
+                System.out.println("Client disconnected abruptly: " + e.getMessage());
             } catch (Exception e) {
                 System.out.println("Server-Client Error: " + e.getMessage());
                 e.printStackTrace();

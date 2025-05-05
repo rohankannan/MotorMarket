@@ -119,4 +119,20 @@ public class ChatPanel extends JPanel implements ChatPanelInterface {
         }
     }
 
+    public JTextArea getChatArea() {
+        return chatArea;
+    }
+
+    public void activateSendButton(String message)
+    {
+        if (!message.isEmpty()) {
+            Chat chat = new Chat(sender.getUsername(), recipient, message);
+            try {
+                Object r = client.sendCommand("ADD_CHAT", chat);
+            } catch (Exception a) {
+                a.printStackTrace();
+            }
+        }
+    }
+
 }

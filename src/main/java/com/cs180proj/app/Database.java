@@ -316,5 +316,14 @@ public class Database implements DatabaseInterface {
         }
     }
 
-
+    public void overwriteChatData(ArrayList<Chat> chats) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CHAT_FILE))) {
+            for (Chat chat : chats) {
+                writer.write(chat.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -32,4 +32,5 @@ public interface DatabaseInterface {
     ArrayList<Listing> readListingData(); // method to read listing data from file and return array of Listing objects
     ArrayList<Listing> readListingData(String filePath); // method to read listing data from file and return array of Listing objects
 
+
 }
