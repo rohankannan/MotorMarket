@@ -1,4 +1,1 @@
-sc30,penguin,hello,1746404143472
-sc30,penguin,can I buy this item,1746404394498
-penguin,sc30,yes,1746404627041
-sc30,penguin,nice,1746404652213
+jojo	sc30	hello sc30	1746473764186
