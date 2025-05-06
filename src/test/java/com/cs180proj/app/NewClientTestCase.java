@@ -1,8 +1,9 @@
 package com.cs180proj.app;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * CS 18000 Group Project
  *
@@ -38,7 +39,7 @@ public class NewClientTestCase {
         Object invalidResponse = client.sendCommand("invalid");
         assertEquals("Invalid command.", invalidResponse);
         client.close();
-        assertEquals(true, client.isClosed());
+        assertTrue(client.isClosed());
         server.stopServer();
         serverThread.join(500);
     }

@@ -25,6 +25,13 @@ public class NewClient implements NewClientInterface {
 
     private final Object streamLock = new Object();
 
+    /**
+     * Constructs a NewClient object, which allows for server-client connection
+     *
+     * @param host the host needed for Socket connection
+     * @param port the port needed for Socket connection
+     */
+
     public NewClient(String host, int port) throws IOException {
         this.socket = new Socket(host, port);
         this.oos = new ObjectOutputStream(socket.getOutputStream());
@@ -73,6 +80,10 @@ public class NewClient implements NewClientInterface {
             isClosed = true;
         }
     }
+
+    /**
+     * @return boolean isClosed - Getter to see if Client connection closed
+     */
 
     public boolean isClosed() {
         return isClosed;

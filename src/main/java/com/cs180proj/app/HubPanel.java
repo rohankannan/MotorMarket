@@ -25,8 +25,16 @@ import javax.swing.*;
  * @version May 3, 2025
  */
 public class HubPanel extends JPanel implements HubPanelInterface {
-    private NewClient client;
-    private JLabel welcomeLabel;
+    private final NewClient client;
+    private final JLabel welcomeLabel;
+
+    /**
+     * Constructs the HubPanel which acts as the main dashboard for the user after login.
+     * Provides navigation buttons to other panels and displays a featured listing and user greeting.
+     *
+     * @param mainFrame the main application frame that controls panel switching
+     * @param client the client used to communicate with the server
+     */
 
     public HubPanel(MainFrame mainFrame, NewClient client) {
         this.client = client;
@@ -76,7 +84,8 @@ public class HubPanel extends JPanel implements HubPanelInterface {
 
 
         Dimension btnSize = new Dimension(200, 40);
-        for (JButton btn : new JButton[]{viewListingsButton, addListingButton, editListingsButton, chatButton, profileButton, logoutButton}) {
+        for (JButton btn : new JButton[]{viewListingsButton, addListingButton, editListingsButton, chatButton,
+                profileButton, logoutButton}) {
             btn.setAlignmentX(Component.CENTER_ALIGNMENT);
             btn.setMaximumSize(btnSize);
             btn.setPreferredSize(btnSize);
@@ -121,7 +130,8 @@ public class HubPanel extends JPanel implements HubPanelInterface {
                             featuredImageLabel.setIcon(null);
                             featuredImageLabel.setText("No Image Available");
                         }
-                        captionLabel.setText("<html><i>" + random.getCarType() + " - " + random.getColor() + "</i></html>");
+                        captionLabel.setText("<html><i>" + random.getCarType() + " - " + random.getColor()
+                                + "</i></html>");
                     }
                 } catch (Exception e) {
                     captionLabel.setText("No listings available.");
@@ -129,6 +139,14 @@ public class HubPanel extends JPanel implements HubPanelInterface {
             }
         });
     }
+
+    /**
+     * Displays a dialog for viewing and editing the user's profile.
+     * Allows the user to change their address and balance, and sends updates to the server.
+     *
+     * @param user the currently logged-in user
+     * @param client the client used to send profile updates to the server
+     */
 
     private void showProfileDialog(User user, NewClient client) {
         JTextField addressField = new JTextField(user.getAddress(), 20);
@@ -157,7 +175,8 @@ public class HubPanel extends JPanel implements HubPanelInterface {
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Invalid balance format.");
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error updating profile: " + e.getMessage());
+                JOptionPane.showMessageDialog(this, "Error updating profile: "
+                        + e.getMessage());
             }
         }
     }

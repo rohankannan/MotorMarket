@@ -6,9 +6,13 @@ import java.util.ArrayList;
 
 public class Server implements ServerInterface, Serializable {
 
-    private Database db;
+    private final Database db;
     private ServerSocket serverSocket;
     private boolean isActive;
+
+    /**
+     * Constructs a new Server instance and initializes the database.
+     */
 
     public Server() {
         this.db = new Database();
@@ -37,13 +41,22 @@ public class Server implements ServerInterface, Serializable {
         }
     }
 
+    /**
+     * Placeholder method for external Socket connection. Currently unused.
+     */
+
     @Override
     public void workWithClient(Socket socket) throws IOException, ClassNotFoundException {
 
     }
 
+    /**
+     * Placeholder method used for testing purposes only.
+     */
+
     @Override
-    public void checkClientCommand(String command, ObjectInputStream ois, ObjectOutputStream oos) throws IOException, ClassNotFoundException {
+    public void checkClientCommand(String command, ObjectInputStream ois, ObjectOutputStream oos) throws IOException,
+            ClassNotFoundException {
 
     }
 
@@ -55,9 +68,20 @@ public class Server implements ServerInterface, Serializable {
         private ObjectInputStream ois;
         private ObjectOutputStream oos;
 
+        /**
+         * Constructs a handler for the given client socket.
+         *
+         * @param socket the client's socket connection
+         */
+
         public ClientHandler(Socket socket) {
             this.socket = socket;
         }
+
+        /**
+         * Handles incoming communication from the connected client.
+         * Reads commands and invokes appropriate database operations.
+         */
 
         @Override
         public void run() {
@@ -209,7 +233,7 @@ public class Server implements ServerInterface, Serializable {
                         db.updateUser(seller);
 
                         listing.setSold(true);
-                        System.out.println("SOLD: " + listing.toString());
+                        System.out.println("SOLD: " + listing);
                         db.updateListing(listing);
 
                         oos.writeObject("PURCHASE_SUCCESS");
@@ -261,6 +285,14 @@ public class Server implements ServerInterface, Serializable {
     public boolean isServerRunning() {
         return isActive;
     }
+
+    /**
+     * The entry point for launching Server. Starts server on port 4242.
+     *
+     * @param args command-line arguments (not used)
+     * @throws IOException if server startup fails
+     * @throws ClassNotFoundException if class deserialization fails during execution
+     */
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Server server = new Server();

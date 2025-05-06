@@ -55,8 +55,7 @@ public class RegistrationPanelTestCase {
         JTextField addressField = null;
         JButton createButton = null;
         for (java.awt.Component c : rp.getComponents()) {
-            if (c instanceof JTextField) {
-                JTextField textField = (JTextField) c;
+            if (c instanceof JTextField textField) {
                 if (usernameField == null) {
                     usernameField = textField;
                 } else if (passwordField == null) {
@@ -66,8 +65,7 @@ public class RegistrationPanelTestCase {
                 } else if (addressField == null) {
                     addressField = textField;
                 }
-            } else if (c instanceof JButton) {
-                JButton button = (JButton) c;
+            } else if (c instanceof JButton button) {
                 if ("Create".equals(button.getText())) {
                     createButton = button;
                 }

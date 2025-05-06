@@ -18,11 +18,16 @@ import javax.swing.SwingUtilities;
  * @version May 3, 2025
  */
 public class MainFrame extends JFrame implements MainFrameInterface {
-    private CardLayout cardLayout;
+    private final CardLayout cardLayout;
     public JPanel mainPanel;
     private NewClient client;
     private User currentUser;
     private String currentPanelName;
+
+    /**
+     * Constructs the MainFrame which acts as the primary window for the application.
+     * Initializes all panels and connects to the server using NewClient.
+     */
 
     public MainFrame() {
         setTitle("MotorMarket");
@@ -53,26 +58,63 @@ public class MainFrame extends JFrame implements MainFrameInterface {
         setVisible(true);
     }
 
+    /**
+     * Switches the currently visible panel to the one associated with the given name.
+     *
+     * @param name the name of the panel to display
+     */
+
     public void showPanel(String name) {
         cardLayout.show(mainPanel, name);
         currentPanelName = name;
     }
 
+    /**
+     * Sets the currently logged-in user for session tracking.
+     *
+     * @param user the User object representing the current user
+     */
+
     public void setCurrentUser(User user) {
         this.currentUser = user;
     }
+
+    /**
+     * Retrieves the currently logged-in user.
+     *
+     * @return the current user
+     */
 
     public User getCurrentUser() {
         return currentUser;
     }
 
+    /**
+     * Gets the instance of NewClient used for server communication.
+     *
+     * @return the NewClient instance
+     */
+
     public NewClient getClient() {
         return client;
     }
 
+    /**
+     * Retrieves the name of the currently displayed panel.
+     *
+     * @return the current panel name
+     */
+
     public String getCurrentPanelName() {
         return currentPanelName;
     }
+
+    /**
+     * Returns a panel by name from the main panel container, if found.
+     *
+     * @param name the name of the panel
+     * @return the JPanel with the matching name, or null if not found
+     */
 
     public JPanel getPanel(String name) {
         for (Component comp : mainPanel.getComponents()) {
@@ -83,11 +125,21 @@ public class MainFrame extends JFrame implements MainFrameInterface {
         return null;
     }
 
+    /**
+     * Refreshes the ListingsPanel by replacing it with a new instance.
+     * Then switches the view to the Listings panel.
+     */
+
     public void refreshListingsPanel() {
         ListingsPanel newPanel = new ListingsPanel(this, client);
         mainPanel.add(newPanel, "Listings");
         showPanel("Listings");
     }
+
+    /**
+     * Refreshes the EditListingsPanel by removing and re-adding it.
+     * Then switches the view to the EditListings panel.
+     */
 
     public void refreshEditListingsPanel() {
         mainPanel.remove(getPanel("EditListings"));
@@ -96,6 +148,12 @@ public class MainFrame extends JFrame implements MainFrameInterface {
         mainPanel.add(refreshed, "EditListings");
         showPanel("EditListings");
     }
+
+    /**
+     * Main method that launches the app by creating MainFrame.
+     *
+     * @param args command-line args
+     */
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(MainFrame::new);

@@ -1,9 +1,10 @@
 package com.cs180proj.app;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 // used to check if two references point to the same object
-import static org.junit.jupiter.api.Assertions.assertSame;
 import org.junit.jupiter.api.Test;
+
+        import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * CS 18000 Group Project
  *
@@ -60,11 +61,8 @@ public class MainFrameTestCase {
         serverThread.start();
         Thread.sleep(200);
         MainFrame f = new MainFrame();
-        boolean b = true;
-        if (f.getClient() == null) {
-            b = false;
-        }
-        assertEquals(true, b);
+        boolean b = f.getClient() != null;
+        assertTrue(b);
         f.dispose();
         server.stopServer();
         serverThread.join(1000);

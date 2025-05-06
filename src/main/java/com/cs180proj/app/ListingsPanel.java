@@ -30,12 +30,21 @@ import javax.swing.SwingWorker;
  * @version May 3, 2025
  */
 public class ListingsPanel extends JPanel implements ListingsPanelInterface {
-    private JPanel listingsContainer;
-    private JScrollPane scrollPane;
-    private NewClient client;
-    private JTextField searchField;
+    private final JPanel listingsContainer;
+    private final JScrollPane scrollPane;
+    private final NewClient client;
+    private final JTextField searchField;
     private ArrayList<Listing> allListings = new ArrayList<>();
-    private MainFrame mf;
+    private final MainFrame mf;
+
+    /**
+     * Constructs the ListingsPanel, which displays all available car listings.
+     * Includes a search bar, scrollable listing area, and navigation back to the hub.
+     *
+     * @param mainFrame the main application frame for navigation and user context
+     * @param client the client used for server communication to retrieve listings
+     */
+
 
     public ListingsPanel(MainFrame mainFrame, NewClient client) {
         this.client = client;
@@ -92,6 +101,11 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
         add(searchPanel, BorderLayout.NORTH);
     }
 
+    /**
+     * Refreshes the listing display by fetching all listings from the server
+     * and updating the listings container with the results.
+     */
+
     public void refreshListings() {
         listingsContainer.removeAll();
         listingsContainer.add(new JLabel("Loading listings..."));
@@ -129,6 +143,12 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
         }.execute();
     }
 
+    /**
+     * Displays the given list of listings by creating visual cards for each one.
+     *
+     * @param listings a list of listings to show in the panel
+     */
+
     public void displayListings(ArrayList<Listing> listings) {
         listingsContainer.removeAll();
         for (Listing listing : listings) {
@@ -138,6 +158,14 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
         listingsContainer.revalidate();
         listingsContainer.repaint();
     }
+
+    /**
+     * Creates a visual card UI component for a single listing, including image,
+     * information, a message button, and optionally a buy button or sold label.
+     *
+     * @param listing the listing to represent visually
+     * @return a JPanel representing the listing card
+     */
 
     public JPanel createListingCard(Listing listing) {
         JPanel card = new JPanel(new BorderLayout());
@@ -200,7 +228,8 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
             buyButton.addActionListener(e -> {
                 int result = JOptionPane.showConfirmDialog(
                         mf,
-                        "Confirm purchase - " + listing.getCarType() + " - $" + String.format("%.2f", listing.getPrice()) +
+                        "Confirm purchase - " + listing.getCarType() + " - $" + String.format("%.2f",
+                                listing.getPrice()) +
                                 " will be deducted from your balance",
                         "Confirm Purchase",
                         JOptionPane.YES_NO_OPTION
@@ -208,12 +237,14 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
 
                 if (result == JOptionPane.YES_OPTION) {
                     try {
-                        Object res = client.sendCommand("BUY_LISTING", listing.getListingID(), mf.getCurrentUser().getUsername());
+                        Object res = client.sendCommand("BUY_LISTING", listing.getListingID(),
+                                mf.getCurrentUser().getUsername());
 
                         if ("PURCHASE_SUCCESS".equals(res)) {
                             JOptionPane.showMessageDialog(mf, "Purchase successful!");
 
-                            Object updated = client.sendCommand("LOGIN", mf.getCurrentUser().getUsername(), mf.getCurrentUser().getPassword());
+                            Object updated = client.sendCommand("LOGIN", mf.getCurrentUser().getUsername(),
+                                    mf.getCurrentUser().getPassword());
                             if (updated instanceof User updatedUser) {
                                 mf.setCurrentUser(updatedUser);
                             }
@@ -253,6 +284,12 @@ public class ListingsPanel extends JPanel implements ListingsPanelInterface {
         return card;
     }
 
+    /**
+     * Filters the list of listings by a keyword and updates the display accordingly.
+     * Searches within seller name, car type, color, mileage, price, and listing ID.
+     *
+     * @param keyword the search keyword used to filter listings
+     */
 
     public void filterListings(String keyword) {
         if (keyword == null || keyword.trim().isEmpty() || keyword.equals("Search by keyword here")) {

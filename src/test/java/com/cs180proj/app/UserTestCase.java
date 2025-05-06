@@ -91,7 +91,8 @@ public class UserTestCase {
     @Test
     public void testAddListing() {
         User user = new User("john", "pass", 1459.32, "addry");
-        Listing listing = new Listing("john", "link", "toyota", "red", 2500, 2, 360.89, true, "1234");
+        Listing listing = new Listing("john", "link", "toyota", "red",
+                2500, 2, 360.89, true, "1234");
         user.addListing(listing);
         assertEquals(listing, user.getListings().get(user.getListings().size() - 1));
     }
@@ -100,8 +101,10 @@ public class UserTestCase {
     @Test
     public void testRemoveListing() {
         User user = new User("john", "pass", 1459.32, "addry");
-        Listing listing1 = new Listing("john", "link", "toyota", "red", 2500, 2, 360.89, true, "1234");
-        Listing listing2 = new Listing("johnny", "link", "toyota", "red", 2500, 2, 360.89, true, "1234");
+        Listing listing1 = new Listing("john", "link", "toyota", "red",
+                2500, 2, 360.89, true, "1234");
+        Listing listing2 = new Listing("johnny", "link", "toyota", "red",
+                2500, 2, 360.89, true, "1234");
         user.addListing(listing1);
         user.addListing(listing2);
         user.removeListing(listing1);
@@ -129,8 +132,10 @@ public class UserTestCase {
     @Test
     public void testToString() {
         User user = new User("john", "pass", 1459.32, "addry");
-        Listing listing1 = new Listing("john", "link", "toyota", "red", 2500, 2, 360.89, true, "1234");
-        Listing listing2 = new Listing("johnny", "link", "toyota", "red", 2500, 2, 360.89, true, "1234");
+        Listing listing1 = new Listing("john", "link", "toyota", "red",
+                2500, 2, 360.89, true, "1234");
+        Listing listing2 = new Listing("johnny", "link", "toyota", "red",
+                2500, 2, 360.89, true, "1234");
         user.addListing(listing1);
         user.addListing(listing2);
         String expected = "john,pass,1459.32,addry";

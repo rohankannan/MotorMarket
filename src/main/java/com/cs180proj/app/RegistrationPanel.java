@@ -23,6 +23,14 @@ import javax.swing.JTextField;
  */
 
 public class RegistrationPanel extends JPanel {
+
+    /**
+     * Constructs the Registration, which allows a user to create a new account
+     *
+     * @param mainFrame the main application frame for navigation and user context
+     * @param client the client used for server communication to retrieve listings
+     */
+
     public RegistrationPanel(MainFrame mainFrame, NewClient client) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

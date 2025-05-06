@@ -44,8 +44,7 @@ public class HubPanelTestCase {
                 for (java.awt.Component c2 : ((javax.swing.JPanel) c1).getComponents()) {
                     if (c2 instanceof javax.swing.JPanel) {
                         for (java.awt.Component c3 : ((javax.swing.JPanel) c2).getComponents()) {
-                            if (c3 instanceof JButton) {
-                                JButton button = (JButton) c3;
+                            if (c3 instanceof JButton button) {
                                 if ("View Listings".equals(button.getText())) {
                                     viewListingsButton = button;
                                 }

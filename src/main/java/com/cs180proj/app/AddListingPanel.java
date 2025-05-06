@@ -26,7 +26,7 @@ public class AddListingPanel extends JPanel implements AddListingPanelInterface 
     private JTextField mileageField = new JTextField(15); // text field to enter car's mileage
     private JTextField accidentsField = new JTextField(15); // text field to enter the number of accidents 
     private JTextField priceField = new JTextField(15); // text field to enter the car's price
-    private JCheckBox manualBox = new JCheckBox("Manual Transmission"); // checkbox to enter if the car is manual or not
+    private JCheckBox manualBox = new JCheckBox("Manual Transmission"); // checkbox to enter if the car is manual
 
     /**
     * Constructor for class AddListingPanel
@@ -91,7 +91,8 @@ public class AddListingPanel extends JPanel implements AddListingPanelInterface 
             } catch (NullPointerException npe) {
                 System.out.println("Added Item.");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error creating listing: " + ex.getMessage());
+                JOptionPane.showMessageDialog(this, "Error creating listing: " +
+                        ex.getMessage());
             }
         });
 

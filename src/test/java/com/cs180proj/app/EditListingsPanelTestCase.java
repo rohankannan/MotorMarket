@@ -6,9 +6,10 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.JFrame;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * CS 18000 Group Project
  *
@@ -45,18 +46,15 @@ public class EditListingsPanelTestCase {
         JButton backButton = null;
         JScrollPane scrollPane = null;
         for (java.awt.Component c : panel.getComponents()) {
-            if (c instanceof JButton) {
-                JButton button = (JButton) c;
+            if (c instanceof JButton button) {
                 if ("Back to Hub".equals(button.getText())) {
                     backButton = button;
                 }
             } else if (c instanceof JScrollPane) {
                 scrollPane = (JScrollPane) c;
-            } else if (c instanceof JPanel) {
-                JPanel inner = (JPanel) c;
+            } else if (c instanceof JPanel inner) {
                 for (java.awt.Component c2 : inner.getComponents()) {
-                    if (c2 instanceof JButton) {
-                        JButton btn = (JButton) c2;
+                    if (c2 instanceof JButton btn) {
                         if ("Back to Hub".equals(btn.getText())) {
                             backButton = btn;
                         }
@@ -101,18 +99,14 @@ public class EditListingsPanelTestCase {
         SwingUtilities.invokeAndWait(() -> {});
         JButton editButton = null;
         for (java.awt.Component c : panel.getComponents()) {
-            if (c instanceof JScrollPane) {
-                JScrollPane scrollPane = (JScrollPane) c;
+            if (c instanceof JScrollPane scrollPane) {
                 JPanel listingsContainer = (JPanel) scrollPane.getViewport().getView();
                 for (java.awt.Component c2 : listingsContainer.getComponents()) {
-                    if (c2 instanceof JPanel) {
-                        JPanel cardPanel = (JPanel) c2;
+                    if (c2 instanceof JPanel cardPanel) {
                         for (java.awt.Component c3 : cardPanel.getComponents()) {
-                            if (c3 instanceof JPanel) {
-                                JPanel rightPanel = (JPanel) c3;
+                            if (c3 instanceof JPanel rightPanel) {
                                 for (java.awt.Component c4 : rightPanel.getComponents()) {
-                                    if (c4 instanceof JButton) {
-                                        JButton button = (JButton) c4;
+                                    if (c4 instanceof JButton button) {
                                         if (button.getText() != null && button.getText().trim().contains("Edit")) {
                                             editButton = button;
                                         }
@@ -149,7 +143,7 @@ public class EditListingsPanelTestCase {
                 dialogFound = true;
             }
         }
-        assertEquals(false, dialogFound);
+        assertFalse(dialogFound);
         f.dispose();
         server.stopServer();
         serverThread.join(500);

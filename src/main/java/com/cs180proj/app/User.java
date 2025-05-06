@@ -132,9 +132,7 @@ public class User implements UserInterface, Serializable {
     public void removeListing(Listing oldListing) {
         // look through this User's arraylist
         // if oldListing is found, remove
-        if (listings.contains(oldListing)) {
-            listings.remove(oldListing);
-        }
+        listings.remove(oldListing);
     }
 
     /**

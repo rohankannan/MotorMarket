@@ -17,7 +17,15 @@ import javax.swing.*;
  */
 
 public class EditListingsPanel extends JPanel implements EditListingsPanelInterface {
-    private NewClient client;
+    private final NewClient client;
+
+    /**
+     * Constructs the EditListingsPanel which displays and allows editing of the user's listings.
+     * Initializes the scrollable listings container and handles listing refresh on panel activation.
+     *
+     * @param mainFrame the main application frame for navigation and user context
+     * @param client the client used to communicate with the server for listings data
+     */
 
     public EditListingsPanel(MainFrame mainFrame, NewClient client) {
         this.client = client;
@@ -37,7 +45,8 @@ public class EditListingsPanel extends JPanel implements EditListingsPanelInterf
             public void ancestorAdded(javax.swing.event.AncestorEvent event) {
                 listingsContainer.removeAll();
                 try {
-                    Object response = client.sendCommand("GET_MY_LISTINGS", mainFrame.getCurrentUser().getUsername());
+                    Object response = client.sendCommand("GET_MY_LISTINGS",
+                            mainFrame.getCurrentUser().getUsername());
                     if (response instanceof ArrayList<?> listings) {
                         ArrayList<Listing> userListings = new ArrayList<>();
 
@@ -71,6 +80,15 @@ public class EditListingsPanel extends JPanel implements EditListingsPanelInterf
             }
         });
     }
+
+    /**
+     * Creates a GUI card representing a listing with image, details, and an edit button.
+     * If the listing is already sold, editing is disabled and a "SOLD" message is displayed.
+     *
+     * @param listing the Listing object to display in the card
+     * @param mainFrame the main application frame for event context
+     * @return a JPanel component displaying the listing information and optional edit button
+     */
 
     public JPanel createEditableCard(Listing listing, MainFrame mainFrame) {
         JPanel card = new JPanel(new BorderLayout());
@@ -122,6 +140,14 @@ public class EditListingsPanel extends JPanel implements EditListingsPanelInterf
         return card;
     }
 
+    /**
+     * Opens a popup dialog to edit a given listing's details (URL, type, color, price).
+     * If the user confirms, the updated listing is sent to the server.
+     *
+     * @param listing the listing to be edited
+     * @param mainFrame the main application frame used for dialog context and server communication
+     */
+
     public void openEditing(Listing listing, MainFrame mainFrame) {
         JTextField urlField = new JTextField(listing.getPhotoURL());
         JTextField typeField = new JTextField(listing.getCarType());
@@ -148,7 +174,8 @@ public class EditListingsPanel extends JPanel implements EditListingsPanelInterf
                 client.sendCommand("UPDATE_LISTING", listing);
                 JOptionPane.showMessageDialog(this, "Listing updated.");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error updating listing: " + ex.getMessage());
+                JOptionPane.showMessageDialog(this, "Error updating listing: " +
+                        ex.getMessage());
             }
         }
     }

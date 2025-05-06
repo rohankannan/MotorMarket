@@ -23,6 +23,14 @@ import javax.swing.JTextField;
  * @version May 3, 2025
  */
 public class LoginPanel extends JPanel {
+
+    /**
+     * Constructs the LoginPanel, which allows the user to authenticate credetials and log in.
+     *
+     * @param mainFrame the main application frame for navigation and user context
+     * @param client the client used for server communication to retrieve listings
+     */
+
     public LoginPanel(MainFrame mainFrame, NewClient client) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -53,7 +61,8 @@ public class LoginPanel extends JPanel {
                 } else if (response instanceof String str && str.equals("FAIL")) {
                     JOptionPane.showMessageDialog(this, "Invalid credentials.");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Unexpected response from server: " + response);
+                    JOptionPane.showMessageDialog(this, "Unexpected response from server: "
+                            + response);
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Login error: " + ex.getMessage());

@@ -5,8 +5,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * CS 18000 Group Project
  *
@@ -39,7 +41,7 @@ public class ServerTestCase {
         });
         serverThread.start();
         Thread.sleep(150);
-        assertEquals(true, server.isServerRunning());
+        assertTrue(server.isServerRunning());
         Socket testSocket = new Socket("localhost", 8080);
         ObjectOutputStream testOOS = new ObjectOutputStream(testSocket.getOutputStream());
         testOOS.flush();
@@ -47,7 +49,7 @@ public class ServerTestCase {
         testOOS.writeObject("GET_USERS");
         testOOS.flush();
         Object r = testOIS.readObject();
-        assertEquals(true, r instanceof ArrayList);
+        assertTrue(r instanceof ArrayList);
         testOOS.writeObject("EXIT");
         testOOS.flush();
         testOIS.close();
@@ -55,6 +57,6 @@ public class ServerTestCase {
         testSocket.close();
         server.stopServer();
         serverThread.join(1000);
-        assertEquals(false, server.isServerRunning());
+        assertFalse(server.isServerRunning());
     }
 }

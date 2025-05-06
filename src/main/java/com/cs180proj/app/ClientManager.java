@@ -12,6 +12,14 @@ public class ClientManager implements Runnable, ClientManagerInterface {
     private BufferedWriter bw;
     private String clientUsername;
 
+    /**
+     * Constructs a ClientManager to handle communication with a specific client socket.
+     * Initializes I/O streams, reads the username, and adds the client to the shared list of managers.
+     * Sends a notification message to other clients.
+     *
+     * @param socket the socket connected to the client
+     */
+
     public ClientManager(Socket socket){
 
         try {
@@ -29,6 +37,11 @@ public class ClientManager implements Runnable, ClientManagerInterface {
 
     }
 
+    /**
+     * Listens for incoming messages from the connected client and broadcasts them to other clients.
+     * Runs continuously until the connection is closed or an error occurs.
+     */
+
     @Override
     public void run() {
         String messageFromClient;
@@ -43,6 +56,12 @@ public class ClientManager implements Runnable, ClientManagerInterface {
             }
         }
     }
+
+    /**
+     * Sends a message to all connected clients except the sender.
+     *
+     * @param messageToSend the message to be sent to other clients
+     */
 
     public void sendMessage(String messageToSend)
     {
@@ -63,11 +82,23 @@ public class ClientManager implements Runnable, ClientManagerInterface {
         }
     }
 
+    /**
+     * Removes this client manager from the global list and notifies others that the user has left.
+     */
+
     public void removeClientManager()
     {
         clientManagers.remove(this);
         sendMessage("other guy left the chat");
     }
+
+    /**
+     * Closes the socket and I/O streams associated with this client and removes the client manager.
+     *
+     * @param socket the client's socket
+     * @param br the BufferedReader for input from the client
+     * @param bw the BufferedWriter for output to the client
+     */
 
     public void closeEverything(Socket socket, BufferedReader br, BufferedWriter bw)
     {
@@ -95,32 +126,3 @@ public class ClientManager implements Runnable, ClientManagerInterface {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

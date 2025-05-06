@@ -47,8 +47,7 @@ public class ListingsPanelTestCase {
         JTextField searchField = null;
         JScrollPane scrollPane = null;
         for (java.awt.Component c : lp.getComponents()) {
-            if (c instanceof JButton) {
-                JButton btn = (JButton) c;
+            if (c instanceof JButton btn) {
                 if ("Back".equals(btn.getText())) {
                     backButton = btn;
                 } else if ("Search".equals(btn.getText())) {
@@ -56,11 +55,9 @@ public class ListingsPanelTestCase {
                 }
             } else if (c instanceof JScrollPane) {
                 scrollPane = (JScrollPane) c;
-            } else if (c instanceof JPanel) {
-                JPanel p = (JPanel) c;
+            } else if (c instanceof JPanel p) {
                 for (java.awt.Component c2 : p.getComponents()) {
-                    if (c2 instanceof JButton) {
-                        JButton button = (JButton) c2;
+                    if (c2 instanceof JButton button) {
                         if ("Back".equals(button.getText())) {
                             backButton = button;
                         } else if ("Search".equals(button.getText())) {

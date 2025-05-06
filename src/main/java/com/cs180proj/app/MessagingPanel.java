@@ -6,8 +6,15 @@ import java.util.ArrayList;
 
 
 public class MessagingPanel extends JPanel {
-    private NewClient client;
-    private MainFrame mainFrame;
+    private final NewClient client;
+    private final MainFrame mainFrame;
+
+    /**
+     * Constructs the MessagingPanel, which allows users to send each other messages
+     *
+     * @param mainFrame the main application frame for navigation and user context
+     * @param client the client used for server communication to retrieve listings
+     */
 
     public MessagingPanel(MainFrame mainFrame, NewClient client) {
         this.client = client;
@@ -30,10 +37,12 @@ public class MessagingPanel extends JPanel {
             ArrayList<Chat> chats = (ArrayList<Chat>) r;
 
             for (Chat chat : chats) {
-                if (!contacts.contains(chat.getSender()) && !chat.getSender().equals(mainFrame.getCurrentUser().getUsername())) {
+                if (!contacts.contains(chat.getSender()) && !chat.getSender().equals(
+                        mainFrame.getCurrentUser().getUsername())) {
                     contacts.add(chat.getSender());
                 }
-                if (!contacts.contains(chat.getRecipient()) && !chat.getRecipient().equals(mainFrame.getCurrentUser().getUsername())) {
+                if (!contacts.contains(chat.getRecipient()) && !chat.getRecipient().equals(
+                        mainFrame.getCurrentUser().getUsername())) {
                     contacts.add(chat.getRecipient());
                 }
             }

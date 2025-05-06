@@ -38,10 +38,14 @@ public class ChatPanelTestCase {
 
             NewClient mockClient = new NewClient("localhost", 4242);
             MainFrame mockMainFrame = new MainFrame();
-            User mockSender =  new User("sender", "password", 50, "1 Mitch Daniels Boulevard" );
-            User mockRecipient = new User("recipient", "password", 50, "1 Mitch Daniels Boulevard" );
-            ChatPanel senderChatPanel = new ChatPanel(mockMainFrame, mockClient, mockRecipient.getUsername(), mockSender);
-            ChatPanel recipientChatPanel = new ChatPanel(mockMainFrame, mockClient, mockSender.getUsername(), mockRecipient);
+            User mockSender =  new User("sender", "password", 50,
+                    "1 Mitch Daniels Boulevard" );
+            User mockRecipient = new User("recipient", "password", 50,
+                    "1 Mitch Daniels Boulevard" );
+            ChatPanel senderChatPanel = new ChatPanel(mockMainFrame, mockClient, mockRecipient.getUsername(),
+                    mockSender);
+            ChatPanel recipientChatPanel = new ChatPanel(mockMainFrame, mockClient, mockSender.getUsername(),
+                    mockRecipient);
             senderChatPanel.activateSendButton("Hello");
             Thread.sleep(2000);
             assertEquals(mockSender.getUsername() + ": Hello\n", senderChatPanel.getChatArea().getText());

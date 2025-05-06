@@ -15,9 +15,9 @@ import java.io.Serializable;
 
 public class Chat implements Serializable, ChatInterface {
     private static final long serialVersionUID = 1L; //uid
-    private String sender; // store sender as a String
-    private String recipient; // store recipient as a String
-    private String message; // store message as a String
+    private final String sender; // store sender as a String
+    private final String recipient; // store recipient as a String
+    private final String message; // store message as a String
     private long timestamp; // Store timestamp as a long
 
     /**

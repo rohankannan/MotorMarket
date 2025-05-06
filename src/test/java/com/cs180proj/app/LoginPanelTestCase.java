@@ -49,8 +49,7 @@ public class LoginPanelTestCase {
                 passwordField = (JPasswordField) c;
             } else if (c instanceof JTextField) {
                 usernameField = (JTextField) c;
-            } else if (c instanceof JButton) {
-                JButton b = (JButton) c;
+            } else if (c instanceof JButton b) {
                 if ("Login".equals(b.getText())) {
                     loginButton = b;
                 }

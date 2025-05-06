@@ -145,7 +145,7 @@ public class Database implements DatabaseInterface {
      */
     @Override
     public ArrayList<Listing> readListingData() {
-        Map<String, Listing> listingMap = new LinkedHashMap<>();  // preserve insertion order
+        Map<String, Listing> listingMap = new LinkedHashMap<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(LISTING_FILE))) {
             String line;
@@ -171,10 +171,18 @@ public class Database implements DatabaseInterface {
 
         return new ArrayList<>(listingMap.values());
     }
-    
+
+    /**
+     * Reads listings from a specified file path.
+     * Used for testing purposes only.
+     *
+     * @param filePath the file to read from
+     * @return list of listings
+     */
+
     @Override
     public ArrayList<Listing> readListingData(String filePath) {
-        Map<String, Listing> listingMap = new LinkedHashMap<>();  // preserve insertion order
+        Map<String, Listing> listingMap = new LinkedHashMap<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -201,6 +209,12 @@ public class Database implements DatabaseInterface {
         return new ArrayList<>(listingMap.values());
     }
 
+    /**
+     * Serializes a Listing object into a CSV line.
+     * @param l the listing
+     * @return comma-separated string
+     */
+
     private String serializeListing(Listing l) {
         return String.join(",",
                 l.getSeller(),
@@ -216,6 +230,12 @@ public class Database implements DatabaseInterface {
         );
     }
 
+    /**
+     * Writes a chat entry to the file, ensuring thread-safe access.
+     * @param chat the chat to write
+     * @param filePath the path to write to
+     */
+
     public void writeChatData(Chat chat, String filePath) throws IOException {
         if (chat.getSender() == null || chat.getRecipient() == null || chat.getMessage() == null) return;
 
@@ -228,6 +248,12 @@ public class Database implements DatabaseInterface {
             chatLock.unlock();
         }
     }
+
+    /**
+     * Reads chat data from a file path in a thread-safe way.
+     * @param filePath the path to read from
+     * @return list of Chat objects
+     */
 
     public ArrayList<Chat> readChatData(String filePath) throws IOException {
         ArrayList<Chat> chats = new ArrayList<>();
@@ -253,6 +279,12 @@ public class Database implements DatabaseInterface {
         return chats;
     }
 
+    /**
+     * Retrieves a listing by ID from the current listing file.
+     * @param id the ID to match
+     * @return the matching listing or null
+     */
+
     public Listing getListingById(String id) {
         ArrayList<Listing> listings = readListingData();
         for (Listing l : listings) {
@@ -260,6 +292,11 @@ public class Database implements DatabaseInterface {
         }
         return null;
     }
+
+    /**
+     * Overwrites the listing file with a new list of listings.
+     * @param listings the listings to write
+     */
 
     public void overwriteListingData(ArrayList<Listing> listings) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(LISTING_FILE))) {
@@ -272,6 +309,11 @@ public class Database implements DatabaseInterface {
         }
     }
 
+    /**
+     * Updates a listing in the file by overwriting the full listing set.
+     * @param updated the listing with updated values
+     */
+
     public void updateListing(Listing updated) {
         ArrayList<Listing> listings = readListingData();
         for (int i = 0; i < listings.size(); i++) {
@@ -283,6 +325,12 @@ public class Database implements DatabaseInterface {
         overwriteListingData(listings);
     }
 
+    /**
+     * Retrieves a user by username.
+     * @param username the username to search
+     * @return the matching User or null
+     */
+
     public User getUserByUsername(String username) {
         ArrayList<User> users = readUserData();
         for (User user : users) {
@@ -292,6 +340,11 @@ public class Database implements DatabaseInterface {
         }
         return null;
     }
+
+    /**
+     * Updates a user’s data and writes all users back to file.
+     * @param updatedUser the user with updated fields
+     */
 
     public void updateUser(User updatedUser) {
         ArrayList<User> users = readUserData();
@@ -304,6 +357,10 @@ public class Database implements DatabaseInterface {
         overwriteUserData(users);
     }
 
+    /**
+     * Overwrites all user data with the provided list.
+     * @param users the user list to write
+     */
 
     public void overwriteUserData(ArrayList<User> users) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE))) {
@@ -315,6 +372,11 @@ public class Database implements DatabaseInterface {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Overwrites all chat data in the chat file.
+     * @param chats the list of chats to write
+     */
 
     public void overwriteChatData(ArrayList<Chat> chats) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(CHAT_FILE))) {

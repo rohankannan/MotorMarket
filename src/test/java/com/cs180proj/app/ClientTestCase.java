@@ -3,6 +3,8 @@ package com.cs180proj.app;
 import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -47,7 +49,7 @@ public class ClientTestCase {
 
             // collecting response and checking if it returns a list of users
             Object response = ois.readObject();
-            assertTrue(response instanceof java.util.ArrayList, "Server should return a list of users.");
+            assertInstanceOf(ArrayList.class, response, "Server should return a list of users.");
         } catch (ClassNotFoundException e) {
             fail("Error occurred in GET_USERS test: " + e.getMessage());
         } catch (IOException e) {
@@ -71,7 +73,7 @@ public class ClientTestCase {
 
             // collecting the response and test if it returns a list of listings
             Object response = ois.readObject();
-            assertTrue(response instanceof java.util.ArrayList, "Server should return a list of listings.");
+            assertInstanceOf(ArrayList.class, response, "Server should return a list of listings.");
         } catch (ClassNotFoundException e) {
             fail("Error occurred in GET_LISTING test: " + e.getMessage());
         } catch (IOException e) {
@@ -94,7 +96,8 @@ public class ClientTestCase {
 
             // collecting response and checking if the server returns the correct message
             Object response = ois.readObject();
-            assertEquals("Invalid command.", response, "Server should return an error for invalid commands.");
+            assertEquals("Invalid command.", response,
+                    "Server should return an error for invalid commands.");
         } catch (ClassNotFoundException e) {
             fail("Error occurred in invalid command test: " + e.getMessage());
         } catch (IOException e) {
