@@ -11,7 +11,7 @@ To run the project, run Server.java to start the server. After starting the serv
 
 **Rohan Kannan** - Completed DatabaseTestCase class. Worked on general formatting and submitted project on Vocareum workspace. Worked on client and server classes, completed server class. Completed Chat and ChatPanel and implemented multi-client functionality. Wrote and formatted ChatPanelTestCase.
 
-**Alistair Joseph** - Worked on Database Interface and Database class. Formatted both classes too. Worked on Client and Server classes, completed Client class. Designed and implemented all GUI and functionality with the exception of Chat and ChatPanel
+**Alistair Joseph** - Submitted Vocareum Workspace, Report, and Presentation. Worked on Database Interface and Database class. Formatted both classes too. Worked on Client and Server classes, completed Client class. Designed and implemented all GUI and functionality with the exception of Chat and ChatPanel
 
 **Lydia Schmucker** - Completed User class, Listing class, and Interfaces for both those classes. Formatted both classes too. Completed the ClientTestCase class and formatting. Worked on the readme. Created the GUI system flowchart and wrote and formatted GUI panel interfaces.
 
